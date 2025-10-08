@@ -19,6 +19,19 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Actualizar fecha cada minuto
     setInterval(updateDateTime, 60000);
+    
+    // Restaurar estado del sidebar desde localStorage
+    const savedSidebar = localStorage.getItem('sidebarExpanded');
+    if (savedSidebar === 'true') {
+        document.querySelector('.sidebar')?.classList.add('sidebar-expanded');
+        document.getElementById('menuToggle')?.setAttribute('aria-expanded', 'true');
+    }
+
+    // Conectar evento del botón hamburger
+    const menuBtn = document.getElementById('menuToggle');
+    if (menuBtn) {
+        menuBtn.addEventListener('click', toggleSidebar);
+    }
 });
 
 // Verificar autenticación
@@ -334,3 +347,17 @@ window.logout = logout;
 window.toggleBalance = toggleBalance;
 window.showComingSoon = showComingSoon;
 window.closeModal = closeModal;
+
+// Alternar estado de la barra lateral (expandir / contraer)
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const menuBtn = document.getElementById('menuToggle');
+    if (!sidebar || !menuBtn) return;
+
+    const expanded = sidebar.classList.toggle('sidebar-expanded');
+    menuBtn.setAttribute('aria-expanded', expanded);
+    localStorage.setItem('sidebarExpanded', expanded ? 'true' : 'false');
+}
+
+// Hacer accesible globalmente si hace falta
+window.toggleSidebar = toggleSidebar;

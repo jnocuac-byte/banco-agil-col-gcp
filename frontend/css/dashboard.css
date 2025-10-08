@@ -49,6 +49,7 @@ body {
     position: fixed;
     height: 100%;
     z-index: 10;
+    transition: width 0.25s ease;
 }
 
 .menu-icon-wrapper {
@@ -65,10 +66,58 @@ body {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    padding: 6px;
 }
 
 .icon-text {
     display: none;
+}
+
+/* Estilo del icono "hamburger" (3 rayas) */
+.hamburger-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: var(--color-text-light);
+    margin: 3px 0;
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Estado expandido de la sidebar */
+.sidebar.sidebar-expanded {
+    width: 220px;
+}
+
+/* Cuando la sidebar está expandida, ajustar margen del main y agrandar títulos */
+.sidebar.sidebar-expanded ~ .main-content {
+    margin-left: 220px;
+}
+
+.main-content {
+    margin-left: 60px;
+    flex-grow: 1;
+    padding: 0 20px 20px 20px;
+    transition: margin-left 0.25s ease;
+}
+
+.sidebar.sidebar-expanded ~ .main-content .greeting-text {
+    font-size: 34px; /* Más grande cuando el menú está expandido */
+}
+
+.sidebar.sidebar-expanded ~ .main-content .section-title {
+    font-size: 20px; /* Más grande cuando el menú está expandido */
+}
+
+/* Animación del hamburger al expandir */
+.sidebar.sidebar-expanded .menu-icon .hamburger-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.sidebar.sidebar-expanded .menu-icon .hamburger-bar:nth-child(2) {
+    opacity: 0;
+}
+.sidebar.sidebar-expanded .menu-icon .hamburger-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
 }
 
 .sidebar-nav {
