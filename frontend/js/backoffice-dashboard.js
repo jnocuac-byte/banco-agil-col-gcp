@@ -233,22 +233,11 @@ async function rechazarSolicitud(id) {
     }
 }
 
-// Lógica para alternar la visibilidad del menú lateral (MenuTogle)
-function initializeMenuToggle() {
-    const menuToggle = document.getElementById('menuToggle'); 
-    const sidebar = document.querySelector('.sidebar');
-    if (menuToggle && sidebar) {
-        menuToggle.addEventListener('click', function() {
-             sidebar.classList.toggle('sidebar-expanded');
-        });
-    }
-}
-
-// Cerrar sesión (Ya existente, pero la incluimos para asegurar)
+// Cerrar sesión
 function logout() {
     if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
-        sessionStorage.removeItem('asesor'); // Usa 'asesor'
-        window.location.href = 'backoffice-login.html'; // Redirige al login de Backoffice
+        sessionStorage.removeItem('asesor');
+        window.location.href = 'backoffice-login.html';
     }
 }
 
