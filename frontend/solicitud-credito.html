@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Solicitud - Banco Ágil</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/solicitud-credito.css">
+</head>
+<body>
+
+    <div class="page-container">
+        <aside class="sidebar">
+            <div class="menu-icon-wrapper">
+                <button id="menuToggle" class="menu-icon" aria-label="Alternar menú" aria-expanded="false" type="button">
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item" title="Inicio">
+                    <div class="icon-placeholder">🏠</div>
+                    <span class="icon-text">Inicio</span>
+                </a>
+                <a href="mis-solicitudes.html" class="nav-item active" title="Mis Solicitudes">
+                    <div class="icon-placeholder">➕</div>
+                    <span class="icon-text">Mis Solicitudes</span>
+                </a>
+                <a href="#mis-cuentas" class="nav-item" title="Mis Cuentas">
+                    <div class="icon-placeholder">💳</div>
+                    <span class="icon-text">Mis Cuentas</span>
+                </a>
+                <a href="#mi-perfil" class="nav-item" title="Mi Perfil">
+                    <div class="icon-placeholder">👤</div>
+                    <span class="icon-text">Mi Perfil</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <div class="logo-area">
+                    <div class="logo-placeholder">Banco Agil Col</div>
+                    <span class="branch-name">Portal PYME</span>
+                </div>
+                <div class="user-area">
+                    <span class="user-name-header" id="nombre-usuario">Bienvenido Usuario</span>
+                    <div class="user-icon-placeholder"></div>
+                    <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
+                </div>
+            </header>
+
+            <section class="form-section-main">
+                <div class="greeting-bar">
+                    <h1 class="greeting-text"><i class="fas fa-handshake"></i> Nueva Solicitud de Crédito</h1>
+                    <p class="date-time">Completa los detalles de tu solicitud.</p>
+                </div>
+                
+                <div id="alert" class="alert-placeholder"></div>
+
+                <div class="form-card">
+                    <h2 class="section-title">Detalles del Crédito</h2>
+                    
+                    <form id="form-solicitud">
+                        <div class="form-grid">
+                            
+                            <div class="form-group">
+                                <label for="montoSolicitado">Monto Solicitado (COP)</label>
+                                <input type="number" id="montoSolicitado" placeholder="Mínimo $1.000.000" min="1000000" required>
+                                <small class="text-gray">Ingresa el valor sin puntos ni comas.</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="plazoMeses">Plazo en Meses</label>
+                                <input type="number" id="plazoMeses" placeholder="Mínimo 6 meses" min="6" required>
+                                <small class="text-gray">Número de cuotas para el crédito.</small>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="observaciones">Observaciones (Opcional)</label>
+                                <textarea id="observaciones" rows="4" placeholder="Ej: Usaremos el crédito para comprar maquinaria y expandirnos al mercado internacional."></textarea>
+                            </div>
+
+                        </div>
+                        
+                        <div class="cuota-estimada-container">
+                            <span class="cuota-label">Cuota Mensual Estimada:</span>
+                            <span class="cuota-valor" id="cuota-resultado">$0</span>
+                            <small class="cuota-info">*Simulación con tasa fija del 12% E.A. La tasa final puede variar.</small>
+                        </div>
+                        
+                        <div class="documentos-section">
+                            <h2 class="section-title"><i class="fas fa-file-upload"></i> Documentos Requeridos</h2>
+                            <p class="subtitle-docs">Adjunta los documentos necesarios para tu solicitud de crédito</p>
+
+                            <div class="documentos-grid">
+                                <div class="documento-item">
+                                    <label class="documento-label" for="doc-rut">RUT (Registro Único Tributario) <span class="required">*</span></label>
+                                    <input type="file" id="doc-rut" accept=".pdf,.jpg,.jpeg,.png" class="file-input">
+                                    <small class="file-info">Formatos: PDF, JPG, PNG (Máx. 10MB)</small>
+                                    <span class="file-status" id="status-rut"></span>
+                                </div>
+
+                                <div class="documento-item">
+                                    <label class="documento-label" for="doc-cedula">Cédula del Representante Legal <span class="required">*</span></label>
+                                    <input type="file" id="doc-cedula" accept=".pdf,.jpg,.jpeg,.png" class="file-input">
+                                    <small class="file-info">Formatos: PDF, JPG, PNG (Máx. 10MB)</small>
+                                    <span class="file-status" id="status-cedula"></span>
+                                </div>
+
+                                <div class="documento-item">
+                                    <label class="documento-label" for="doc-estados">Estados Financieros (Últimos 2 años) <span class="required">*</span></label>
+                                    <input type="file" id="doc-estados" accept=".pdf,.xlsx,.xls" class="file-input">
+                                    <small class="file-info">Formatos: PDF, Excel (Máx. 10MB)</small>
+                                    <span class="file-status" id="status-estados"></span>
+                                </div>
+
+                                <div class="documento-item">
+                                    <label class="documento-label" for="doc-camara">Certificado Cámara de Comercio <span class="required">*</span></label>
+                                    <input type="file" id="doc-camara" accept=".pdf" class="file-input">
+                                    <small class="file-info">Formato: PDF (Máx. 10MB)</small>
+                                    <span class="file-status" id="status-camara"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="btn-submit-container">
+                            <button type="submit" class="btn-submit btn-primary-yellow" id="btnSubmit">
+                                <i class="fas fa-paper-plane"></i> Enviar Solicitud
+                            </button>
+                        </div>
+                    </form>
+                    </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/solicitud-credito.js"></script> 
+    
+</body>
+</html>

@@ -3,27 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BancoAgil - Login</title>
-    <link rel="icon" type="image/x-icon" href="images/EmpresaBancoAgil/favicon_32x32.png">
-    <link rel="icon" type="image/png" href="images/EmpresaBancoAgil/favicon_32x32.png">
+    <title>Iniciar Sesión - Banco Ágil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/login.css">
+
 </head>
 <body>
-    <div class="container">
-        <div class="logo-container">
-            <img src="images/EmpresaBancoAgil/default_transparent_765x625.png" alt="Logo-Baanco-Agil-Col" class="logo">
+    <img src="images/EmpresaBancoAgil/logoNom.png" alt="Banco Ágil Logo" class="logo-img" style="height: 90px;">
+
+    <div class="login-container">
+        <h1>Iniciar Sesión</h1>
+        <p class="subtitle">Accede a tu cuenta de Banco Ágil</p>
+
+        <div id="alert" class="alert"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Usuario</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="email" id="email" placeholder="Ingresa tu usuario" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" id="password" placeholder="Ingresa tu contraseña" required>
+                </div>
+                <div class="forgot-password">
+                    <a href="#recuperar">¿Olvidaste tu contraseña?</a>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-login" id="btnLogin">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Iniciar Sesión</span>
+            </button>
+        </form>
+
+        <div class="divider">o</div>
+
+        <div class="register-link">
+            ¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a>
         </div>
-        <div class="login-box">
-            <h2>¡Hola!</h2>
-            <p>Ingresa los datos para gestionar tus productos y hacer transacciones.</p>
-            <form id="loginForm">
-                <input type="email" name="email" placeholder="Usuario" required>
-                <input type="password" name="password" placeholder="Clave del cajero" required>
-                <button type="submit">Iniciar sesión</button>
-            </form>
-            <a href="registro.html" class="crear-usuario">Crear usuario</a>
+
+        <div class="back-link">
+            <a href="index.html">
+                <i class="fas fa-arrow-left"></i> Volver al inicio
+            </a>
         </div>
     </div>
-    <script src="js/app.js"></script>
+
+    <script src="js/login.js"></script>
 </body>
 </html>

@@ -3,172 +3,467 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banco Agil Col - Banca Digital del Futuro</title>
-    <link rel="stylesheet" href="css/login.css">
+    <title>Banco Ágil - Créditos PYMES</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
-        .landing-options {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-top: 40px;
+        :root {
+            --primary-dark: #232323; 
+            --secondary-dark: #333; 
+            --accent-gold: #ffb300; 
+            --accent-gold-light: #ffc233; 
+            --text-light: #ffffff;
+            --text-gray: #dddddd;
+            --input-bg: #444;
+            --card-bg: rgba(51, 51, 51, 0.9); 
+            --border-light: rgba(255, 255, 255, 0.1); /* Borde de las tarjetas */
+            --header-height: 70px; 
         }
-        
-        .landing-card {
-            background: rgba(51, 51, 51, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 25px;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
-        .landing-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            border-color: #ffb300;
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-light);
+            background: radial-gradient(circle at 120% 0%, var(--secondary-dark) 0%, var(--primary-dark) 50%, #1a1a1a 80%);
+            min-height: 100vh;
         }
-        
-        .landing-card h3 {
-            color: #ffb300;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-        
-        .landing-card p {
-            color: #ddd;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-        
-        .landing-card .btn-card {
-            display: inline-block;
-            background: #ffb300;
-            color: #232323;
+
+        a {
             text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: all 0.3s ease;
+            color: var(--text-gray); 
+        }
+
+        .glass-effect {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); 
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; 
+            padding: 5px 0; 
+            background-color: var(--primary-dark); 
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
-        .landing-card .btn-card:hover {
-            background: #ffc233;
-            transform: translateY(-2px);
+        .logo {
+            margin: 0;
         }
-        
-        .divider {
+
+        .logo-img {
+            height: 50px; 
+            width: auto;
+            filter: brightness(1.2) contrast(1.1); 
+        }
+
+        .nav-actions {
             display: flex;
             align-items: center;
-            margin: 30px 0;
-            color: #aaa;
+            gap: 30px; 
         }
         
-        .divider::before,
-        .divider::after {
-            content: '';
+        .nav-actions .nav-links-right {
+            list-style: none;
+            display: flex;
+            gap: 30px; 
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-actions .nav-links-right a {
+            font-weight: 400;
+            padding: 5px 0;
+            transition: color 0.3s;
+            opacity: 0.9;
+            color: var(--text-gray); 
+        }
+        
+        .nav-actions .nav-links-right a:hover {
+            color: var(--accent-gold-light); 
+        }
+
+        .contact-btn {
+            background-color: var(--text-light);
+            color: var(--primary-dark);
+            border: 1px solid var(--text-light);
+            padding: 10px 20px; 
+            border-radius: 30px; 
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .contact-btn:hover {
+            background-color: var(--accent-gold);
+            color: var(--primary-dark);
+        }
+
+        .hero-section {
+            margin-top: calc(var(--header-height) + 40px);
+            padding-bottom: 50px;
+        }
+
+        .hero-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .hero-text-content {
+            max-width: 55%;
+        }
+
+        .hero-text-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--accent-gold-light);
+        }
+
+        .hero-text-content p {
+            font-size: 1.3rem; 
+            color: var(--text-gray);
+            margin-bottom: 40px;
+            line-height: 1.5;
+            max-width: 95%;
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-gold);
+            color: var(--primary-dark);
+            padding: 15px 40px; 
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-gold-light);
+        }
+
+        .feature-cards-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .feature-card {
             flex: 1;
-            height: 1px;
-            background: #444;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid var(--border-light);
+            transition: transform 0.3s;
+            text-align: center; 
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: var(--accent-gold); 
+        }
+
+        .feature-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0;
+            color: var(--text-light);
         }
         
-        .divider span {
-            padding: 0 20px;
-            font-size: 14px;
+        .hero-image-content {
+            position: relative;
+            width: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 500px;
+        }
+
+        .hero-image-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+            border-radius: 15px;
+            transform: rotate(3deg) translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.5));
+        }
+
+
+        .features-section {
+            padding: 80px 0;
+            background-color: var(--secondary-dark); 
+            border-top: 1px solid var(--border-light);
+        }
+        
+        .features-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 50px;
+            color: var(--text-light);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-detail-card {
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid var(--border-light);
+            transition: transform 0.3s;
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        
+        .feature-detail-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .feature-detail-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--accent-gold); 
+        }
+
+        .feature-detail-card p {
+            color: var(--text-gray);
+        }
+        
+        .feature-detail-card .feature-icon {
+            width: 50px; 
+            height: 50px;
+            object-fit: contain; 
+            margin-bottom: 15px; 
+            filter: drop-shadow(0 0 5px var(--accent-gold));
+        }
+        
+        .cta-section {
+            padding: 80px 0;
+            background-color: var(--primary-dark);
+            border-top: 1px solid var(--border-light);
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--accent-gold);
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: var(--secondary-dark);
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+
+        @media (max-width: 992px) {
+            
+            .hero-section {
+                margin-top: 150px; 
+                padding-top: 0;
+            }
+
+            .hero-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .nav-actions {
+                margin-left: auto;
+            }
+            
+            .nav-actions .nav-links-right {
+                display: none; 
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo-container">
-            <img src="../shared/images/default_transparent_765x625.png" alt="Logo-Banco-Agil-Col" class="logo">
+
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <img src="images/EmpresaBancoAgil/logoNom.png" alt="Banco Ágil Col Logo" class="logo-img">
+                </a>
+                
+                <div class="nav-actions">
+                    <ul class="nav-links-right">
+                        <li><a href="#productos">Productos</a></li>
+                        <li><a href="#nosotros">Nosotros</a></li>
+                        <li><a href="registro.html">Registrarse</a></li>
+                    </ul>
+                    <a href="login.html" class="contact-btn">Iniciar Sesión</a>
+                </div>
+            </nav>
         </div>
-        <div class="login-box">
-            <h2>Banco Agil Col</h2>
-            <p>Tu aliado financiero digital. Descubre todo lo que tenemos para ti.</p>
-            
-            <div class="landing-options">
-                <div class="landing-card" onclick="goToHomepage()">
-                    <h3>🏦 Conocer el Banco</h3>
-                    <p>Explora nuestros productos, servicios y beneficios. Descubre por qué somos la mejor opción para tus finanzas.</p>
-                    <a href="javascript:void(0)" class="btn-card">Ver Productos y Servicios</a>
+    </header>
+
+    <main class="hero-section">
+        <div class="container hero-content">
+            <div class="hero-text-content">
+                <h1>Créditos para PYMES en 48 horas</h1>
+                <p>Digitaliza tu solicitud y obtén respuesta rápida. Sin trámites presenciales.</p>
+                <div class="hero-buttons">
+                    <a href="registro.html" class="btn btn-primary">Solicitar Crédito Ahora</a>
                 </div>
-                
-                <div class="landing-card" onclick="goToLogin()">
-                    <h3>💳 Acceder a mi Cuenta</h3>
-                    <p>Si ya eres cliente, ingresa a tu banca digital para gestionar tus productos y realizar transacciones.</p>
-                    <a href="javascript:void(0)" class="btn-card">Iniciar Sesión</a>
+
+                <div class="feature-cards-container">
+                    <div class="feature-card glass-effect">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h4>100% Digital</h4>
+                    </div>
+                    <div class="feature-card glass-effect">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Seguro</h4>
+                    </div>
+                    <div class="feature-card glass-effect">
+                        <i class="fas fa-clock"></i>
+                        <h4>48 Horas</h4>
+                    </div>
                 </div>
             </div>
-            
-            <div class="divider">
-                <span>O también puedes</span>
+
+            <div class="hero-image-content">
+                <img src="images/LadingPage/credito.png" alt="Ilustración PYME" class="hero-illustration">
             </div>
-            
-            <div style="display: flex; gap: 15px;">
-                <a href="registro.html" style="
-                    flex: 1;
-                    background: transparent; 
-                    color: #ffb300; 
-                    text-decoration: none; 
-                    padding: 12px; 
-                    border: 1px solid #ffb300;
-                    border-radius: 8px; 
-                    font-weight: bold; 
-                    text-align: center;
-                    transition: all 0.3s ease;
-                "
-                onmouseover="this.style.background='rgba(255, 179, 0, 0.1)';"
-                onmouseout="this.style.background='transparent';">
-                    Registrarse
-                </a>
-                
-                <a href="creditos.html" style="
-                    flex: 1;
-                    background: transparent; 
-                    color: #ffb300; 
-                    text-decoration: none; 
-                    padding: 12px; 
-                    border: 1px solid #ffb300;
-                    border-radius: 8px; 
-                    font-weight: bold; 
-                    text-align: center;
-                    transition: all 0.3s ease;
-                "
-                onmouseover="this.style.background='rgba(255, 179, 0, 0.1)';"
-                onmouseout="this.style.background='transparent';">
-                    Solicitar Crédito
-                </a>
+        </div>
+    </main>
+    
+    <section id="productos" class="features-section">
+    <div class="container">
+        <h2>¿Por qué elegir Banco Ágil?</h2>
+        <div class="feature-grid">
+            <div class="feature-detail-card glass-effect">
+                <img src="images/LadingPage/inteligente.png" alt="Icono Digital" class="feature-icon">
+                <h3>Proceso 100% Digital</h3>
+                <p>Solicita tu crédito desde cualquier lugar sin necesidad de ir a una sucursal. Todo el proceso en línea.</p>
             </div>
-            
-            <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #444; text-align: left;">
-                <p style="color: #aaa; font-size: 13px; margin-bottom: 8px;">
-                    <strong>💡 Usuario de prueba:</strong>
-                </p>
-                <p style="color: #ddd; font-size: 12px; font-family: monospace; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px;">
-                    📧 Email: usuario@banco.com<br>
-                    🔐 Clave: 1234
-                </p>
+            <div class="feature-detail-card glass-effect">
+                <img src="images/LadingPage/seguimiento.png" alt="Icono 48 Horas" class="feature-icon">
+                <h3>Respuesta en 48 Horas</h3>
+                <p>Olvídate de esperar 15-20 días. Te respondemos en máximo 2 días hábiles con nuestra tecnología avanzada.</p>
+            </div>
+            <div class="feature-detail-card glass-effect">
+                <img src="images/LadingPage/documentos.png" alt="Icono Documentos" class="feature-icon">
+                <h3>Menos Documentos</h3>
+                <p>Carga tus documentos una sola vez y nosotros validamos automáticamente con inteligencia artificial.</p>
+            </div>
+            <div class="feature-detail-card glass-effect">
+                <img src="images/LadingPage/tasas.png" alt="Icono Tasas Competitivas" class="feature-icon">
+                <h3>Tasas Competitivas</h3>
+                <p>Las mejores tasas del mercado para pequeñas y medianas empresas. Desde 8.9% anual.</p>
+            </div>
+            <div class="feature-detail-card glass-effect">
+                <img src="images/LadingPage/seguro.png" alt="Icono Seguridad" class="feature-icon">
+                <h3>Seguridad Garantizada</h3>
+                <p>Tus datos protegidos con los más altos estándares de seguridad bancaria y encriptación de nivel militar.</p>
+            </div>
+            <div class="feature-detail-card glass-effect">
+                <img src="images/LadingPage/confiable.png" alt="Icono Seguimiento" class="feature-icon">
+                <h3>Seguimiento en Tiempo Real</h3>
+                <p>Consulta el estado de tu solicitud en cualquier momento desde tu panel personalizado 24/7.</p>
             </div>
         </div>
     </div>
-    
+</section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>¿Listo para hacer crecer tu negocio?</h2>
+            <p>Regístrate en menos de 5 minutos y solicita tu crédito hoy mismo</p>
+            <a href="registro.html" class="btn btn-primary">Comenzar Ahora</a>
+        </div>
+    </section>
+
+    <footer>
+        © 2025 Banco Ágil | Todos los derechos reservados | Protegido con tecnología de punta
+    </footer>
+
     <script>
-        // Redirigir automáticamente si ya está logueado
-        document.addEventListener('DOMContentLoaded', function() {
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
-            if (isLoggedIn === 'true') {
-                window.location.href = 'dashboard.html';
-            }
+        document.addEventListener('DOMContentLoaded', () => {
+            const featureCards = document.querySelectorAll('.feature-card');
+
+            featureCards.forEach(card => {
+                // Pequeño efecto de rotación con el mouse (glassmorphism 3D)
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 25; 
+                    const rotateY = (centerX - x) / 25;
+
+                    // Aplica la transformación solo si el dispositivo es de escritorio
+                    if (window.innerWidth > 992) {
+                        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+                    }
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+                });
+            });
         });
-        
-        function goToHomepage() {
-            window.location.href = 'homepage.html';
-        }
-        
-        function goToLogin() {
-            window.location.href = 'login.html';
-        }
     </script>
 </body>
 </html>

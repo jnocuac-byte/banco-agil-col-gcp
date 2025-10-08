@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BackOffice - Gestión de Solicitudes</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/backoffice-dashboard.css">
+</head>
+<body>
+    <div class="page-container">
+        <aside class="sidebar">
+            <div class="menu-icon-wrapper">
+                <button id="menuToggle" class="menu-icon" aria-label="Alternar menú" aria-expanded="false" type="button">
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="backoffice-dashboard.html" class="nav-item active" title="Solicitudes">
+                    <div class="icon-placeholder">📋</div>
+                    <span class="icon-text">Solicitudes</span>
+                </a>
+                <a href="#usuarios" class="nav-item" title="Usuarios">
+                    <div class="icon-placeholder">👥</div>
+                    <span class="icon-text">Usuarios</span>
+                </a>
+                <a href="#reportes" class="nav-item" title="Reportes">
+                    <div class="icon-placeholder">📊</div>
+                    <span class="icon-text">Reportes</span>
+                </a>
+                 <a href="#mi-perfil" class="nav-item" title="Mi Perfil">
+                    <div class="icon-placeholder">👤</div>
+                    <span class="icon-text">Mi Perfil</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <div class="logo-area">
+                    <div class="logo-placeholder">Banco Agil Col</div>
+                    <span class="branch-name">Backoffice Asesores</span>
+                </div>
+                <div class="user-area">
+                    <span class="user-name-header" id="userName">Bienvenido Asesor</span>
+                    <div class="user-icon-placeholder"></div>
+                    <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
+                </div>
+            </header>
+            
+            <section class="page-body-content">
+                <div class="greeting-bar">
+                    <h1 class="greeting-text" id="greeting">Gestión de Solicitudes</h1>
+                    <span class="date-time">Dashboard para asesores</span>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card stat-card-custom stat-card-pendientes">
+                        <div class="stat-header">
+                            <span class="stat-title">Pendientes</span>
+                            <i class="fas fa-clock stat-icon" style="color: var(--color-primary-purple);"></i>
+                        </div>
+                        <div class="stat-value" id="statPendientes">0</div>
+                    </div>
+
+                    <div class="stat-card stat-card-custom stat-card-revision">
+                        <div class="stat-header">
+                            <span class="stat-title">En Revisión</span>
+                            <i class="fas fa-search stat-icon" style="color: var(--color-primary-cyan);"></i>
+                        </div>
+                        <div class="stat-value" id="statRevision">0</div>
+                    </div>
+
+                    <div class="stat-card stat-card-custom stat-card-aprobadas">
+                        <div class="stat-header">
+                            <span class="stat-title">Aprobadas Hoy</span>
+                            <i class="fas fa-check-circle stat-icon" style="color: var(--color-primary-green);"></i>
+                        </div>
+                        <div class="stat-value" id="statAprobadas">0</div>
+                    </div>
+
+                    <div class="stat-card stat-card-custom stat-card-total">
+                        <div class="stat-header">
+                            <span class="stat-title">Total Solicitudes</span>
+                            <i class="fas fa-list-alt stat-icon" style="color: var(--color-primary-yellow);"></i>
+                        </div>
+                        <div class="stat-value" id="statTotal">0</div>
+                    </div>
+                </div>
+
+                <div class="filters welcome-card">
+                    <label for="filtroEstado" class="announcement-title">Filtrar por Estado:</label>
+                    <select id="filtroEstado" class="filter-select" onchange="filtrarSolicitudes()">
+                        <option value="TODAS">Todas</option>
+                        <option value="PENDIENTE">Pendientes</option>
+                        <option value="EN_REVISION">En Revisión</option>
+                        <option value="APROBADA">Aprobadas</option>
+                        <option value="RECHAZADA">Rechazadas</option>
+                    </select>
+                </div>
+
+                <div class="table-container product-list-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Cliente</th>
+                                <th>Monto</th>
+                                <th>Plazo</th>
+                                <th>Tasa</th>
+                                <th>Estado</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaSolicitudes">
+                            <tr>
+                                <td colspan="8" class="empty-state">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                    <p>Cargando solicitudes...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/backoffice-dashboard.js"></script>
+    <script>
+        // Inicializar el toggle del menú y cargar los datos
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeMenuToggle();
+            cargarSolicitudes();
+        });
+    </script>
+</body>
+</html>

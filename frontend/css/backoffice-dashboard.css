@@ -1,0 +1,501 @@
+/* Variables de Color (Copiadas de dashboard.css) */
+:root {
+    --color-background-dark: #121212; /* Fondo principal oscuro */
+    --color-background-light: #1e1e1e; /* Fondo de contenedores y cards */
+    --color-text-light: #ffffff; /* Texto principal claro */
+    --color-text-secondary: #aaaaaa; /* Texto secundario, descripciones */
+    --color-primary-yellow: #ffcc00; /* Amarillo (Acento principal) */
+    --color-primary-purple: #9b59b6; /* Púrpura (para iconos/acentos) */
+    --color-primary-green: #2ecc71; /* Verde (para iconos/acentos) */
+    --color-primary-cyan: #3498db; /* Cyan (para iconos/acentos) */
+    --color-placeholder: #333333; /* Color para imágenes o iconos en blanco */
+    --color-separator: #3a3a3a; /* Líneas de separación sutiles */
+    --color-active-item: #292929; /* Fondo para elemento activo */
+    --color-button-text-dark: #121212; /* Texto en botón principal */
+    --color-tag-bg: #2d2d2d;
+    --color-tag-text: #cccccc;
+    --color-red-danger: #f44336;
+    --color-blue-info: #2196f3;
+    --color-orange-warning: #ff9800;
+}
+
+/* Estilos Generales y Reseteo (Copiados de dashboard.css) */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: var(--color-background-dark);
+    color: var(--color-text-light);
+    font-size: 14px;
+    height: 100vh;
+    display: flex;
+}
+
+/* Contenedor Principal de la Página */
+.page-container {
+    display: flex;
+    width: 100%;
+}
+
+/* 1. Barra de Navegación Lateral (Sidebar) (Copiados de dashboard.css) */
+.sidebar {
+    width: 60px;
+    background-color: var(--color-background-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    position: fixed;
+    height: 100%;
+    z-index: 10;
+    transition: width 0.25s ease;
+}
+
+.menu-icon-wrapper {
+    width: 100%;
+    padding: 0 10px 20px 10px;
+}
+
+.menu-icon {
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-placeholder);
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 6px;
+    border: none;
+}
+
+
+/* Estilos para el texto de navegación cuando está colapsado */
+.icon-text {
+    display: none;
+    white-space: nowrap; 
+    overflow: hidden;
+}
+
+/* Estilo del icono "hamburger" (3 rayas) */
+.hamburger-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: var(--color-text-light);
+    margin: 3px 0;
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Estado expandido de la sidebar */
+.sidebar.sidebar-expanded {
+    width: 220px;
+}
+
+/* Mostrar texto en elementos de navegación expandidos */
+.sidebar.sidebar-expanded .icon-text {
+    display: block;
+    margin-left: 15px; 
+    flex-grow: 1; 
+    text-align: left;
+}
+
+/* Ajustar contenido del nav-item al expandir */
+.sidebar.sidebar-expanded .nav-item {
+    justify-content: flex-start; 
+    padding-left: 15px;
+}
+
+/* Cuando la sidebar está expandida, ajustar margen del main y agrandar títulos */
+.sidebar.sidebar-expanded ~ .main-content {
+    margin-left: 220px;
+}
+
+.main-content {
+    margin-left: 60px;
+    flex-grow: 1;
+    padding: 0 20px 20px 20px;
+    transition: margin-left 0.25s ease;
+    overflow-y: auto; 
+    height: 100vh;
+}
+
+.sidebar.sidebar-expanded ~ .main-content .greeting-text {
+    font-size: 34px; 
+}
+
+.sidebar.sidebar-expanded ~ .main-content .section-title {
+    font-size: 20px; 
+}
+
+/* Animación del hamburger al expandir */
+.sidebar.sidebar-expanded .menu-icon .hamburger-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.sidebar.sidebar-expanded .menu-icon .hamburger-bar:nth-child(2) {
+    opacity: 0;
+}
+.sidebar.sidebar-expanded .menu-icon .hamburger-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+.sidebar-nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.nav-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    color: var(--color-text-light);
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.nav-item:hover {
+    background-color: var(--color-active-item);
+}
+
+.nav-item.active {
+    background-color: var(--color-active-item);
+    border-left: 3px solid var(--color-primary-yellow);
+}
+
+.icon-placeholder {
+    width: 24px;
+    height: 24px;
+    background-color: var(--color-placeholder);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+}
+
+/* 2. Contenido Principal y Secciones (Copiados de dashboard.css) */
+/* 2.1. Encabezado Superior (Header) */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--color-separator);
+}
+
+.logo-area {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.logo-placeholder {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-primary-yellow);
+}
+
+.branch-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-text-light);
+}
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-name-header {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
+
+.user-icon-placeholder {
+    width: 30px;
+    height: 30px;
+    background-color: var(--color-placeholder);
+    border-radius: 50%;
+}
+
+.logout-btn {
+    background-color: var(--color-primary-yellow);
+    color: var(--color-button-text-dark);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    font-size: 12px;
+}
+
+.logout-btn:hover {
+    opacity: 0.85;
+}
+
+/* 2.2. Área de Título y Mensaje (Adaptado de welcome-area y greeting-bar) */
+.greeting-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 25px;
+}
+
+.greeting-text {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-text-light);
+}
+
+.date-time {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+/* 2.3. Contenedores generales tipo tarjeta (para Filters y Table) */
+.welcome-card, .product-list-container {
+    background-color: var(--color-background-light);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 25px;
+    border: 1px solid var(--color-separator); /* Añade un borde sutil */
+}
+
+/* Estilos de Filtros (Adaptados del estilo de la card de bienvenida y filtros originales) */
+.filters {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    /* Usa welcome-card para el fondo/padding */
+}
+
+.filter-select {
+    padding: 8px 12px;
+    background: var(--color-placeholder); /* Fondo similar al input en oscuro */
+    border: 1px solid var(--color-separator);
+    border-radius: 5px;
+    color: var(--color-text-light);
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.filter-select option {
+    background-color: var(--color-placeholder);
+}
+
+/* 2.4. Stats Cards (Adaptados del Backoffice original y usando la clase 'card-custom' de dashboard.css) */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: var(--color-background-light);
+    border: 1px solid var(--color-separator);
+    border-radius: 8px;
+    padding: 15px;
+    transition: transform 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    background-color: var(--color-active-item);
+}
+
+.stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.stat-title {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
+
+.stat-icon {
+    font-size: 1.5rem;
+    /* Color definido en el HTML inline usando las variables */
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+}
+
+/* 2.5. Estilos de Tabla (Adaptados del Backoffice original) */
+.table-container {
+    /* Usa product-list-container para el fondo/padding */
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: rgba(255, 204, 0, 0.1); /* Fondo claro con un poco de color acento */
+}
+
+th {
+    padding: 15px;
+    text-align: left;
+    color: var(--color-primary-yellow);
+    font-weight: 600;
+    font-size: 13px;
+    border-bottom: 1px solid var(--color-separator);
+}
+
+td {
+    padding: 15px;
+    border-top: 1px solid var(--color-separator);
+    color: var(--color-text-light);
+    font-size: 13px;
+}
+
+tbody tr:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* Estilos de Badges (Copian el esquema de color del backoffice original con las variables nuevas) */
+.badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge-pendiente {
+    background: rgba(255, 152, 0, 0.2);
+    color: var(--color-orange-warning);
+}
+
+.badge-en-revision {
+    background: rgba(52, 152, 219, 0.2); /* Usando color-primary-cyan */
+    color: var(--color-primary-cyan);
+}
+
+.badge-aprobada {
+    background: rgba(46, 204, 113, 0.2); /* Usando color-primary-green */
+    color: var(--color-primary-green);
+}
+
+.badge-rechazada {
+    background: rgba(244, 67, 54, 0.2);
+    color: var(--color-red-danger);
+}
+
+/* Botones de Acción de la Tabla */
+.btn-action {
+    padding: 8px 12px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s;
+    font-family: 'Roboto', sans-serif;
+    margin-right: 5px;
+}
+
+.btn-aprobar {
+    background: rgba(46, 204, 113, 0.1);
+    color: var(--color-primary-green);
+    border-color: var(--color-primary-green);
+}
+
+.btn-aprobar:hover {
+    background: var(--color-primary-green);
+    color: var(--color-button-text-dark);
+}
+
+.btn-rechazar {
+    background: rgba(244, 67, 54, 0.1);
+    color: var(--color-red-danger);
+    border-color: var(--color-red-danger);
+}
+
+.btn-rechazar:hover {
+    background: var(--color-red-danger);
+    color: var(--color-text-light);
+}
+
+/* Empty state / Loading state */
+.empty-state {
+    text-align: center;
+    padding: 30px;
+    color: var(--color-text-secondary);
+}
+
+.empty-state i {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--color-placeholder);
+}
+
+/* Responsive Design (Copiados de dashboard.css) */
+@media (max-width: 992px) { 
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+    }
+    
+    .sidebar.sidebar-expanded {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: 0 10px 10px 10px;
+    }
+
+    .sidebar.sidebar-expanded ~ .main-content {
+        margin-left: 0;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr; 
+    }
+    
+    .greeting-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .user-area {
+        width: 100%;
+        justify-content: space-between;
+    }
+}

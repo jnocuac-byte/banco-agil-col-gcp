@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BackOffice - Banco Ágil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-dark: #232323;
+            --secondary-dark: #333;
+            --accent-gold: #ffb300;
+            --accent-gold-light: #ffc233;
+            --text-light: #ffffff;
+            --text-gray: #dddddd;
+            --input-bg: #444;
+            --card-bg: rgba(51, 51, 51, 0.9);
+            --border-light: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at 120% 0%, var(--secondary-dark) 0%, var(--primary-dark) 50%, #1a1a1a 80%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            color: var(--text-light);
+        }
+
+        .login-container {
+            max-width: 450px;
+            width: 100%;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            border: 1px solid var(--border-light);
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo-img {
+            height: 50px;
+            filter: brightness(1.2) contrast(1.1);
+        }
+
+        .backoffice-badge {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            color: var(--accent-gold-light);
+            margin-bottom: 0.5rem;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-gray);
+            margin-bottom: 2.5rem;
+            font-size: 1rem;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: none;
+            font-size: 0.95rem;
+            border: 1px solid;
+        }
+
+        .alert.success {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+            border-color: #4caf50;
+        }
+
+        .alert.error {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            border-color: #f44336;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+            font-size: 1.1rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.9rem 1rem 0.9rem 3rem;
+            background: var(--input-bg);
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            color: var(--text-light);
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input::placeholder {
+            color: rgba(221, 221, 221, 0.5);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            background: rgba(68, 68, 68, 0.8);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-login:hover {
+            background: var(--accent-gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 179, 0, 0.3);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .info-box {
+            background: rgba(255, 179, 0, 0.1);
+            border: 1px solid var(--accent-gold);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: var(--text-gray);
+        }
+
+        .info-box i {
+            color: var(--accent-gold);
+            margin-right: 0.5rem;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .back-link a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .back-link a:hover {
+            color: var(--accent-gold-light);
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 2rem 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-container">
+            <img src="images/EmpresaBancoAgil/logoNom.png" alt="Banco Ágil Logo" class="logo-img">
+            <div class="backoffice-badge">
+                <i class="fas fa-shield-alt"></i> BACKOFFICE
+            </div>
+        </div>
+
+        <h1>Portal de Asesores</h1>
+        <p class="subtitle">Acceso exclusivo para personal autorizado</p>
+
+        <div id="alert" class="alert"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email Corporativo</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-user-tie input-icon"></i>
+                    <input type="email" id="email" placeholder="asesor@bancoagil.com" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" id="password" placeholder="Ingresa tu contraseña" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-login" id="btnLogin">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Ingresar al BackOffice</span>
+            </button>
+        </form>
+
+        <div class="info-box">
+            <i class="fas fa-info-circle"></i>
+            Este portal es exclusivo para personal del banco. Todos los accesos son monitoreados y registrados.
+        </div>
+
+        <div class="back-link">
+            <a href="index.html">
+                <i class="fas fa-arrow-left"></i> Portal de Clientes
+            </a>
+        </div>
+    </div>
+
+    <script src="js/backoffice-login.js"></script>
+</body>
+</html>

@@ -3,67 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banco Agil Col- Crear Usuario</title>
-    <link rel="icon" type="image/x-icon" href="../shared/images/favicon_32x32.png">
-    <link rel="icon" type="image/png" href="../shared/images/favicon_32x32.png">
-    <link rel="stylesheet" href="css/login.css">
+    <title>Registro - Banco Ágil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/registro.css">
 </head>
 <body>
+    <div class="logo-container">
+        <img src="images/EmpresaBancoAgil/logoNom.png" alt="Banco Ágil Logo" class="logo-img">
+    </div>
+
     <div class="container">
-        <div class="logo-container">
-            <img src="../shared/images/default_transparent_765x625.png" alt="Logo-Baanco-Agil-Col" class="logo">
+        <h1>Registro de Cliente</h1>
+        <p class="subtitle">Completa el formulario para comenzar tu solicitud</p>
+
+        
+
+        <div class="tipo-selector">
+            <button type="button" class="tipo-btn active" onclick="cambiarTipo('PERSONA_NATURAL')">
+                <i class="fas fa-user"></i> Persona Natural
+            </button>
+            <button type="button" class="tipo-btn" onclick="cambiarTipo('EMPRESA')">
+                <i class="fas fa-building"></i> Empresa
+            </button>
         </div>
-        <div class="registro-box">
-            <h2>Crear usuario</h2>
-            
-            <div class="paso-indicador">
-                <div class="paso activo">
-                    <span class="numero-paso">1</span>
-                    <span class="texto-paso">Ingresa tus datos</span>
-                </div>
+
+        <form id="registroForm">
+            <input type="hidden" id="tipoCliente" value="PERSONA_NATURAL">
+
+            <div class="form-group">
+                <label for="email">Email <span class="required">*</span></label>
+                <input type="email" id="email" placeholder="correo@ejemplo.com" required>
             </div>
-            
-            <p class="subtitulo">Crea tu usuario</p>
-            
-            <div class="requisitos-box">
-                <h3>¿Qué necesitas para crear tu usuario?</h3>
-                <p>Un producto Bancolombia con clave activa.</p>
-                <div class="botones-requisitos">
-                    <button type="button" class="btn-secundario">Crear clave</button>
-                    <button type="button" class="btn-secundario">Solicitar producto</button>
-                </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña <span class="required">*</span></label>
+                <input type="password" id="password" placeholder="Mínimo 6 caracteres" required minlength="6">
             </div>
-            
-            <form id="registroForm">
+
+            <div class="form-group">
+                <label for="telefono">Teléfono <span class="required">*</span></label>
+                <input type="tel" id="telefono" placeholder="300 123 4567" required>
+            </div>
+
+            <div class="form-group">
+                <label for="direccion">Dirección <span class="required">*</span></label>
+                <input type="text" id="direccion" placeholder="Calle 123 #45-67" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ciudad">Ciudad <span class="required">*</span></label>
+                <input type="text" id="ciudad" placeholder="Bogotá" required>
+            </div>
+
+            <div id="camposPersona">
                 <div class="form-group">
-                    <label for="tipoDocumento">Tipo de documento</label>
-                    <select id="tipoDocumento" name="tipoDocumento" required>
-                        <option value="">Selecciona tu tipo de documento</option>
+                    <label for="tipoDocumento">Tipo de Documento <span class="required">*</span></label>
+                    <select id="tipoDocumento">
                         <option value="CC">Cédula de Ciudadanía</option>
                         <option value="CE">Cédula de Extranjería</option>
-                        <option value="TI">Tarjeta de Identidad</option>
                         <option value="PASAPORTE">Pasaporte</option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="numDocumento">Número de Documento <span class="required">*</span></label>
+                    <input type="text" id="numDocumento" placeholder="1234567890">
+                </div>
+
+                <div class="form-group">
+                    <label for="nombres">Nombres <span class="required">*</span></label>
+                    <input type="text" id="nombres" placeholder="Juan Carlos">
+                </div>
+
+                <div class="form-group">
+                    <label for="apellidos">Apellidos <span class="required">*</span></label>
+                    <input type="text" id="apellidos" placeholder="Pérez García">
+                </div>
+
+                <div class="form-group">
+                    <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                    <input type="date" id="fechaNacimiento">
+                </div>
+            </div>
+
+            <div id="camposEmpresa" class="hidden">
+                <div class="form-group">
+                    <label for="nit">NIT <span class="required">*</span></label>
+                    <input type="text" id="nit" placeholder="900123456-7">
+                </div>
+
+                <div class="form-group">
+                    <label for="razonSocial">Razón Social <span class="required">*</span></label>
+                    <input type="text" id="razonSocial" placeholder="Mi Empresa S.A.S">
+                </div>
+
+                <div class="form-group">
+                    <label for="nombreComercial">Nombre Comercial</label>
+                    <input type="text" id="nombreComercial" placeholder="Mi Empresa">
+                </div>
+
+                <div class="form-group">
+                    <label for="fechaConstitucion">Fecha de Constitución</label>
+                    <input type="date" id="fechaConstitucion">
+                </div>
                 
                 <div class="form-group">
-                    <label for="numeroDocumento">Número de documento</label>
-                    <input type="text" id="numeroDocumento" name="numeroDocumento" placeholder="Ingresa tu número de documento" required>
+                    <label for="numEmpleados">Número de Empleados</label>
+                    <input type="number" id="numEmpleados" min="1" placeholder="10">
                 </div>
-                
+
                 <div class="form-group">
-                    <label for="claveCajero">Clave del cajero</label>
-                    <input type="password" id="claveCajero" name="claveCajero" placeholder="Ingresa tu clave del cajero" required>
-                    <a href="#" class="link-olvido">¿Olvidaste tu clave?</a>
+                    <label for="sectorEconomico">Sector Económico</label>
+                    <input type="text" id="sectorEconomico" placeholder="Comercio, Tecnología, Servicios...">
                 </div>
-                
-                <div class="botones-formulario">
-                    <button type="submit" class="btn-principal">Continuar</button>
-                    <a href="login.html" class="btn-cancelar">Cancelar</a>
-                </div>
-            </form>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                <i class="fas fa-user-plus"></i> Registrarse
+            </button>
+        </form>
+
+        <div id="alert" class="alert"></div>
+
+        <div class="back-link">
+            <a href="index.html">
+                <i class="fas fa-arrow-left"></i> Volver al inicio
+            </a>
         </div>
     </div>
-    <script src="js/app.js"></script>
+    <script src="js/registro.js"></script>
 </body>
 </html>
