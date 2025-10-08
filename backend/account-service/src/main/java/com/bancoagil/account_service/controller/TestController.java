@@ -15,9 +15,10 @@ public class TestController {
     public Map<String, String> test() {
         Map<String, String> response = new HashMap<>();
         response.put("status", "OK");
-        response.put("message", "Account Service funcionando correctamente!");
+        response.put("message", "¡Microservicio de Cuentas y Transacciones funcionando correctamente!");
         response.put("service", "account-service");
-        response.put("port", "8083");
+        response.put("port", "8082");
+        response.put("endpoints", "Disponibles: /api/cuentas, /api/transacciones");
         return response;
     }
 
