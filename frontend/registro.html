@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco Agil Col- Crear Usuario</title>
+    <link rel="icon" type="image/x-icon" href="../shared/images/favicon_32x32.png">
+    <link rel="icon" type="image/png" href="../shared/images/favicon_32x32.png">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img src="../shared/images/default_transparent_765x625.png" alt="Logo-Baanco-Agil-Col" class="logo">
+        </div>
+        <div class="registro-box">
+            <h2>Crear usuario</h2>
+            
+            <div class="paso-indicador">
+                <div class="paso activo">
+                    <span class="numero-paso">1</span>
+                    <span class="texto-paso">Ingresa tus datos</span>
+                </div>
+            </div>
+            
+            <p class="subtitulo">Crea tu usuario</p>
+            
+            <div class="requisitos-box">
+                <h3>¿Qué necesitas para crear tu usuario?</h3>
+                <p>Un producto Bancolombia con clave activa.</p>
+                <div class="botones-requisitos">
+                    <button type="button" class="btn-secundario">Crear clave</button>
+                    <button type="button" class="btn-secundario">Solicitar producto</button>
+                </div>
+            </div>
+            
+            <form id="registroForm">
+                <div class="form-group">
+                    <label for="tipoDocumento">Tipo de documento</label>
+                    <select id="tipoDocumento" name="tipoDocumento" required>
+                        <option value="">Selecciona tu tipo de documento</option>
+                        <option value="CC">Cédula de Ciudadanía</option>
+                        <option value="CE">Cédula de Extranjería</option>
+                        <option value="TI">Tarjeta de Identidad</option>
+                        <option value="PASAPORTE">Pasaporte</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="numeroDocumento">Número de documento</label>
+                    <input type="text" id="numeroDocumento" name="numeroDocumento" placeholder="Ingresa tu número de documento" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="claveCajero">Clave del cajero</label>
+                    <input type="password" id="claveCajero" name="claveCajero" placeholder="Ingresa tu clave del cajero" required>
+                    <a href="#" class="link-olvido">¿Olvidaste tu clave?</a>
+                </div>
+                
+                <div class="botones-formulario">
+                    <button type="submit" class="btn-principal">Continuar</button>
+                    <a href="login.html" class="btn-cancelar">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>
