@@ -219,5 +219,38 @@ public class SolicitudController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
+
+    // Endpoint para marcar solicitud como EN_REVISION
+    @PutMapping("/{id}/revision")
+    public ResponseEntity<Map<String, Object>> marcarEnRevision(
+            @PathVariable Long id,
+            @RequestBody Map<String, Object> request) {
+        
+        Map<String, Object> response = new HashMap<>();
+        
+        try {
+            SolicitudCredito solicitud = solicitudService.obtenerSolicitudPorId(id);
+            
+            // Cambiar estado a EN_REVISION
+            solicitud.setEstado(SolicitudCredito.Estado.EN_REVISION);
+            
+            // Asignar asesor que revisa
+            if (request.containsKey("asesorId")) {
+                solicitud.setIdAsesorAsignado(((Number) request.get("asesorId")).longValue());
+            }
+            
+            solicitudRepository.save(solicitud);
+            
+            response.put("success", true);
+            response.put("message", "Solicitud en revisión");
+            
+            return ResponseEntity.ok(response);
+            
+        } catch (RuntimeException e) {
+            response.put("success", false);
+            response.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
     
 }
