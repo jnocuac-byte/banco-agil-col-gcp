@@ -38,7 +38,7 @@ public class RegistroClienteDTO {
     private String razonSocial;
     private String nombreComercial;
     private LocalDate fechaConstitucion;
-    private String numEmpleados;
+    private Integer numEmpleados;
     private String sectorEconomico;
 
 }

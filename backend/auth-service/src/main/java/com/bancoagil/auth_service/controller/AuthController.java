@@ -96,4 +96,10 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
     
+    /* CREAR ADMIN ASESOR INICIAL
+    @GetMapping("/setup-asesor")
+    public ResponseEntity<String> setupAsesor() {
+        authService.crearAsesorInicial();
+        return ResponseEntity.ok("Asesor creado/actualizado con contraseña encriptada");
+    }*/
 }
