@@ -41,7 +41,7 @@ body {
     width: 100%;
 }
 
-/* 1. Barra de Navegación Lateral (Sidebar) (Copiados de dashboard.css) */
+/* 1. Barra de Navegación Lateral (Sidebar) (de dashboard2.css) */
 .sidebar {
     width: 60px;
     background-color: var(--color-background-light);
@@ -70,14 +70,13 @@ body {
     align-items: center;
     cursor: pointer;
     padding: 6px;
-    border: none;
 }
 
 
-/* Estilos para el texto de navegación cuando está colapsado */
+/* MODIFICADO: Estilos para el texto de navegación cuando está colapsado */
 .icon-text {
     display: none;
-    white-space: nowrap; 
+    white-space: nowrap; /* Evita que el texto se rompa */
     overflow: hidden;
 }
 
@@ -97,17 +96,17 @@ body {
     width: 220px;
 }
 
-/* Mostrar texto en elementos de navegación expandidos */
+/* MODIFICADO: Mostrar texto en elementos de navegación expandidos */
 .sidebar.sidebar-expanded .icon-text {
     display: block;
-    margin-left: 15px; 
-    flex-grow: 1; 
+    margin-left: 15px; /* Espacio entre ícono y texto */
+    flex-grow: 1; /* Permite que el texto ocupe el espacio restante */
     text-align: left;
 }
 
-/* Ajustar contenido del nav-item al expandir */
+/* MODIFICADO: Ajustar contenido del nav-item al expandir */
 .sidebar.sidebar-expanded .nav-item {
-    justify-content: flex-start; 
+    justify-content: flex-start; /* Alinear el contenido a la izquierda */
     padding-left: 15px;
 }
 
@@ -121,16 +120,17 @@ body {
     flex-grow: 1;
     padding: 0 20px 20px 20px;
     transition: margin-left 0.25s ease;
+    /* Esto asegura que la barra de desplazamiento se muestre si el contenido es largo */
     overflow-y: auto; 
     height: 100vh;
 }
 
 .sidebar.sidebar-expanded ~ .main-content .greeting-text {
-    font-size: 34px; 
+    font-size: 34px; /* Más grande cuando el menú está expandido */
 }
 
 .sidebar.sidebar-expanded ~ .main-content .section-title {
-    font-size: 20px; 
+    font-size: 20px; /* Más grande cuando el menú está expandido */
 }
 
 /* Animación del hamburger al expandir */
@@ -175,6 +175,7 @@ body {
     height: 24px;
     background-color: var(--color-placeholder);
     border-radius: 50%;
+    /* Estilo para emojis/texto */
     display: flex;
     justify-content: center;
     align-items: center;

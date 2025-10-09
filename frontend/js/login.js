@@ -1,19 +1,26 @@
+// URL base de la API
 const API_URL = 'http://localhost:8081/api/auth';
 
+// Mostrar alertas
 function mostrarAlerta(mensaje, tipo) {
+    // tipo: 'success', 'error', 'info'
     const alert = document.getElementById('alert');
     alert.textContent = mensaje;
     alert.className = `alert ${tipo}`;
     alert.style.display = 'block';
     
+    // Ocultar después de 5 segundos
     setTimeout(() => {
-        alert.style.display = 'none';
+        alert.style.display = 'none'; // Añadir transición de desvanecimiento
     }, 5000);
 }
 
+// Manejar el envío del formulario de login
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    // Prevenir el envío por defecto
     e.preventDefault();
     
+    // Obtener referencia al botón y su texto original
     const btnLogin = document.getElementById('btnLogin');
     const originalText = btnLogin.innerHTML;
     
@@ -21,24 +28,27 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     btnLogin.disabled = true;
     btnLogin.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Iniciando sesión...';
     
+    // Preparar datos del formulario
     const data = {
-        email: document.getElementById('email').value,
-        password: document.getElementById('password').value
+        email: document.getElementById('email').value, // El campo 'email' en el login.html tiene id 'email'
+        password: document.getElementById('password').value // El campo 'password' en el login.html tiene id 'password'
     };
     
+    // Enviar petición a la API
     try {
+        // Petición POST a /login
         const response = await fetch(`${API_URL}/login`, {
-            method: 'POST',
+            method: 'POST', // Metodo POST y headers JSON
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data) // Enviar datos como JSON
         });
         
+        // Parsear respuesta JSON
         const result = await response.json();
-
-        console.log(result);
         
+        // Manejar respuesta
         if (result.success) {
             // Guardar datos en sessionStorage
             sessionStorage.setItem('usuario', JSON.stringify({
@@ -51,17 +61,20 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
                 token: result.token
             }));
             
+            // Mostrar mensaje de éxito y redirigir
             mostrarAlerta('¡Login exitoso! Redirigiendo...', 'success');
             
+            // Redirigir después de un breve retraso
             setTimeout(() => {
-                window.location.href = 'dashboard.html';
+                window.location.href = 'dashboard.html'; // Redirigir a dashboard.html
             }, 1500);
-        } else {
+        } else { // Error de autenticación
+            // Mostrar mensaje de error
             mostrarAlerta(result.message, 'error');
             btnLogin.disabled = false;
             btnLogin.innerHTML = originalText;
         }
-    } catch (error) {
+    } catch (error) { // Error de red o servidor
         console.error('Error:', error);
         mostrarAlerta('Error al conectar con el servidor', 'error');
         btnLogin.disabled = false;

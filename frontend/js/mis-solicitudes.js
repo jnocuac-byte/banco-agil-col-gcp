@@ -1,102 +1,111 @@
+// URL base de la API
 const API_CREDIT_URL = 'http://localhost:8082/api/solicitudes';
 
+// Datos de solicitudes en memoria
 let solicitudesData = [];
 
-// --- FUNCIONES CORE DE AUTH Y DATA ---
-
-// Verificar autenticación (Tomado de mis-solicitudes.js)
+// Verificar si el usuario está autenticado
 function verificarAutenticacion() {
+    // Obtener datos del usuario desde sessionStorage
     const usuario = sessionStorage.getItem('usuario');
     
+    // Si no hay usuario, redirigir al login
     if (!usuario) {
-        // Redirigir al login (Comportamiento del dashboard.js/mis-solicitudes.js)
         window.location.href = 'login.html';
         return null;
     }
     
+    // Retornar objeto usuario
     return JSON.parse(usuario);
 }
 
-// Formatear números como moneda (Tomado de mis-solicitudes.js)
+// Formatear moneda en COP
 function formatearMoneda(valor) {
-    return new Intl.NumberFormat('es-CO', {
+    return new Intl.NumberFormat('es-CO', { // Formato colombiano
         style: 'currency',
         currency: 'COP',
-        minimumFractionDigits: 0
-    }).format(valor);
+        minimumFractionDigits: 0 // Sin decimales
+    }).format(valor); // Ejemplo: $1.000.000
 }
 
-// Formatear fecha (Tomado de mis-solicitudes.js)
+// Formatear fecha a formato legible
 function formatearFecha(fecha) {
-    // Usamos 'es-ES' o 'es-CO' para mantener consistencia con el dashboard y el archivo original
-    return new Date(fecha).toLocaleDateString('es-CO', {
+    return new Date(fecha).toLocaleDateString('es-CO', { // Formato colombiano
         year: 'numeric',
         month: 'long',
         day: 'numeric',
         hour: '2-digit',
         minute: '2-digit'
-    });
+    }); // Ejemplo: 15 de marzo de 2023, 14:30
 }
 
-// Obtener clase CSS del badge según estado (Tomado de mis-solicitudes.js)
+// Mostrar alertas
 function getBadgeClass(estado) {
+    // Mapear estado a clase CSS
     const clases = {
         'PENDIENTE': 'badge-pendiente',
         'EN_REVISION': 'badge-en-revision',
         'APROBADA': 'badge-aprobada',
         'RECHAZADA': 'badge-rechazada'
     };
-    return clases[estado] || 'badge-pendiente';
+    return clases[estado] || 'badge-pendiente'; // Clase por defecto
 }
 
-// Obtener texto amigable del estado (Tomado de mis-solicitudes.js)
+// Mapear estado a texto legible
 function getEstadoTexto(estado) {
+    // Mapear estado a texto
     const textos = {
         'PENDIENTE': 'Pendiente',
         'EN_REVISION': 'En Revisión',
         'APROBADA': 'Aprobada',
         'RECHAZADA': 'Rechazada'
     };
-    return textos[estado] || estado;
+    return textos[estado] || estado; // Texto por defecto
 }
 
-// Cargar solicitudes del cliente (Tomado y adaptado de mis-solicitudes.js)
+// Cargar solicitudes del usuario
 async function cargarSolicitudes() {
+    // Verificar autenticación
     const usuario = verificarAutenticacion();
     if (!usuario) return;
     
-    // 1. Mostrar nombre del usuario en el header (se usa el ID del dashboard)
-    const userNameHeaderElements = document.querySelectorAll('#userName'); // Se puede repetir en la nueva estructura
+    // Mostrar nombre del usuario en el header
+    const userNameHeaderElements = document.querySelectorAll('#userName'); 
+    // Puede haber múltiples elementos con id userName
     userNameHeaderElements.forEach(el => {
-        el.textContent = usuario.nombreCompleto || 'Usuario';
+        el.textContent = usuario.nombreCompleto || 'Usuario'; // Nombre completo o 'Usuario' por defecto
     });
-    
-    // Nota: El email no tiene un ID en la nueva estructura, se omite.
 
+    // Mostrar loading mientras se cargan las solicitudes
     try {
+        // Hacer petición a la API para obtener solicitudes del cliente
         const response = await fetch(`${API_CREDIT_URL}/cliente/${usuario.clienteId}`);
         
+        // Verificar respuesta
         if (response.ok) {
             solicitudesData = await response.json();
-            mostrarSolicitudes(solicitudesData);
-        } else {
-            mostrarEstadoVacio('Error al cargar solicitudes');
+            mostrarSolicitudes(solicitudesData); // Mostrar todas las solicitudes
+        } else { // Error en la respuesta
+            mostrarEstadoVacio('Error al cargar solicitudes'); // Mostrar mensaje de error
         }
-    } catch (error) {
+    } catch (error) { // Error de red o servidor
         console.error('Error:', error);
-        mostrarEstadoVacio('Error al conectar con el servidor');
+        mostrarEstadoVacio('Error al conectar con el servidor'); // Mostrar mensaje de error
     }
 }
 
-// Mostrar solicitudes en el DOM (Tomado de mis-solicitudes.js)
+// Mostrar solicitudes en el DOM
 function mostrarSolicitudes(solicitudes) {
+    // Referencia al contenedor
     const container = document.getElementById('solicitudesContainer');
     
+    // Si no hay solicitudes, mostrar estado vacío
     if (solicitudes.length === 0) {
-        mostrarEstadoVacio('No tienes solicitudes aún');
+        mostrarEstadoVacio('No tienes solicitudes aún'); // Mensaje personalizado
         return;
     }
     
+    // Limpiar contenedor
     container.innerHTML = solicitudes.map(sol => `
         <div class="solicitud-card">
             <div class="solicitud-header">
@@ -142,10 +151,11 @@ function mostrarSolicitudes(solicitudes) {
             ` : ''}
         </div>
     `).join('');
-}
+} // Unir todas las tarjetas en el contenedor
 
-// Mostrar estado vacío (Tomado de mis-solicitudes.js)
+// Mostrar estado vacío con mensaje personalizado
 function mostrarEstadoVacio(mensaje) {
+    // Referencia al contenedor
     const container = document.getElementById('solicitudesContainer');
     container.innerHTML = `
         <div class="empty-state">
@@ -157,49 +167,47 @@ function mostrarEstadoVacio(mensaje) {
             </a>
         </div>
     `;
-}
+} // Mensaje personalizado
 
-// Filtrar solicitudes por estado (Tomado de mis-solicitudes.js)
+// Filtrar solicitudes por estado
 function filtrarSolicitudes() {
+    // Obtener valor del filtro
     const filtro = document.getElementById('filtroEstado').value;
     
+    // Filtrar y mostrar solicitudes
     if (filtro === 'TODAS') {
-        mostrarSolicitudes(solicitudesData);
+        mostrarSolicitudes(solicitudesData); // Mostrar todas
     } else {
-        const filtradas = solicitudesData.filter(sol => sol.estado === filtro);
-        mostrarSolicitudes(filtradas);
+        const filtradas = solicitudesData.filter(sol => sol.estado === filtro); // Filtrar por estado
+        mostrarSolicitudes(filtradas); // Mostrar filtradas
     }
 }
 
-// --- FUNCIONES UI DEL DASHBOARD (INTEGRADAS) ---
-
-// Cerrar sesión (Tomado de dashboard.js)
+// Cerrar sesión
 function logout() {
+    // Confirmar acción
     if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
-        sessionStorage.removeItem('usuario');
-        window.location.href = 'login.html';
+        sessionStorage.removeItem('usuario'); // Eliminar datos de sessionStorage
+        window.location.href = 'login.html'; // Redirigir al login
     }
 }
 
-// Lógica de navegación del menú lateral (Tomado de dashboard.js)
+// Inicializar menú lateral
 function initializeMenuToggle() {
+    // Toggle para menú lateral
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.querySelector('.sidebar');
+    // Asegurarse que los elementos existen
     if (menuToggle && sidebar) {
+        // Alternar clase para expandir/colapsar sidebar
         menuToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('sidebar-expanded');
-            // La clase .sidebar-expanded ~ .main-content ajusta el margen automáticamente vía CSS
+            sidebar.classList.toggle('sidebar-expanded'); // Alternar clase
         });
     }
 }
 
-// Inicializar (Adaptado para ejecutar la carga de datos y la inicialización UI)
+// Inicializar la página
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Cargar datos del usuario y solicitudes
-    cargarSolicitudes(); 
-    
-    // 2. Inicializar listeners UI (Solo la función de menú)
-    initializeMenuToggle();
-    
-    // Nota: El listener de logout en el HTML ya está asignado a la función global logout()
+    cargarSolicitudes(); // Cargar solicitudes al cargar la página
+    initializeMenuToggle(); // Inicializar menú lateral
 });

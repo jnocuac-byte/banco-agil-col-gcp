@@ -9,28 +9,37 @@
     <link rel="stylesheet" href="css/backoffice-dashboard.css">
 </head>
 <body>
+    <!-- Contenedor principal de la página -->
     <div class="page-container">
         <aside class="sidebar">
+             <!-- Menú lateral -->
             <div class="menu-icon-wrapper">
+                 <!-- Icono de menú hamburguesa -->
                 <button id="menuToggle" class="menu-icon" aria-label="Alternar menú" aria-expanded="false" type="button">
+                     <!-- Tres barras del icono hamburguesa -->
                     <span class="hamburger-bar"></span>
                     <span class="hamburger-bar"></span>
                     <span class="hamburger-bar"></span>
                 </button>
             </div>
+             <!-- Navegación del menú lateral -->
             <nav class="sidebar-nav">
+                 <!-- Enlace activo a la página de solicitudes -->
                 <a href="backoffice-dashboard.html" class="nav-item active" title="Solicitudes">
                     <div class="icon-placeholder">📋</div>
                     <span class="icon-text">Solicitudes</span>
                 </a>
+                 <!-- Otros enlaces del menú -->
                 <a href="#usuarios" class="nav-item" title="Usuarios">
                     <div class="icon-placeholder">👥</div>
                     <span class="icon-text">Usuarios</span>
                 </a>
+                 <!-- Más enlaces según sea necesario -->
                 <a href="#reportes" class="nav-item" title="Reportes">
                     <div class="icon-placeholder">📊</div>
                     <span class="icon-text">Reportes</span>
                 </a>
+                 <!-- Enlace a perfil de usuario -->
                  <a href="#mi-perfil" class="nav-item" title="Mi Perfil">
                     <div class="icon-placeholder">👤</div>
                     <span class="icon-text">Mi Perfil</span>
@@ -38,12 +47,16 @@
             </nav>
         </aside>
 
+        <!-- Contenido principal -->
         <main class="main-content">
+             <!-- Encabezado con logo y área de usuario -->
             <header class="header">
+                 <!-- Área del logo y nombre de la sucursal -->
                 <div class="logo-area">
                     <div class="logo-placeholder">Banco Agil Col</div>
                     <span class="branch-name">Backoffice Asesores</span>
                 </div>
+                 <!-- Área de usuario con nombre y botón de logout -->
                 <div class="user-area">
                     <span class="user-name-header" id="userName">Bienvenido Asesor</span>
                     <div class="user-icon-placeholder"></div>
@@ -51,13 +64,17 @@
                 </div>
             </header>
             
+             <!-- Sección principal del cuerpo de la página -->
             <section class="page-body-content">
+                 <!-- Tarjeta de bienvenida y estadísticas -->
                 <div class="greeting-bar">
                     <h1 class="greeting-text" id="greeting">Gestión de Solicitudes</h1>
                     <span class="date-time">Dashboard para asesores</span>
                 </div>
 
+                 <!-- Estadísticas rápidas -->
                 <div class="stats-grid">
+                     <!-- Tarjeta de estadísticas personalizada -->
                     <div class="stat-card stat-card-custom stat-card-pendientes">
                         <div class="stat-header">
                             <span class="stat-title">Pendientes</span>
@@ -66,6 +83,7 @@
                         <div class="stat-value" id="statPendientes">0</div>
                     </div>
 
+                     <!-- Tarjeta de estadísticas personalizada -->
                     <div class="stat-card stat-card-custom stat-card-revision">
                         <div class="stat-header">
                             <span class="stat-title">En Revisión</span>
@@ -74,6 +92,7 @@
                         <div class="stat-value" id="statRevision">0</div>
                     </div>
 
+                     <!-- Tarjeta de estadísticas personalizada -->
                     <div class="stat-card stat-card-custom stat-card-aprobadas">
                         <div class="stat-header">
                             <span class="stat-title">Aprobadas Hoy</span>
@@ -82,6 +101,7 @@
                         <div class="stat-value" id="statAprobadas">0</div>
                     </div>
 
+                     <!-- Tarjeta de estadísticas personalizada -->
                     <div class="stat-card stat-card-custom stat-card-total">
                         <div class="stat-header">
                             <span class="stat-title">Total Solicitudes</span>
@@ -91,6 +111,7 @@
                     </div>
                 </div>
 
+                 <!-- Filtros y tabla de solicitudes -->
                 <div class="filters welcome-card">
                     <label for="filtroEstado" class="announcement-title">Filtrar por Estado:</label>
                     <select id="filtroEstado" class="filter-select" onchange="filtrarSolicitudes()">
@@ -102,8 +123,10 @@
                     </select>
                 </div>
 
+                 <!-- Contenedor de la tabla de solicitudes -->
                 <div class="table-container product-list-container">
                     <table>
+                         <!-- Encabezado de la tabla -->
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -116,6 +139,7 @@
                                 <th>Acciones</th>
                             </tr>
                         </thead>
+                         <!-- Cuerpo de la tabla donde se insertan las solicitudes -->
                         <tbody id="tablaSolicitudes">
                             <tr>
                                 <td colspan="8" class="empty-state">
@@ -130,7 +154,9 @@
         </main>
     </div>
 
+     <!-- Scripts -->
     <script src="js/backoffice-dashboard.js"></script>
+     <!-- Script de gestión de solicitudes -->
     <script>
         // Inicializar el toggle del menú y cargar los datos
         document.addEventListener('DOMContentLoaded', () => {

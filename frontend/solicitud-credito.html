@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Metadatos y recursos: tipografías e iconos desde CDN -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nueva Solicitud - Banco Ágil</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Estilos locales para la página de solicitud de crédito -->
     <link rel="stylesheet" href="css/solicitud-credito.css">
 </head>
 <body>
 
     <div class="page-container">
+        <!-- Sidebar reutilizable: navegación del portal PYME -->
         <aside class="sidebar">
             <div class="menu-icon-wrapper">
+                <!-- Botón hamburguesa para alternar el sidebar en dispositivos pequeños -->
                 <button id="menuToggle" class="menu-icon" aria-label="Alternar menú" aria-expanded="false" type="button">
                     <span class="hamburger-bar"></span>
                     <span class="hamburger-bar"></span>
@@ -20,6 +24,7 @@
                 </button>
             </div>
             <nav class="sidebar-nav">
+                <!-- Enlaces de navegación con iconos; el item activo indica la página actual -->
                 <a href="dashboard.html" class="nav-item" title="Inicio">
                     <div class="icon-placeholder">🏠</div>
                     <span class="icon-text">Inicio</span>
@@ -39,6 +44,7 @@
             </nav>
         </aside>
 
+        <!-- Contenido principal: header con usuario y sección del formulario -->
         <main class="main-content">
             <header class="header">
                 <div class="logo-area">
@@ -46,38 +52,46 @@
                     <span class="branch-name">Portal PYME</span>
                 </div>
                 <div class="user-area">
+                    <!-- Nombre del usuario mostrado dinámicamente por JS (id nombre-usuario) -->
                     <span class="user-name-header" id="nombre-usuario">Bienvenido Usuario</span>
                     <div class="user-icon-placeholder"></div>
+                    <!-- Botón de logout que llama a la función logout() definida en el script -->
                     <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
                 </div>
             </header>
 
+            <!-- Sección principal del formulario de solicitud -->
             <section class="form-section-main">
                 <div class="greeting-bar">
                     <h1 class="greeting-text"><i class="fas fa-handshake"></i> Nueva Solicitud de Crédito</h1>
                     <p class="date-time">Completa los detalles de tu solicitud.</p>
                 </div>
                 
+                <!-- Contenedor para alertas dinámicas (errores/éxitos) controladas por JS -->
                 <div id="alert" class="alert-placeholder"></div>
 
                 <div class="form-card">
                     <h2 class="section-title">Detalles del Crédito</h2>
                     
+                    <!-- Formulario principal: id usado por JS para validación y envío -->
                     <form id="form-solicitud">
                         <div class="form-grid">
                             
+                            <!-- Monto solicitado: numeric input con mínimo y mensaje de ayuda -->
                             <div class="form-group">
                                 <label for="montoSolicitado">Monto Solicitado (COP)</label>
                                 <input type="number" id="montoSolicitado" placeholder="Mínimo $1.000.000" min="1000000" required>
                                 <small class="text-gray">Ingresa el valor sin puntos ni comas.</small>
                             </div>
                             
+                            <!-- Plazo: número de meses para el crédito -->
                             <div class="form-group">
                                 <label for="plazoMeses">Plazo en Meses</label>
                                 <input type="number" id="plazoMeses" placeholder="Mínimo 6 meses" min="6" required>
                                 <small class="text-gray">Número de cuotas para el crédito.</small>
                             </div>
 
+                            <!-- Observaciones opcionales: textarea para detalles adicionales -->
                             <div class="form-group full-width">
                                 <label for="observaciones">Observaciones (Opcional)</label>
                                 <textarea id="observaciones" rows="4" placeholder="Ej: Usaremos el crédito para comprar maquinaria y expandirnos al mercado internacional."></textarea>
@@ -85,17 +99,20 @@
 
                         </div>
                         
+                        <!-- Área que muestra la cuota estimada calculada por JS -->
                         <div class="cuota-estimada-container">
                             <span class="cuota-label">Cuota Mensual Estimada:</span>
                             <span class="cuota-valor" id="cuota-resultado">$0</span>
                             <small class="cuota-info">*Simulación con tasa fija del 12% E.A. La tasa final puede variar.</small>
                         </div>
                         
+                        <!-- Sección para subir documentos requeridos; cada input tiene un id para manejar estados -->
                         <div class="documentos-section">
                             <h2 class="section-title"><i class="fas fa-file-upload"></i> Documentos Requeridos</h2>
                             <p class="subtitle-docs">Adjunta los documentos necesarios para tu solicitud de crédito</p>
 
                             <div class="documentos-grid">
+                                <!-- RUT -->
                                 <div class="documento-item">
                                     <label class="documento-label" for="doc-rut">RUT (Registro Único Tributario) <span class="required">*</span></label>
                                     <input type="file" id="doc-rut" accept=".pdf,.jpg,.jpeg,.png" class="file-input">
@@ -103,6 +120,7 @@
                                     <span class="file-status" id="status-rut"></span>
                                 </div>
 
+                                <!-- Cédula representante legal -->
                                 <div class="documento-item">
                                     <label class="documento-label" for="doc-cedula">Cédula del Representante Legal <span class="required">*</span></label>
                                     <input type="file" id="doc-cedula" accept=".pdf,.jpg,.jpeg,.png" class="file-input">
@@ -110,6 +128,7 @@
                                     <span class="file-status" id="status-cedula"></span>
                                 </div>
 
+                                <!-- Estados financieros -->
                                 <div class="documento-item">
                                     <label class="documento-label" for="doc-estados">Estados Financieros (Últimos 2 años) <span class="required">*</span></label>
                                     <input type="file" id="doc-estados" accept=".pdf,.xlsx,.xls" class="file-input">
@@ -117,6 +136,7 @@
                                     <span class="file-status" id="status-estados"></span>
                                 </div>
 
+                                <!-- Certificado de la Cámara de Comercio -->
                                 <div class="documento-item">
                                     <label class="documento-label" for="doc-camara">Certificado Cámara de Comercio <span class="required">*</span></label>
                                     <input type="file" id="doc-camara" accept=".pdf" class="file-input">
@@ -126,6 +146,7 @@
                             </div>
                         </div>
 
+                        <!-- Botón de envío: id usado por JS para mostrar estado y prevenir múltiples envíos -->
                         <div class="btn-submit-container">
                             <button type="submit" class="btn-submit btn-primary-yellow" id="btnSubmit">
                                 <i class="fas fa-paper-plane"></i> Enviar Solicitud
@@ -137,6 +158,7 @@
         </main>
     </div>
 
+    <!-- Script que contiene la lógica: cálculo de cuota, validación de archivos y envío de formulario -->
     <script src="js/solicitud-credito.js"></script> 
     
 </body>
