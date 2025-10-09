@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bancoagil.credit_service.model.Documento;
 
+// Repositorio para gestionar documentos en la base de datos
 @Repository
 public interface DocumentoRepository extends JpaRepository<Documento, Long> {
     
