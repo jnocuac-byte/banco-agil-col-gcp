@@ -1,4 +1,4 @@
-/* Variables de color */
+/* Variables de color - Paleta oscura con acentos dorados */
 :root {
     --primary-dark: #232323;
     --secondary-dark: #333;
@@ -9,6 +9,7 @@
     --input-bg: #444;
     --card-bg: rgba(51, 51, 51, 0.9);
     --border-light: rgba(255, 255, 255, 0.1);
+    --header-height: 70px;
 }
 
 * {
@@ -21,26 +22,19 @@ body {
     font-family: 'Poppins', sans-serif;
     background: radial-gradient(circle at 120% 0%, var(--secondary-dark) 0%, var(--primary-dark) 50%, #1a1a1a 80%);
     min-height: 100vh;
-    /* Flexbox se mantiene para centrar el contenido principal */
-    display: flex; 
-    flex-direction: column; /* Agregamos flex-direction para apilar logo y contenedor */
-    align-items: center;
-    justify-content: center;
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
     padding: 2rem 1rem;
     color: var(--text-light);
 }
 
-/* Estilos ajustados para el logo que ahora está fuera del contenedor */
-.logo-img {
-    height: 90px; /* Nuevo alto solicitado */
-    width: auto;
-    filter: brightness(1.2) contrast(1.1);
-    margin-bottom: 2rem; /* Espacio entre el logo y el login-container */
-}
-
-.login-container {
-    max-width: 450px;
+.container {
+    /* ANCHO AJUSTADO A 550px */
+    max-width: 550px; 
     width: 100%;
+    margin: 0 auto;
     background: var(--card-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -48,10 +42,18 @@ body {
     padding: 3rem 2.5rem;
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     border: 1px solid var(--border-light);
-    /* Quitamos el margin-top para que esté cerca del logo */
 }
 
-/* Eliminamos .logo-container porque ya no existe */
+.logo-container {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.logo-img {
+    height: 90px;
+    width: auto;
+    filter: brightness(1.2) contrast(1.1);
+}
 
 h1 {
     color: var(--accent-gold-light);
@@ -64,8 +66,45 @@ h1 {
 .subtitle {
     text-align: center;
     color: var(--text-gray);
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     font-size: 1rem;
+}
+
+.tipo-selector {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.tipo-btn {
+    flex: 1;
+    /* RELLENO REDUCIDO: 0.8rem arriba/abajo, 0.5rem lados */
+    padding: 0.8rem 0.5rem;
+    border: 2px solid var(--border-light);
+    background: transparent;
+    color: var(--text-gray);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.tipo-btn:hover {
+    border-color: var(--accent-gold);
+    color: var(--accent-gold-light);
+}
+
+.tipo-btn.active {
+    background: var(--accent-gold);
+    color: var(--primary-dark);
+    border-color: var(--accent-gold);
+    font-weight: 60;
 }
 
 .form-group {
@@ -80,22 +119,13 @@ label {
     font-size: 0.95rem;
 }
 
-.input-wrapper {
-    position: relative;
+label .required {
+    color: var(--accent-gold);
 }
 
-.input-icon {
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-gray);
-    font-size: 1.1rem;
-}
-
-input {
+input, select {
     width: 100%;
-    padding: 0.9rem 1rem 0.9rem 3rem;
+    padding: 0.9rem;
     background: var(--input-bg);
     border: 2px solid var(--border-light);
     border-radius: 8px;
@@ -109,13 +139,26 @@ input::placeholder {
     color: rgba(221, 221, 221, 0.5);
 }
 
-input:focus {
+input:focus, select:focus {
     outline: none;
     border-color: var(--accent-gold);
     background: rgba(68, 68, 68, 0.8);
 }
 
-.btn-login {
+select {
+    cursor: pointer;
+}
+
+select option {
+    background: var(--input-bg);
+    color: var(--text-light);
+}
+
+.hidden {
+    display: none;
+}
+
+.btn-submit {
     width: 100%;
     padding: 1rem;
     background: var(--accent-gold);
@@ -127,26 +170,17 @@ input:focus {
     cursor: pointer;
     transition: all 0.3s;
     font-family: 'Poppins', sans-serif;
-    margin-top: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+    margin-top: 1rem;
 }
 
-.btn-login:hover {
+.btn-submit:hover {
     background: var(--accent-gold-light);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(255, 179, 0, 0.3);
 }
 
-.btn-login:active {
+.btn-submit:active {
     transform: translateY(0);
-}
-
-.btn-login:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
 }
 
 .alert {
@@ -170,47 +204,6 @@ input:focus {
     border-color: #f44336;
 }
 
-.divider {
-    display: flex;
-    align-items: center;
-    margin: 2rem 0;
-    color: var(--text-gray);
-    font-size: 0.9rem;
-}
-
-.divider::before,
-.divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border-light);
-}
-
-.divider::before {
-    margin-right: 1rem;
-}
-
-.divider::after {
-    margin-left: 1rem;
-}
-
-.register-link {
-    text-align: center;
-    color: var(--text-gray);
-    font-size: 0.95rem;
-}
-
-.register-link a {
-    color: var(--accent-gold);
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s;
-}
-
-.register-link a:hover {
-    color: var(--accent-gold-light);
-}
-
 .back-link {
     text-align: center;
     margin-top: 1.5rem;
@@ -224,36 +217,24 @@ input:focus {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.95rem;
 }
 
 .back-link a:hover {
     color: var(--accent-gold-light);
 }
 
-.forgot-password {
-    text-align: right;
-    margin-top: 0.5rem;
-}
-
-.forgot-password a {
-    color: var(--text-gray);
-    text-decoration: none;
-    font-size: 0.85rem;
-    transition: color 0.3s;
-}
-
-.forgot-password a:hover {
-    color: var(--accent-gold);
-}
-
 /* Responsive */
 @media (max-width: 768px) {
-    .login-container {
+    .container {
         padding: 2rem 1.5rem;
     }
 
     h1 {
         font-size: 1.5rem;
+    }
+
+    .tipo-btn {
+        font-size: 0.9rem;
+        padding: 0.8rem 0.5rem; /* Ajuste responsive también */
     }
 }

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BackOffice - Banco Ágil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Hoja de estilos específica para el portal de BackOffice (colores, layout y componentes) -->
+    <link rel="stylesheet" href="css/backoffice.css">
+    
+</head>
+<body>
+    <!-- Contenedor principal del login: centra el formulario y el branding -->
+    <div class="login-container">
+        <!-- Sección de logo y distintivo de BackOffice -->
+        <div class="logo-container">
+            <!-- Logo visual de la institución; usar alt descriptivo para accesibilidad -->
+            <img src="images/EmpresaBancoAgil/logoNom.png" alt="Banco Ágil Logo" class="logo-img">
+            <!-- Badge que indica claramente que este es el portal interno (BackOffice) -->
+            <div class="backoffice-badge">
+                <i class="fas fa-shield-alt"></i> BACKOFFICE
+            </div>
+        </div>
+
+        <!-- Título y subtítulo del formulario que indican el propósito de la página -->
+        <h1>Portal de Asesores</h1>
+        <p class="subtitle">Acceso exclusivo para personal autorizado</p>
+
+        <!-- Elemento para mostrar alertas dinámicas (error/éxito/info). Se manipula desde JS por id "alert" -->
+        <div id="alert" class="alert"></div>
+
+        <!-- Formulario de autenticación. El id "loginForm" se utiliza en el script para capturar submit -->
+        <form id="loginForm">
+            <!-- Grupo de campo: Email corporativo -->
+            <div class="form-group">
+                <label for="email">Email Corporativo</label>
+                <div class="input-wrapper">
+                    <!-- Icono decorativo vía Font Awesome; no aporta semántica, por eso es visual -->
+                    <i class="fas fa-user-tie input-icon"></i>
+                    <!-- Input tipo email para validación nativa del navegador; required obliga a completarlo -->
+                    <input type="email" id="email" placeholder="asesor@bancoagil.com" required>
+                </div>
+            </div>
+
+            <!-- Grupo de campo: Contraseña -->
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <div class="input-wrapper">
+                    <!-- Icono decorativo para contraseña -->
+                    <i class="fas fa-lock input-icon"></i>
+                    <!-- Input tipo password para ocultar caracteres; required obliga a completarlo -->
+                    <input type="password" id="password" placeholder="Ingresa tu contraseña" required>
+                </div>
+            </div>
+
+            <!-- Botón de envío: contiene icono y texto. El id "btnLogin" se usa en JS para mostrar estado (loading/disabled) -->
+            <button type="submit" class="btn-login" id="btnLogin">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Ingresar al BackOffice</span>
+            </button>
+        </form>
+
+        <!-- Caja informativa que explica el uso del portal; es estática y complementaria al formulario -->
+        <div class="info-box">
+            <i class="fas fa-info-circle"></i>
+            Este portal es exclusivo para personal del banco. Todos los accesos son monitoreados y registrados.
+        </div>
+
+        <!-- Enlace para volver al portal público de clientes. Mantener visible para navegación fácil -->
+        <div class="back-link">
+            <a href="index.html">
+                <i class="fas fa-arrow-left"></i> Portal de Clientes
+            </a>
+        </div>
+    </div>
+
+    <script src="js/backoffice-login.js"></script>
+</body>
+</html>

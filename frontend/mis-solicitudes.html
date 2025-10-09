@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Metadatos y recursos: tipografías e iconos -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Solicitudes - Banco Agil Col</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Estilos compartidos del dashboard y estilos específicos de esta página -->
+    <link rel="stylesheet" href="css/dashboard.css"> 
+    <link rel="stylesheet" href="css/mis-solicitudes.css">
+
+</head>
+<body>
+    <div class="page-container">
+        <!-- Sidebar de navegación lateral reutilizable entre pantallas del dashboard -->
+        <aside class="sidebar">
+             <div class="menu-icon-wrapper">
+                <!-- Botón hamburguesa para colapsar/expandir el sidebar en móviles -->
+                <button id="menuToggle" class="menu-icon" aria-label="Alternar menú" aria-expanded="false" type="button">
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <!-- Elementos de navegación con icono y texto; el item activo indica la página actual -->
+                <a href="dashboard.html" class="nav-item" title="Inicio">
+                    <div class="icon-placeholder">🏠</div>
+                    <span class="icon-text">Inicio</span>
+                </a>
+                <a href="mis-solicitudes.html" class="nav-item active" title="Mis Solicitudes">
+                    <div class="icon-placeholder">📄</div>
+                    <span class="icon-text">Mis Solicitudes</span>
+                </a>
+                <a href="#mis-cuentas" class="nav-item" title="Mis Cuentas">
+                    <div class="icon-placeholder">💳</div>
+                    <span class="icon-text">Mis Cuentas</span>
+                </a>
+                 <a href="#mi-perfil" class="nav-item" title="Mi Perfil">
+                    <div class="icon-placeholder">👤</div>
+                    <span class="icon-text">Mi Perfil</span>
+                </a>
+            </nav>
+            </aside>
+
+        <!-- Contenido principal del dashboard: header (usuario) y área de solicitudes -->
+        <main class="main-content">
+            <header class="header">
+                <div class="logo-area">
+                    <div class="logo-placeholder">Banco Agil Col</div>
+                    <span class="branch-name">Sucursal Virtual Personas</span>
+                </div>
+                <div class="user-area">
+                    <!-- Nombre del usuario mostrado dinámicamente por JS (id userName) -->
+                    <span class="user-name-header" id="userName">Cargando...</span>
+                    <div class="user-icon-placeholder"></div>
+                    <!-- Botón de cierre de sesión que llama a la función logout() del script -->
+                    <button class="logout-btn" onclick="logout()">Cerrar sesión</button> 
+                </div>
+            </header>
+
+            <!-- Sección principal: lista y filtros de solicitudes de crédito del usuario -->
+            <section class="requests-area">
+                <header class="page-header">
+                    <h1><i class="fas fa-file-invoice-dollar"></i> Mis Solicitudes de Crédito</h1>
+                    <p>Consulta el estado y los detalles de todas tus solicitudes</p>
+                </header>
+
+                <!-- Filtros y acciones: selector de estado y botón para crear nueva solicitud -->
+                <div class="filters">
+                    <div>
+                        <span class="filter-label">Filtrar por estado:</span>
+                        <!-- Select que dispara filtrarSolicitudes() en onchange -->
+                        <select class="filter-select" id="filtroEstado" onchange="filtrarSolicitudes()">
+                            <option value="TODAS">Todas</option>
+                            <option value="PENDIENTE">Pendientes</option>
+                            <option value="EN_REVISION">En Revisión</option>
+                            <option value="APROBADA">Aprobadas</option>
+                            <option value="RECHAZADA">Rechazadas</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Botón para crear una nueva solicitud (navega a la página de solicitud) -->
+                    <a href="solicitud-credito.html" class="btn-primary new-request-btn">
+                        <i class="fas fa-plus-circle"></i> Nueva Solicitud
+                    </a>
+                </div>
+
+                <!-- Contenedor donde JS inyecta las tarjetas/listado de solicitudes (id solicitudesContainer) -->
+                <div class="solicitudes-container" id="solicitudesContainer">
+                    <!-- Estado vacío/loader mostrado mientras se cargan las solicitudes -->
+                    <div class="empty-state">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <h3>Cargando solicitudes...</h3>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Script que maneja la carga, filtrado y acciones sobre las solicitudes -->
+    <script src="js/mis-solicitudes.js"></script>
+</body>
+</html>

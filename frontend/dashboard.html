@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Metadatos básicos -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banco Agil Col - Dashboard</title>
+    <title>Dashboard - Banco Agil Col</title>
+    <!-- Tipografía y librería de iconos -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Hoja de estilos principal para el dashboard (layout, colores y componentes) -->
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
     <div class="page-container">
+        <!-- Barra lateral (sidebar) con navegación principal -->
         <aside class="sidebar">
+            <!-- Botón hamburguesa para alternar la visibilidad del sidebar en pantallas pequeñas -->
             <div class="menu-icon-wrapper">
                 <button id="menuToggle" class="menu-icon" aria-label="Alternar menú" aria-expanded="false" type="button">
                     <span class="hamburger-bar"></span>
@@ -17,86 +23,102 @@
                     <span class="hamburger-bar"></span>
                 </button>
             </div>
+            <!-- Navegación del sidebar: cada enlace representa una sección/route del dashboard -->
             <nav class="sidebar-nav">
+                <!-- Item activo: inicio -->
                 <a href="dashboard.html" class="nav-item active" title="Inicio">
-                    <div class="icon-placeholder"></div>
+                    <div class="icon-placeholder">🏠</div>
+                    <span class="icon-text">Inicio</span>
                 </a>
-                <a href="#productos" class="nav-item" title="Productos">
-                    <div class="icon-placeholder"></div>
+                <!-- Enlace a la lista de solicitudes del usuario -->
+                <a href="mis-solicitudes.html" class="nav-item" title="Mis Solicitudes">
+                    <div class="icon-placeholder">📄</div>
+                    <span class="icon-text">Mis Solicitudes</span>
                 </a>
-                <a href="#transferencias" class="nav-item" title="Transferencias">
-                    <div class="icon-placeholder"></div>
+                <!-- Acceso rápido a cuentas -->
+                <a href="#mis-cuentas" class="nav-item" title="Mis Cuentas">
+                    <div class="icon-placeholder">💳</div>
+                    <span class="icon-text">Mis Cuentas</span>
                 </a>
-                <a href="#pagos" class="nav-item" title="Pagos">
-                    <div class="icon-placeholder"></div>
-                </a>
-                <a href="#configuracion" class="nav-item" title="Configuración">
-                    <div class="icon-placeholder"></div>
+                <!-- Enlace al perfil del usuario -->
+                 <a href="#mi-perfil" class="nav-item" title="Mi Perfil">
+                    <div class="icon-placeholder">👤</div>
+                    <span class="icon-text">Mi Perfil</span>
                 </a>
             </nav>
         </aside>
 
         <main class="main-content">
+            <!-- Encabezado principal: branding y área del usuario -->
             <header class="header">
+                <!-- Área del logo y nombre de la sucursal o producto -->
                 <div class="logo-area">
                     <div class="logo-placeholder">Banco Agil Col</div>
                     <span class="branch-name">Sucursal Virtual Personas</span>
                 </div>
+                <!-- Área del usuario: nombre, avatar y acción de cierre de sesión -->
                 <div class="user-area">
                     <span class="user-name-header" id="userName">Bienvenido Usuario</span>
                     <div class="user-icon-placeholder"></div>
+                    <!-- Botón que invoca la función logout() definida en el script del dashboard -->
                     <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
                 </div>
             </header>
             
+            <!-- Sección de bienvenida: mensajes y CTA inicial -->
             <section class="welcome-area">
                 <div class="welcome-card">
+                    <!-- Icono o avatar del usuario/servicio -->
                     <div class="user-profile-icon"></div>
                     <div class="welcome-message-container">
+                        <!-- Mensaje principal promocional o informativo -->
                         <p class="announcement-title">Descubre lo nuevo de la Sucursal Virtual Personas</p>
                         <p class="announcement-subtitle">Una experiencia más rápida y fácil desde tu celular, computador o tableta.</p>
                     </div>
+                    <!-- Llamado a la acción principal de la tarjeta -->
                     <button class="btn-primary">Comenzar</button>
                 </div>
 
+                <!-- Barra de saludo y fecha/hora dinámica -->
                 <div class="greeting-bar">
                     <h1 class="greeting-text" id="greeting">Hola, Usuario</h1>
                     <span class="date-time" id="currentDateTime">Martes, 8 de octubre de 2025, 2:24 p.m.</span>
                 </div>
             </section>
 
+            <!-- Sección de accesos rápidos a transacciones comunes; cada card llama a showComingSoon() -->
             <section class="transactions-area">
                 <h2 class="section-title">Transacciones más usadas</h2>
                 <div class="transactions-grid">
                     <div class="transaction-card" onclick="showComingSoon('Transferir')">
-                        <div class="transaction-icon-placeholder icon-transfer"></div>
+                        <div class="transaction-icon-placeholder icon-transfer">💸</div>
                         <span class="transaction-text">Transferir</span>
                     </div>
                     <div class="transaction-card" onclick="showComingSoon('Editar topes')">
-                        <div class="transaction-icon-placeholder icon-limit"></div>
+                        <div class="transaction-icon-placeholder icon-limit">📈</div>
                         <span class="transaction-text">Editar topes</span>
                     </div>
                     <div class="transaction-card" onclick="showComingSoon('Pagar facturas')">
-                        <div class="transaction-icon-placeholder icon-bills"></div>
+                        <div class="transaction-icon-placeholder icon-bills">🧾</div>
                         <span class="transaction-text">Pagar facturas</span>
                     </div>
                     <div class="transaction-card" onclick="showComingSoon('Bolsillos')">
-                        <div class="transaction-icon-placeholder icon-pockets"></div>
+                        <div class="transaction-icon-placeholder icon-pockets">💰</div>
                         <span class="transaction-text">Ir a Bolsillos</span>
                     </div>
                     <div class="transaction-card" onclick="showComingSoon('Extractos')">
-                        <div class="transaction-icon-placeholder icon-statements"></div>
+                        <div class="transaction-icon-placeholder icon-statements">📁</div>
                         <span class="transaction-text">Consultar extractos</span>
                     </div>
                 </div>
             </section>
 
-            <section class="products-area">
+            <!-- Sección que muestra los productos del usuario (cuentas, tarjetas, etc.) -->
+            <section class="products-area" style="margin-bottom: 30px;">
                 <h2 class="section-title">Tus productos</h2>
                 <div class="product-info-bar">
-                    <div class="tag-pill">
-                        <span>Paso 1</span>
-                    </div>
+                    <!-- Etiqueta de ayuda/estado y enlace para mostrar/ocultar saldos -->
+                    <div class="tag-pill"><span>Paso 1</span></div>
                     <span class="product-tip-text">Cambia fácil el nombre de tus productos desde la opción **Tus productos >**</span>
                     <a href="#" class="show-balance-link" onclick="toggleBalance()">Mostrar saldos</a>
                 </div>
@@ -107,6 +129,7 @@
                         <div class="toggle-icon-placeholder"></div>
                     </div>
                     
+                    <!-- Detalle de un producto: nombre, número (enmascarado) y saldo -->
                     <div class="product-detail-card">
                         <div class="account-details">
                             <span class="account-name">Cuenta de Ahorros</span>
@@ -119,10 +142,63 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Área de estadísticas rápidas: valores clave para el usuario -->
+            <section class="stats-area">
+                <h2 class="section-title">Resumen de Solicitudes y Cuentas</h2>
+                 <div class="transactions-grid">
+                    <div class="transaction-card stat-card-custom">
+                        <div class="transaction-icon-placeholder icon-limit">📑</div>
+                        <span class="stat-title-custom">Solicitudes Activas</span>
+                        <!-- Valor dinámico que se actualizará por JS -->
+                        <div class="stat-value-custom" id="statSolicitudes">0</div>
+                    </div>
+
+                    <div class="transaction-card stat-card-custom">
+                        <div class="transaction-icon-placeholder icon-bills">✅</div>
+                        <span class="stat-title-custom">Créditos Aprobados</span>
+                        <div class="stat-value-custom" id="statAprobados">0</div>
+                    </div>
+
+                    <div class="transaction-card stat-card-custom">
+                        <div class="transaction-icon-placeholder icon-pockets">🏦</div>
+                        <span class="stat-title-custom">Total Cuentas</span>
+                        <div class="stat-value-custom" id="statCuentas">0</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección de acciones rápidas: accesos directos a tareas comunes -->
+            <section class="actions-section last-section">
+                <h2 class="section-title">Acciones Rápidas</h2>
+                <div class="transactions-grid">
+                    <!-- Cada tarjeta es un enlace; estilos inline controlan color de icono -->
+                    <a href="solicitud-credito.html" class="transaction-card action-card-custom">
+                        <div class="transaction-icon-placeholder" style="background-color: #9b59b6;">➕</div>
+                        <span class="transaction-text">Nueva Solicitud</span>
+                    </a>
+
+                    <a href="mis-solicitudes.html" class="transaction-card action-card-custom">
+                        <div class="transaction-icon-placeholder" style="background-color: #ff8c00;">📋</div>
+                        <span class="transaction-text">Ver Solicitudes</span>
+                    </a>
+
+                    <a href="#" class="transaction-card action-card-custom">
+                        <div class="transaction-icon-placeholder" style="background-color: #2ecc71;">💳</div>
+                        <span class="transaction-text">Mis Cuentas</span>
+                    </a>
+
+                    <a href="#" class="transaction-card action-card-custom">
+                        <div class="transaction-icon-placeholder" style="background-color: #3498db;">🎧</div>
+                        <span class="transaction-text">Soporte</span>
+                    </a>
+                </div>
+            </section>
          </main>
     </div>
 
-    <!-- Ventana modal para "Próximamente" -->
+    <!-- Modal reutilizable para mostrar mensajes rápidos (ej. 'próximamente').
+         El contenedor externo captura clicks para cerrar; el interior detiene la propagación. -->
     <div id="modal" class="modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-header">
@@ -130,14 +206,18 @@
                 <span class="modal-close" onclick="closeModal()">&times;</span>
             </div>
             <div class="modal-body">
+                <!-- Mensaje del modal actualizable dinámicamente por JS -->
                 <p id="modalMessage">Esta funcionalidad estará disponible próximamente.</p>
             </div>
             <div class="modal-footer">
+                <!-- Botón que cierra el modal -->
                 <button class="btn-primary" onclick="closeModal()">Entendido</button>
             </div>
         </div>
     </div>
 
-    <script src="js/dashboard-app.js"></script>
+    <!-- Script principal del dashboard: contiene lógica UI (toggle sidebar, fecha, modal, etc.) -->
+    <script src="js/dashboard.js"></script>
+
 </body>
 </html>

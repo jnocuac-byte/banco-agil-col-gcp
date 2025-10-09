@@ -1,4 +1,4 @@
-/* Variables de Color para Modo Oscuro */
+/* Variables de Color para Modo Oscuro (de dashboard2.css) */
 :root {
     --color-background-dark: #121212; /* Fondo principal oscuro */
     --color-background-light: #1e1e1e; /* Fondo de contenedores y cards */
@@ -16,7 +16,7 @@
     --color-tag-text: #cccccc;
 }
 
-/* Estilos Generales y Reseteo */
+/* Estilos Generales y Reseteo (de dashboard2.css) */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -38,7 +38,7 @@ body {
     width: 100%;
 }
 
-/* 1. Barra de Navegación Lateral (Sidebar) */
+/* 1. Barra de Navegación Lateral (Sidebar) (de dashboard2.css) */
 .sidebar {
     width: 60px;
     background-color: var(--color-background-light);
@@ -69,8 +69,12 @@ body {
     padding: 6px;
 }
 
+
+/* MODIFICADO: Estilos para el texto de navegación cuando está colapsado */
 .icon-text {
     display: none;
+    white-space: nowrap; /* Evita que el texto se rompa */
+    overflow: hidden;
 }
 
 /* Estilo del icono "hamburger" (3 rayas) */
@@ -89,6 +93,20 @@ body {
     width: 220px;
 }
 
+/* MODIFICADO: Mostrar texto en elementos de navegación expandidos */
+.sidebar.sidebar-expanded .icon-text {
+    display: block;
+    margin-left: 15px; /* Espacio entre ícono y texto */
+    flex-grow: 1; /* Permite que el texto ocupe el espacio restante */
+    text-align: left;
+}
+
+/* MODIFICADO: Ajustar contenido del nav-item al expandir */
+.sidebar.sidebar-expanded .nav-item {
+    justify-content: flex-start; /* Alinear el contenido a la izquierda */
+    padding-left: 15px;
+}
+
 /* Cuando la sidebar está expandida, ajustar margen del main y agrandar títulos */
 .sidebar.sidebar-expanded ~ .main-content {
     margin-left: 220px;
@@ -99,6 +117,9 @@ body {
     flex-grow: 1;
     padding: 0 20px 20px 20px;
     transition: margin-left 0.25s ease;
+    /* Esto asegura que la barra de desplazamiento se muestre si el contenido es largo */
+    overflow-y: auto; 
+    height: 100vh;
 }
 
 .sidebar.sidebar-expanded ~ .main-content .greeting-text {
@@ -151,15 +172,14 @@ body {
     height: 24px;
     background-color: var(--color-placeholder);
     border-radius: 50%;
+    /* Estilo para emojis/texto */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
 }
 
-/* 2. Contenido Principal */
-.main-content {
-    margin-left: 60px;
-    flex-grow: 1;
-    padding: 0 20px 20px 20px;
-}
-
+/* 2. Contenido Principal y Secciones (de dashboard2.css) */
 /* 2.1. Encabezado Superior (Header) */
 .header {
     display: flex;
@@ -319,6 +339,8 @@ body {
     gap: 10px;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.2s;
+    text-decoration: none; /* Añadido para los links de acciones rápidas */
+    color: inherit; /* Para que el texto de link se vea igual */
 }
 
 .transaction-card:hover {
@@ -337,7 +359,7 @@ body {
     color: var(--color-text-light);
 }
 
-/* Colores para iconos de Transacciones */
+/* Colores para iconos de Transacciones (manteniendo el color de fondo de dashboard2) */
 .icon-transfer { background-color: var(--color-primary-purple); }
 .icon-limit { background-color: #ff8c00; } /* Naranja */
 .icon-bills { background-color: var(--color-primary-green); }
@@ -348,6 +370,7 @@ body {
     font-size: 13px;
     font-weight: 400;
     color: var(--color-text-light);
+    text-align: left; /* Para las acciones rápidas */
 }
 
 /* 2.4. Productos */
@@ -452,7 +475,52 @@ body {
     color: var(--color-primary-yellow);
 }
 
-/* Modal Styles */
+/* ESTILOS DE INTEGRACIÓN: Para las estadísticas */
+.stat-title-custom {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--color-text-secondary);
+    margin-bottom: 5px;
+}
+
+.stat-value-custom {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-text-light);
+}
+
+.stat-card-custom {
+    /* Ajuste de ancho para 3 columnas en la grilla */
+    width: calc(33.33% - 10px);
+    /* Modificamos la dirección para que el valor quede abajo */
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+/* ESTILOS DE INTEGRACIÓN: Para las acciones rápidas */
+.action-card-custom {
+    /* Mantenemos el estilo de transaction-card pero con un ancho más flexible */
+    width: calc(25% - 15px);
+    padding: 20px 15px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+.action-card-custom .transaction-icon-placeholder {
+    margin-bottom: 10px;
+}
+.action-card-custom .transaction-text {
+    font-weight: 500;
+    text-align: center;
+}
+
+/* --- SOLUCIÓN: Espaciado al final de la página --- */
+.main-content .last-section {
+    padding-bottom: 2px; /* Añade espacio extra al final de la última sección */
+}
+
+/* Modal Styles (Mantenido) */
 .modal {
     display: none;
     position: fixed;
@@ -533,7 +601,17 @@ body {
     text-align: right;
 }
 
-/* Responsive Design */
+/* Responsive Design (de dashboard2.css) */
+@media (max-width: 992px) { /* Ajuste el punto de quiebre para las estadísticas */
+    .stat-card-custom {
+        width: calc(50% - 7.5px); /* Dos columnas en tablets */
+    }
+    .action-card-custom {
+        width: calc(50% - 7.5px); /* Dos columnas en tablets */
+    }
+}
+
+
 @media (max-width: 768px) {
     .sidebar {
         transform: translateX(-100%);
@@ -551,6 +629,10 @@ body {
     .transaction-card {
         width: calc(50% - 10px);
         min-width: 150px;
+    }
+
+    .stat-card-custom {
+        width: calc(100% - 0px); /* Una columna en móviles */
     }
     
     .greeting-bar {
@@ -573,6 +655,10 @@ body {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
+    }
+
+    .action-card-custom {
+        width: 100%;
     }
 }
 
