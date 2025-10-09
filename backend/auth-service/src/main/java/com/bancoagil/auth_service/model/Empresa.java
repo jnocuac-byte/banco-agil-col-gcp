@@ -45,7 +45,7 @@ public class Empresa {
     private LocalDate fechaConstitucion;
 
     @Column(name="num_empleados", length=50)
-    private String numEmpleados;
+    private Integer numEmpleados;
 
     @Column(name="sector_economico", length=100)
     private String sectorEconomico;
