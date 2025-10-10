@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BackOffice - Mi Perfil</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/backoffice-dashboard.css">
+    <link rel="stylesheet" href="css/backoffice-perfil.css">
+</head>
+<body>
+    <div class="page-container">
+        <aside class="sidebar">
+            <div class="menu-icon-wrapper">
+                <button id="menuToggle" class="menu-icon" aria-label="Alternar menú" aria-expanded="false" type="button">
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="backoffice-dashboard.html" class="nav-item" title="Solicitudes">
+                    <div class="icon-placeholder">📋</div>
+                    <span class="icon-text">Solicitudes</span>
+                </a>
+                <a href="backoffice-usuarios.html" class="nav-item" title="Usuarios">
+                    <div class="icon-placeholder">👥</div>
+                    <span class="icon-text">Usuarios</span>
+                </a>
+                <a href="#reportes" class="nav-item" title="Reportes">
+                    <div class="icon-placeholder">📊</div>
+                    <span class="icon-text">Reportes</span>
+                </a>
+                 <a href="backoffice-perfil.html" class="nav-item active" title="Mi Perfil">
+                    <div class="icon-placeholder">👤</div>
+                    <span class="icon-text">Mi Perfil</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <div class="logo-area">
+                    <div class="logo-placeholder">Banco Agil Col</div>
+                    <span class="branch-name">Backoffice Asesores</span>
+                </div>
+                <div class="user-area">
+                    <span class="user-name-header" id="userName">Bienvenido Asesor</span>
+                    <div class="user-icon-placeholder"></div>
+                    <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
+                </div>
+            </header>
+            
+            <section class="page-body-content">
+                <div class="greeting-bar">
+                    <h1 class="greeting-text">Mi Perfil</h1>
+                    <span class="date-time">Gestiona tu información personal</span>
+                </div>
+
+                <!-- Contenedor del perfil -->
+                <div class="perfil-container">
+                    <!-- Tarjeta de información personal -->
+                    <div class="perfil-card">
+                        <div class="perfil-header">
+                            <div class="perfil-avatar">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <div class="perfil-header-info">
+                                <h2 id="perfilNombreCompleto">Cargando...</h2>
+                                <p id="perfilEmail">email@ejemplo.com</p>
+                                <span class="perfil-badge" id="perfilArea">CREDITO</span>
+                            </div>
+                        </div>
+
+                        <!-- Formulario de edición -->
+                        <form id="formPerfil" class="perfil-form">
+                            <div class="form-section">
+                                <h3 class="section-title">
+                                    <i class="fas fa-id-card"></i>
+                                    Información Personal
+                                </h3>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="inputNombres">
+                                            <i class="fas fa-user"></i>
+                                            Nombres
+                                        </label>
+                                        <input 
+                                            type="text" 
+                                            id="inputNombres" 
+                                            class="form-input" 
+                                            required
+                                            minlength="2"
+                                            maxlength="100"
+                                        >
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="inputApellidos">
+                                            <i class="fas fa-user"></i>
+                                            Apellidos
+                                        </label>
+                                        <input 
+                                            type="text" 
+                                            id="inputApellidos" 
+                                            class="form-input" 
+                                            required
+                                            minlength="2"
+                                            maxlength="100"
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3 class="section-title">
+                                    <i class="fas fa-briefcase"></i>
+                                    Información Laboral
+                                </h3>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="inputCodigoEmpleado">
+                                            <i class="fas fa-id-badge"></i>
+                                            Código de Empleado
+                                        </label>
+                                        <input 
+                                            type="text" 
+                                            id="inputCodigoEmpleado" 
+                                            class="form-input" 
+                                            readonly
+                                            disabled
+                                        >
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="inputArea">
+                                            <i class="fas fa-building"></i>
+                                            Área
+                                        </label>
+                                        <select id="inputArea" class="form-input" required>
+                                            <option value="CREDITO">Crédito</option>
+                                            <option value="RIESGO">Riesgo</option>
+                                            <option value="ADMINISTRACION">Administración</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Botones de acción -->
+                            <div class="form-actions">
+                                <button 
+                                    type="button" 
+                                    id="btnCancelar" 
+                                    class="btn-secondary"
+                                    onclick="resetearFormulario()"
+                                >
+                                    <i class="fas fa-times"></i>
+                                    Cancelar Cambios
+                                </button>
+                                <button 
+                                    type="submit" 
+                                    id="btnActualizar" 
+                                    class="btn-primary" 
+                                    disabled
+                                >
+                                    <i class="fas fa-save"></i>
+                                    Actualizar Perfil
+                                </button>
+                            </div>
+
+                            <!-- Mensaje de estado -->
+                            <div id="mensajeEstado" class="mensaje-estado hidden"></div>
+                        </form>
+                    </div>
+
+                    <!-- Tarjeta de cambio de contraseña -->
+                    <div class="perfil-card password-card">
+                        <div class="card-header">
+                            <h3>
+                                <i class="fas fa-lock"></i>
+                                Cambiar Contraseña
+                            </h3>
+                        </div>
+                        
+                        <form id="formPassword" class="password-form">
+                            <div class="form-group">
+                                <label for="inputPasswordActual">
+                                    <i class="fas fa-key"></i>
+                                    Contraseña Actual
+                                </label>
+                                <input 
+                                    type="password" 
+                                    id="inputPasswordActual" 
+                                    class="form-input" 
+                                    required
+                                >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="inputPasswordNueva">
+                                    <i class="fas fa-key"></i>
+                                    Nueva Contraseña
+                                </label>
+                                <input 
+                                    type="password" 
+                                    id="inputPasswordNueva" 
+                                    class="form-input" 
+                                    required
+                                    minlength="8"
+                                >
+                                <small class="input-help">Mínimo 8 caracteres</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="inputPasswordConfirmar">
+                                    <i class="fas fa-key"></i>
+                                    Confirmar Nueva Contraseña
+                                </label>
+                                <input 
+                                    type="password" 
+                                    id="inputPasswordConfirmar" 
+                                    class="form-input" 
+                                    required
+                                >
+                            </div>
+
+                            <button type="submit" class="btn-primary btn-full">
+                                <i class="fas fa-shield-alt"></i>
+                                Cambiar Contraseña
+                            </button>
+
+                            <div id="mensajePassword" class="mensaje-estado hidden"></div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/backoffice-perfil.js"></script>
+</body>
+</html>

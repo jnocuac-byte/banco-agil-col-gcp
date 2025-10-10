@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BackOffice - Gestión de Usuarios</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/backoffice-dashboard.css">
+    <style>
+        /* Estilos específicos para el módulo de usuarios */
+        .tabs-container {
+            display: flex;
+            gap: 0;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #e0e0e0;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 15px 30px;
+            background: transparent;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            background: rgba(0, 82, 204, 0.05);
+            color: #0052cc;
+        }
+
+        .tab-button.active {
+            color: #0052cc;
+            font-weight: 600;
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #0052cc;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .collapsible-section {
+            margin-bottom: 25px;
+        }
+
+        .collapsible-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .collapsible-header:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .collapsible-header i {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .collapsible-header.collapsed i {
+            transform: rotate(-90deg);
+        }
+
+        .collapsible-header h3 {
+            margin: 0;
+            font-size: 18px;
+            flex: 1;
+        }
+
+        .collapsible-content {
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            padding: 20px 0;
+        }
+
+        .collapsible-content.collapsed {
+            max-height: 0;
+            padding: 0;
+        }
+
+        .mini-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .mini-stat-card {
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .mini-stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .mini-stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .mini-stat-info h4 {
+            margin: 0;
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .mini-stat-info p {
+            margin: 5px 0 0 0;
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #0052cc;
+            box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
+        }
+
+        .btn-primary {
+            padding: 12px 24px;
+            background: #0052cc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #003d99;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 82, 204, 0.3);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-action {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn-view {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .btn-view:hover {
+            background: #138496;
+            transform: scale(1.05);
+        }
+
+        .btn-edit {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .btn-edit:hover {
+            background: #e0a800;
+            transform: scale(1.05);
+        }
+
+        .btn-block {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-block:hover {
+            background: #c82333;
+            transform: scale(1.05);
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-blocked {
+            background: #d6d8d9;
+            color: #383d41;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #333;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .detail-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .detail-item label {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .detail-item span {
+            display: block;
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .solicitudes-history {
+            margin-top: 25px;
+        }
+
+        .solicitudes-history h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .history-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #0052cc;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="menu-icon-wrapper">
+                <button id="menuToggle" class="menu-icon" aria-label="Alternar menú" aria-expanded="false" type="button">
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="backoffice-dashboard.html" class="nav-item" title="Solicitudes">
+                    <div class="icon-placeholder">📋</div>
+                    <span class="icon-text">Solicitudes</span>
+                </a>
+                <a href="backoffice-usuarios.html" class="nav-item active" title="Usuarios">
+                    <div class="icon-placeholder">👥</div>
+                    <span class="icon-text">Usuarios</span>
+                </a>
+                <a href="#reportes" class="nav-item" title="Reportes">
+                    <div class="icon-placeholder">📊</div>
+                    <span class="icon-text">Reportes</span>
+                </a>
+                 <a href="backoffice-perfil.html" class="nav-item" title="Mi Perfil">
+                    <div class="icon-placeholder">👤</div>
+                    <span class="icon-text">Mi Perfil</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Contenido Principal -->
+        <main class="main-content">
+            <header class="header">
+                <div class="logo-area">
+                    <div class="logo-placeholder">Banco Agil Col</div>
+                    <span class="branch-name">Backoffice Asesores</span>
+                </div>
+                <div class="user-area">
+                    <span class="user-name-header" id="userName">Bienvenido Asesor</span>
+                    <div class="user-icon-placeholder"></div>
+                    <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
+                </div>
+            </header>
+
+            <section class="page-body-content">
+                <div class="greeting-bar">
+                    <h1 class="greeting-text">Gestión de Usuarios</h1>
+                    <span class="date-time">Administración de clientes y asesores</span>
+                </div>
+
+                <!-- Pestañas de navegación -->
+                <div class="tabs-container">
+                    <button class="tab-button active" onclick="cambiarTab('clientes')">
+                        <i class="fas fa-users"></i> Clientes
+                    </button>
+                    <button class="tab-button" onclick="cambiarTab('asesores')">
+                        <i class="fas fa-user-tie"></i> Asesores
+                    </button>
+                </div>
+
+                <!-- Contenido Tab Clientes -->
+                <div id="tab-clientes" class="tab-content active">
+                    <!-- Sección de Estadísticas Colapsable -->
+                    <div class="collapsible-section">
+                        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                            <i class="fas fa-chevron-down"></i>
+                            <h3>📊 Estadísticas de Clientes</h3>
+                        </div>
+                        <div class="collapsible-content">
+                            <div class="mini-stats-grid">
+                                <div class="mini-stat-card">
+                                    <div class="mini-stat-icon" style="background: #e3f2fd; color: #2196f3;">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="mini-stat-info">
+                                        <h4>Total Clientes</h4>
+                                        <p id="statTotalClientes">0</p>
+                                    </div>
+                                </div>
+                                <div class="mini-stat-card">
+                                    <div class="mini-stat-icon" style="background: #e8f5e9; color: #4caf50;">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div class="mini-stat-info">
+                                        <h4>Activos</h4>
+                                        <p id="statClientesActivos">0</p>
+                                    </div>
+                                </div>
+                                <div class="mini-stat-card">
+                                    <div class="mini-stat-icon" style="background: #fff3e0; color: #ff9800;">
+                                        <i class="fas fa-pause-circle"></i>
+                                    </div>
+                                    <div class="mini-stat-info">
+                                        <h4>Inactivos</h4>
+                                        <p id="statClientesInactivos">0</p>
+                                    </div>
+                                </div>
+                                <div class="mini-stat-card">
+                                    <div class="mini-stat-icon" style="background: #ffebee; color: #f44336;">
+                                        <i class="fas fa-ban"></i>
+                                    </div>
+                                    <div class="mini-stat-info">
+                                        <h4>Bloqueados</h4>
+                                        <p id="statClientesBloqueados">0</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección de Usuarios/Clientes -->
+                    <div class="collapsible-section">
+                        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                            <i class="fas fa-chevron-down"></i>
+                            <h3>👥 Lista de Clientes</h3>
+                        </div>
+                        <div class="collapsible-content">
+                            <div class="search-bar">
+                                <input type="text" id="searchClientes" class="search-input" placeholder="🔍 Buscar por nombre o documento...">
+                                <button class="btn-primary" onclick="buscarClientes()">
+                                    <i class="fas fa-search"></i> Buscar
+                                </button>
+                            </div>
+
+                            <div class="table-container product-list-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nombre Completo</th>
+                                            <th>Documento</th>
+                                            <th>Email</th>
+                                            <th>Teléfono</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaClientes">
+                                        <tr>
+                                            <td colspan="7" class="empty-state">
+                                                <i class="fas fa-spinner fa-spin"></i>
+                                                <p>Cargando clientes...</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenido Tab Asesores -->
+                <div id="tab-asesores" class="tab-content">
+                    <!-- Sección de Estadísticas Colapsable -->
+                    <div class="collapsible-section">
+                        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                            <i class="fas fa-chevron-down"></i>
+                            <h3>📊 Estadísticas de Asesores</h3>
+                        </div>
+                        <div class="collapsible-content">
+                            <div class="mini-stats-grid">
+                                <div class="mini-stat-card">
+                                    <div class="mini-stat-icon" style="background: #f3e5f5; color: #9c27b0;">
+                                        <i class="fas fa-user-tie"></i>
+                                    </div>
+                                    <div class="mini-stat-info">
+                                        <h4>Total Asesores</h4>
+                                        <p id="statTotalAsesores">0</p>
+                                    </div>
+                                </div>
+                                <div class="mini-stat-card">
+                                    <div class="mini-stat-icon" style="background: #e8f5e9; color: #4caf50;">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div class="mini-stat-info">
+                                        <h4>Activos</h4>
+                                        <p id="statAsesoresActivos">0</p>
+                                    </div>
+                                </div>
+                                <div class="mini-stat-card">
+                                    <div class="mini-stat-icon" style="background: #fff3e0; color: #ff9800;">
+                                        <i class="fas fa-pause-circle"></i>
+                                    </div>
+                                    <div class="mini-stat-info">
+                                        <h4>Inactivos</h4>
+                                        <p id="statAsesoresInactivos">0</p>
+                                    </div>
+                                </div>
+                                <div class="mini-stat-card">
+                                    <div class="mini-stat-icon" style="background: #e1f5fe; color: #03a9f4;">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="mini-stat-info">
+                                        <h4>Rendimiento</h4>
+                                        <p id="statRendimiento">98%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección de Asesores -->
+                    <div class="collapsible-section">
+                        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                            <i class="fas fa-chevron-down"></i>
+                            <h3>👔 Lista de Asesores</h3>
+                        </div>
+                        <div class="collapsible-content">
+                            <div class="search-bar">
+                                <input type="text" id="searchAsesores" class="search-input" placeholder="🔍 Buscar asesor por nombre...">
+                                <button class="btn-primary" onclick="buscarAsesores()">
+                                    <i class="fas fa-search"></i> Buscar
+                                </button>
+                            </div>
+
+                            <div class="table-container product-list-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nombre Completo</th>
+                                            <th>Documento</th>
+                                            <th>Email</th>
+                                            <th>Rol</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaAsesores">
+                                        <tr>
+                                            <td colspan="7" class="empty-state">
+                                                <i class="fas fa-spinner fa-spin"></i>
+                                                <p>Cargando asesores...</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal de Detalles -->
+    <div id="modalDetalles" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitulo">Detalles del Usuario</h2>
+                <button class="close-modal" onclick="cerrarModal()">&times;</button>
+            </div>
+            <div id="modalBody">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/backoffice-dashboard.js"></script>
+    <script src="js/backoffice-usuarios.js"></script>
+</body>
+</html>
