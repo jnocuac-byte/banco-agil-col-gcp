@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bancoagil.auth_service.dto.LoginDTO;
 import com.bancoagil.auth_service.dto.LoginResponseDTO;
 import com.bancoagil.auth_service.dto.RegistroClienteDTO;
+import com.bancoagil.auth_service.model.Cliente;
+import com.bancoagil.auth_service.model.Cuenta;
 import com.bancoagil.auth_service.model.Usuario;
+import com.bancoagil.auth_service.repository.ClienteRepository;
+import com.bancoagil.auth_service.repository.CuentaRepository;
 import com.bancoagil.auth_service.service.AuthService;
 
 import jakarta.validation.Valid;
@@ -31,6 +35,12 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    @Autowired
+    private CuentaRepository cuentaRepository;
+
     // Endpoint para registrar cliente
     @PostMapping("/registro")
     public ResponseEntity<Map<String, Object>> registrarCliente(@Valid @RequestBody RegistroClienteDTO dto){
@@ -38,11 +48,27 @@ public class AuthController {
 
         try{
             Usuario usuario = authService.registrarCliente(dto);
+            
+            // Obtener la cuenta creada
+            Cliente cliente = clienteRepository.findByIdUsuario(usuario.getId()).orElse(null);
+            String numeroCuenta = null;
+            
+            if (cliente != null) {
+                Cuenta cuentaEncontrada = cuentaRepository.findByIdCliente(cliente.getId())
+                    .stream()
+                    .findFirst()
+                    .orElse(null);
+                
+                if (cuentaEncontrada != null) {
+                    numeroCuenta = cuentaEncontrada.getNumeroCuenta();
+                }
+            }
 
             response.put("success", true);
             response.put("message", "Cliente registrado exitosamente");
             response.put("usuarioId", usuario.getId());
             response.put("email", usuario.getEmail());
+            response.put("numeroCuenta", numeroCuenta); // ← NUEVO
 
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
@@ -51,8 +77,7 @@ public class AuthController {
             response.put("message", e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
-
-    }
+}
 
     // Endpoint para logear cliente
     @PostMapping("/login")
@@ -96,10 +121,10 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
     
-    /* CREAR ADMIN ASESOR INICIAL
+    
     @GetMapping("/setup-asesor")
     public ResponseEntity<String> setupAsesor() {
         authService.crearAsesorInicial();
         return ResponseEntity.ok("Asesor creado/actualizado con contraseña encriptada");
-    }*/
+    }
 }

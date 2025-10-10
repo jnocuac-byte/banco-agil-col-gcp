@@ -1,5 +1,7 @@
 package com.bancoagil.auth_service.service;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,11 +12,13 @@ import com.bancoagil.auth_service.dto.LoginResponseDTO;
 import com.bancoagil.auth_service.dto.RegistroClienteDTO;
 import com.bancoagil.auth_service.model.Asesor;
 import com.bancoagil.auth_service.model.Cliente;
+import com.bancoagil.auth_service.model.Cuenta;
 import com.bancoagil.auth_service.model.Empresa;
 import com.bancoagil.auth_service.model.PersonaNatural;
 import com.bancoagil.auth_service.model.Usuario;
 import com.bancoagil.auth_service.repository.AsesorRepository;
 import com.bancoagil.auth_service.repository.ClienteRepository;
+import com.bancoagil.auth_service.repository.CuentaRepository;
 import com.bancoagil.auth_service.repository.EmpresaRepository;
 import com.bancoagil.auth_service.repository.PersonaNaturalRepository;
 import com.bancoagil.auth_service.repository.UsuarioRepository;
@@ -43,6 +47,9 @@ public class AuthService {
     
     @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
+    private CuentaRepository cuentaRepository;
     
     @Transactional
     public Usuario registrarCliente(RegistroClienteDTO dto) {
@@ -61,7 +68,7 @@ public class AuthService {
         // Crear Usuario con contraseña encriptada
         Usuario usuario = new Usuario();
         usuario.setEmail(dto.getEmail());
-        usuario.setPassword(passwordEncoder.encode(dto.getPassword())); // ← ENCRIPTAR
+        usuario.setPassword(passwordEncoder.encode(dto.getPassword()));
         usuario.setTipoUsuario(Usuario.TipoUsuario.CLIENTE);
         usuario.setActivo(true);
         usuario = usuarioRepository.save(usuario);
@@ -96,6 +103,14 @@ public class AuthService {
             empresa.setSectorEconomico(dto.getSectorEconomico());
             empresaRepository.save(empresa);
         }
+        
+        // ← NUEVO: Crear cuenta de ahorros automáticamente
+        try {
+            crearCuentaAhorros(cliente.getId());
+        } catch (Exception e) {
+            throw new RuntimeException("Error al crear cuenta de ahorros: " + e.getMessage());
+        }
+            
         
         return usuario;
     }
@@ -190,7 +205,7 @@ public class AuthService {
         );
     }
 
-   /* CREAR ADMIN ASESOR INICIAL 
+   
     @Transactional
     public void crearAsesorInicial() {
         // Verificar si ya existe
@@ -217,8 +232,32 @@ public class AuthService {
         asesor.setCodigoEmpleado("EMP001");
         asesor.setArea(Asesor.Area.CREDITO);
         asesorRepository.save(asesor);
-    }*/
+    }
 
+    // Método para generar número de cuenta
+    private String generarNumeroCuenta(Long idCliente) {
+        String codigoBanco = "001";           // Código fijo del banco
+        String tipoCuenta = "1";              // 1 = Ahorros, 2 = Corriente
+        String secuencia = String.format("%010d", idCliente); // Rellenar con ceros a la izquierda (10 dígitos)
+
+        return codigoBanco + tipoCuenta + secuencia; // Total: 14 dígitos
+    }
+
+    // Método para crear cuenta de ahorros
+    private Cuenta crearCuentaAhorros(Long idCliente) {
+        Cuenta cuenta = new Cuenta();
+        cuenta.setIdCliente(idCliente);
+        cuenta.setTipoCuenta(Cuenta.TipoCuenta.AHORROS);
+        cuenta.setSaldoActual(BigDecimal.ZERO);
+        cuenta.setEstado(Cuenta.Estado.ACTIVA);
+        
+        // Generar número de cuenta basado en el ID
+        String numeroCuenta = generarNumeroCuenta(idCliente);
+        cuenta.setNumeroCuenta(numeroCuenta);
+        
+        // Actualizar con el número de cuenta
+        return cuentaRepository.save(cuenta);
+    }
     
     private void validarDatosPersonaNatural(RegistroClienteDTO dto) {
         if (dto.getNumDocumento() == null || dto.getNumDocumento().isBlank()) {
