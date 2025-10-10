@@ -91,11 +91,16 @@ document.getElementById('registroForm').addEventListener('submit', async (e) => 
         
         // Manejar respuesta
         if (result.success) {
-            mostrarAlerta('¡Registro exitoso! Redirigiendo...', 'success'); // Mensaje de éxito
-            setTimeout(() => { // Redirigir al login después de 2 segundos
-                window.location.href = 'index.html'; // Redirigir a index.html
-            }, 2000);
-        } else { // Error en el registro
+            let mensaje = '¡Registro exitoso!';
+            if (result.numeroCuenta) {
+                mensaje += `\nTu número de cuenta: ${result.numeroCuenta}`;
+            }
+            mostrarAlerta(mensaje, 'success');
+            
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 3000); // Dar 3 segundos para que lean el número de cuenta
+        } else {
             mostrarAlerta(result.message, 'error');
         }
     } catch (error) { // Error de red o servidor

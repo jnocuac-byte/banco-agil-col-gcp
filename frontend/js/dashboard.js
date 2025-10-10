@@ -1,3 +1,15 @@
+// =========================================
+// DASHBOARD.JS - ORIGINAL + EXTENSIONES
+// =========================================
+
+// Variables globales adicionales (de dashboard-app.js)
+let balanceVisible = false;
+let currentUser = null;
+
+// =========================================
+// FUNCIONES ORIGINALES DE DASHBOARD.JS
+// =========================================
+
 // Verificar autenticación
 function verificarAutenticacion() {
     // Obtener datos del usuario desde sessionStorage
@@ -20,6 +32,9 @@ function cargarDatosUsuario() {
     
     // Si hay usuario, mostrar su nombre y cargar estadísticas
     if (usuario) {
+        // Guardar en variable global para funciones adicionales
+        currentUser = usuario;
+        
         // Obtener nombre completo o email como fallback
         const nombre = usuario.nombreCompleto || 'Usuario';
         
@@ -27,20 +42,21 @@ function cargarDatosUsuario() {
         const userNameHeader = document.getElementById('userName');
         // Si el elemento existe, actualizar su contenido
         if (userNameHeader) {
-            // userNameHeader.textContent = usuario.nombreCompleto || 'Usuario';
-             userNameHeader.textContent = nombre;
+            userNameHeader.textContent = nombre;
         }
 
         // Mostrar nombre en el saludo principal ("Hola, [Usuario]")
         const greetingElement = document.getElementById('greeting');
         // Si el elemento existe, actualizar su contenido
         if (greetingElement) {
-            // greetingElement.textContent = `Hola, ${usuario.nombreCompleto || 'Usuario'}`;
             greetingElement.textContent = `Hola, ${nombre}`; 
         }
         
         // Cargar estadísticas
         cargarEstadisticas(usuario);
+        
+        // NUEVA: Simular datos de cuenta adicionales
+        simulateAccountData();
     }
 }
 
@@ -151,6 +167,123 @@ function formatCurrency(amount) {
     }).format(amount);
 }
 
+// =========================================
+// FUNCIONES ADICIONALES DE DASHBOARD-APP.JS
+// =========================================
+
+// Simular datos de la cuenta (NUEVA)
+function simulateAccountData() {
+    const accountNumberMask = document.querySelector('.account-number-mask');
+    if (accountNumberMask && currentUser) {
+        // Generar número de cuenta basado en el documento del usuario
+        const lastDigits = currentUser.documentNumber?.slice(-4) || 
+                          currentUser.documento?.slice(-4) || '1234';
+        accountNumberMask.textContent = `*****-${lastDigits}`;
+    }
+}
+
+// Agregar efectos hover dinámicos (NUEVA)
+function addHoverEffects() {
+    const cards = document.querySelectorAll('.transaction-card, .welcome-card, .product-detail-card');
+    
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+            this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.2)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '';
+        });
+    });
+}
+
+// Mostrar mensaje de notificación (NUEVA)
+function showMessage(message, type = 'info') {
+    const existingMessage = document.querySelector('.message-notification');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message-notification message-${type}`;
+    messageDiv.innerHTML = `
+        <p>${message}</p>
+        <button onclick="this.parentElement.remove()">×</button>
+    `;
+    
+    Object.assign(messageDiv.style, {
+        position: 'fixed',
+        top: '20px',
+        right: '20px',
+        padding: '15px 20px',
+        borderRadius: '8px',
+        color: 'white',
+        fontWeight: 'bold',
+        zIndex: '10000',
+        maxWidth: '400px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+        backgroundColor: type === 'error' ? '#dc3545' : 
+                        type === 'success' ? '#28a745' : 
+                        type === 'warning' ? '#ffc107' : '#0052cc',
+        transform: 'translateX(100%)',
+        transition: 'transform 0.3s ease'
+    });
+    
+    messageDiv.querySelector('button').style.cssText = `
+        background: none;
+        border: none;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        float: right;
+        margin-left: 10px;
+    `;
+    
+    document.body.appendChild(messageDiv);
+    
+    setTimeout(() => {
+        messageDiv.style.transform = 'translateX(0)';
+    }, 100);
+    
+    setTimeout(() => {
+        if (messageDiv.parentNode) {
+            messageDiv.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.remove();
+                }
+            }, 300);
+        }
+    }, 5000);
+}
+
+// Función para transacciones recientes (NUEVA - para futuro uso)
+function getRecentTransactions() {
+    return [
+        { date: '2025-10-08', description: 'Pago en línea', amount: -150000, type: 'debit' },
+        { date: '2025-10-07', description: 'Depósito', amount: 500000, type: 'credit' },
+        { date: '2025-10-06', description: 'Transferencia recibida', amount: 250000, type: 'credit' },
+    ];
+}
+
+// =========================================
+// EVENT LISTENERS ADICIONALES
+// =========================================
+
+// Cerrar modal con tecla Escape (NUEVO)
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeModal();
+    }
+});
+
+// =========================================
+// INICIALIZACIÓN ORIGINAL
+// =========================================
+
 // Inicialización al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
     // Cargar datos del usuario y estadísticas
@@ -159,6 +292,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializar listeners UI
     initializeMenuToggle();
     updateDateTime();
+    
+    // NUEVO: Agregar efectos hover
+    addHoverEffects();
+    
+    // NUEVO: Actualizar fecha cada minuto
+    setInterval(updateDateTime, 60000);
     
     // Asignar listeners a los botones de transacciones (que llaman a showComingSoon)
     const transactionCards = document.querySelectorAll('.transactions-grid .transaction-card');

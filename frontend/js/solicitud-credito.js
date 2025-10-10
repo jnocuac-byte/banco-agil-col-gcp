@@ -1,6 +1,6 @@
 // URL base de la API solicitudes y documentos
-const API_CREDIT_URL = 'http://localhost:8082/api/solicitudes';
-const API_DOCUMENTOS_URL = 'http://localhost:8082/api/documentos';
+const API_CREDIT_URL = 'http://localhost:8083/api/solicitudes';
+const API_DOCUMENTOS_URL = 'http://localhost:8083/api/documentos';
 
 // Inicializar menú lateral
 function initializeMenuToggle() {

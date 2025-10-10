@@ -1,5 +1,5 @@
 // URL base de la API
-const API_CREDIT_URL = 'http://localhost:8082/api/solicitudes';
+const API_CREDIT_URL = 'http://localhost:8083/api/solicitudes';
 
 // Datos de solicitudes en memoria
 let solicitudesData = [];

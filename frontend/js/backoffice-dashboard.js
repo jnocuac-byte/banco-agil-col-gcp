@@ -1,5 +1,5 @@
-const API_CREDIT_URL = 'http://localhost:8082/api/solicitudes';
-const API_DOCUMENTOS_URL = 'http://localhost:8082/api/documentos';
+const API_CREDIT_URL = 'http://localhost:8083/api/solicitudes';
+const API_DOCUMENTOS_URL = 'http://localhost:8083/api/documentos';
 
 let solicitudesData = [];
 
@@ -320,19 +320,21 @@ async function aprobarSolicitud(id) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                asesorId: asesor.asesorId
+                asesorId: asesor.asesorId // Aquí viene el ID del asesor desde sessionStorage
             })
         });
         
-        if (response.ok) {
-            alert('Solicitud aprobada exitosamente');
+        const result = await response.json();
+        
+        if (result.success) {
+            alert(`¡Solicitud aprobada!\n\nCrédito ID: ${result.creditoId}\nCuota mensual: ${formatearMoneda(result.cuotaMensual)}\nNuevo saldo: ${formatearMoneda(result.nuevoSaldo)}`);
             cargarSolicitudes();
         } else {
-            alert('Error al aprobar la solicitud');
+            alert('Error: ' + result.message);
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Error al conectar con el servidor');
+        alert('Error al aprobar: ' + error.message);
     }
 }
 
