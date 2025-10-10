@@ -207,4 +207,74 @@ public class TransaccionService {
         
         return dto;
     }
+
+    /**
+     * Registrar desembolso de crédito
+     * Se usa cuando se aprueba una solicitud de crédito
+     */
+    public TransaccionDTO registrarDesembolsoCredito(DesembolsoDTO desembolsoDTO) {
+        // Obtener cuenta destino
+        Cuenta cuenta = cuentaService.obtenerCuentaEntityPorId(desembolsoDTO.getIdCuenta());
+        
+        // Validar que la cuenta esté activa
+        if (cuenta.getEstado() != Cuenta.EstadoCuenta.ACTIVA) {
+            throw new RuntimeException("La cuenta no está activa para recibir desembolsos");
+        }
+        
+        // Crear la transacción de desembolso
+        Transaccion transaccion = new Transaccion();
+        transaccion.setCuentaDestino(cuenta);
+        transaccion.setTipoTransaccion(Transaccion.TipoTransaccion.DESEMBOLSO_CREDITO);
+        transaccion.setMonto(desembolsoDTO.getMonto());
+        transaccion.setDescripcion(desembolsoDTO.getDescripcion() != null ? 
+            desembolsoDTO.getDescripcion() : 
+            "Desembolso de crédito - Solicitud #" + desembolsoDTO.getIdSolicitud());
+        transaccion.setEstado(Transaccion.EstadoTransaccion.COMPLETADA);
+        
+        // Guardar la transacción
+        Transaccion transaccionGuardada = transaccionRepository.save(transaccion);
+        
+        // Actualizar el saldo de la cuenta (sumar el monto del crédito)
+        BigDecimal nuevoSaldo = cuenta.getSaldoActual().add(desembolsoDTO.getMonto());
+        cuentaService.actualizarSaldo(cuenta.getId(), nuevoSaldo);
+        
+        return convertirADTO(transaccionGuardada);
+    }
+
+    /**
+     * Registrar pago de cuota de crédito
+     * Se usa cuando el cliente paga una cuota mensual
+     */
+    public TransaccionDTO registrarPagoCredito(Long idCuenta, BigDecimal monto, String descripcion) {
+        // Obtener cuenta origen
+        Cuenta cuenta = cuentaService.obtenerCuentaEntityPorId(idCuenta);
+        
+        // Validar que la cuenta esté activa
+        if (cuenta.getEstado() != Cuenta.EstadoCuenta.ACTIVA) {
+            throw new RuntimeException("La cuenta no está activa para realizar pagos");
+        }
+        
+        // Validar que tenga saldo suficiente
+        if (cuenta.getSaldoActual().compareTo(monto) < 0) {
+            throw new RuntimeException("Saldo insuficiente para pagar la cuota. Saldo disponible: " + cuenta.getSaldoActual());
+        }
+        
+        // Crear la transacción de pago
+        Transaccion transaccion = new Transaccion();
+        transaccion.setCuentaOrigen(cuenta);
+        transaccion.setTipoTransaccion(Transaccion.TipoTransaccion.PAGO_CREDITO);
+        transaccion.setMonto(monto);
+        transaccion.setDescripcion(descripcion);
+        transaccion.setEstado(Transaccion.EstadoTransaccion.COMPLETADA);
+        
+        // Guardar la transacción
+        Transaccion transaccionGuardada = transaccionRepository.save(transaccion);
+        
+        // Actualizar el saldo de la cuenta (restar el monto pagado)
+        BigDecimal nuevoSaldo = cuenta.getSaldoActual().subtract(monto);
+        cuentaService.actualizarSaldo(cuenta.getId(), nuevoSaldo);
+        
+        return convertirADTO(transaccionGuardada);
+    }
+
 }
