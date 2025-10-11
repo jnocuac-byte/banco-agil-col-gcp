@@ -17,10 +17,10 @@ import lombok.NoArgsConstructor;
 
 // Entidad para representar documentos asociados a una solicitud de crédito
 @Entity
-@Table(name="documentos")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name="documentos") // Nombre de la tabla en la base de datos
+@Data // Genera getters, setters, toString, equals y hashCode
+@NoArgsConstructor // Constructor sin argumentos
+@AllArgsConstructor // Constructor con todos los argumentos
 public class Documento {
     
     // ID del documento

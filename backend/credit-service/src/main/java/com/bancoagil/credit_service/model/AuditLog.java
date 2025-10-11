@@ -15,10 +15,10 @@ import lombok.NoArgsConstructor;
 
 // Entidad para registrar logs de auditoría
 @Entity
-@Table(name="audit_logs")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name="audit_logs") // Nombre de la tabla en la base de datos
+@Data // Genera getters, setters, toString, equals y hashCode
+@NoArgsConstructor // Constructor sin argumentos
+@AllArgsConstructor // Constructor con todos los argumentos
 public class AuditLog {
     
     // ID del log de auditoría

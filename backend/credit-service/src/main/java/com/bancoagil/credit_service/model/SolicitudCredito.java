@@ -18,10 +18,10 @@ import lombok.NoArgsConstructor;
 
 // Entidad para representar una solicitud de crédito
 @Entity
-@Table(name="solicitudes_credito")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name="solicitudes_credito") // Nombre de la tabla en la base de datos
+@Data // Genera getters, setters, toString, equals y hashCode
+@NoArgsConstructor // Constructor sin argumentos
+@AllArgsConstructor // Constructor con todos los argumentos
 public class SolicitudCredito {
     
     // ID de la solicitud de crédito
