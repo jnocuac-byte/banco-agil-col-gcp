@@ -9,15 +9,16 @@ import org.springframework.stereotype.Repository;
 
 import com.bancoagil.auth_service.model.Cuenta;
 
+// Repositorio para la entidad Cuenta
 @Repository
 public interface CuentaRepository extends JpaRepository<Cuenta, Long> {
     
-    List<Cuenta> findByIdCliente(Long idCliente);
+    List<Cuenta> findByIdCliente(Long idCliente); // Buscar cuentas por ID de cliente
     
-    Optional<Cuenta> findByNumeroCuenta(String numeroCuenta);
+    Optional<Cuenta> findByNumeroCuenta(String numeroCuenta); // Buscar cuenta por número de cuenta
     
-    boolean existsByNumeroCuenta(String numeroCuenta);
+    boolean existsByNumeroCuenta(String numeroCuenta); // Verificar existencia de cuenta por número de cuenta
     
-    @Query("SELECT COALESCE(MAX(c.id), 0) FROM Cuenta c")
-    Long findMaxId();
+    @Query("SELECT COALESCE(MAX(c.id), 0) FROM Cuenta c") // Consulta para obtener el máximo ID de cuenta
+    Long findMaxId(); // Método para obtener el máximo ID de cuenta
 }

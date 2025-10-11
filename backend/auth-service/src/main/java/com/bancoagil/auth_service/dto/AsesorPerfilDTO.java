@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// DTO para representar el perfil de un asesor
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

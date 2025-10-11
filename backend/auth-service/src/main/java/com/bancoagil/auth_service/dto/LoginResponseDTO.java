@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// DTO para manejar la respuesta del login
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
