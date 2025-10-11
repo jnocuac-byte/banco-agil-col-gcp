@@ -1,3 +1,24 @@
+/*
+    backoffice-dashboard.css
+    -------------------------
+    Hoja de estilos para el layout del BackOffice (tema oscuro).
+    Propósito: definir variables de color, estilos del sidebar, header,
+    tarjetas, tablas, badges, botones y adaptaciones responsive.
+
+    Estructura del archivo (secciones):
+        - Variables de color (:root)
+        - Estilos globales y reset
+        - Sidebar (colapsable / expandible)
+        - Main content / Header / Greeting
+        - Cards, Stats y Tabla
+        - Badges y Botones de acción
+        - Detalles expandibles y documentos
+        - Responsive (breakpoints y ajustes móviles)
+
+    Nota: Este archivo sólo contiene reglas visuales. La interacción (abrir/cerrar
+    sidebar, cálculos dinámicos) se maneja por JavaScript; las clases como
+    `sidebar-expanded`, `hidden`, `active` son modificadas por el código.
+*/
 /* Variables de Color (Copiadas de dashboard.css) */
 :root {
     --color-background-dark: #121212; /* Fondo principal oscuro */
@@ -19,7 +40,11 @@
     --color-orange-warning: #ff9800;
 }
 
-/* Estilos Generales y Reseteo (Copiados de dashboard.css) */
+/* ----------------------
+   Estilos Globales y Reseteo
+   - Box-sizing, tipografía base y reset de márgenes/paddings
+   - Aplica fuente Roboto y color de fondo por defecto
+   ---------------------- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -35,13 +60,21 @@ body {
     display: flex;
 }
 
-/* Contenedor Principal de la Página */
+/* ----------------------
+   Contenedor Principal
+   - Layout horizontal que contiene sidebar fijo y main-content flexible
+   ---------------------- */
 .page-container {
     display: flex;
     width: 100%;
 }
 
-/* 1. Barra de Navegación Lateral (Sidebar) (de dashboard2.css) */
+/* ----------------------
+    1) Sidebar (barra lateral)
+    - Versión compacta por defecto (60px) y expandible (220px)
+    - Contiene iconos y texto (texto oculto cuando está colapsada)
+    - Posicionada fixed para permanecer visible al hacer scroll
+    ---------------------- */
 .sidebar {
     width: 60px;
     background-color: var(--color-background-light);
@@ -55,11 +88,13 @@ body {
     transition: width 0.25s ease;
 }
 
+/* Contenedor del icono de menú (arriba del sidebar) */
 .menu-icon-wrapper {
     width: 100%;
     padding: 0 10px 20px 10px;
 }
 
+/* Botón visual para alternar el estado expandido del sidebar (hamburger) */
 .menu-icon {
     width: 40px;
     height: 40px;
@@ -73,14 +108,16 @@ body {
 }
 
 
-/* MODIFICADO: Estilos para el texto de navegación cuando está colapsado */
+/* Texto de los items de navegación
+   - Oculto en la versión colapsada para ahorrar espacio
+   - Se muestra cuando la clase .sidebar-expanded está presente */
 .icon-text {
     display: none;
     white-space: nowrap; /* Evita que el texto se rompa */
     overflow: hidden;
 }
 
-/* Estilo del icono "hamburger" (3 rayas) */
+/* Barras del icono 'hamburger' - animación al expandir */
 .hamburger-bar {
     display: block;
     width: 22px;
@@ -91,12 +128,12 @@ body {
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-/* Estado expandido de la sidebar */
+/* Clase que se añade dinámicamente: estado EXPANDIDO */
 .sidebar.sidebar-expanded {
     width: 220px;
 }
 
-/* MODIFICADO: Mostrar texto en elementos de navegación expandidos */
+/* Mostrar el texto de navegación cuando el sidebar está expandido */
 .sidebar.sidebar-expanded .icon-text {
     display: block;
     margin-left: 15px; /* Espacio entre ícono y texto */
@@ -110,11 +147,18 @@ body {
     padding-left: 15px;
 }
 
-/* Cuando la sidebar está expandida, ajustar margen del main y agrandar títulos */
+/* Ajustes en el main-content cuando la sidebar está expandida
+   - Mueve el contenido principal para dejar espacio al sidebar */
 .sidebar.sidebar-expanded ~ .main-content {
     margin-left: 220px;
 }
 
+/* ----------------------
+   Main Content
+   - Contenedor principal de las secciones del BackOffice
+   - Margen izquierdo depende del estado del sidebar
+   - Scroll interno para mantener sidebar fijo
+   ---------------------- */
 .main-content {
     margin-left: 60px;
     flex-grow: 1;
@@ -133,7 +177,7 @@ body {
     font-size: 20px; /* Más grande cuando el menú está expandido */
 }
 
-/* Animación del hamburger al expandir */
+/* Animación del icono hamburguesa cuando la sidebar se expande */
 .sidebar.sidebar-expanded .menu-icon .hamburger-bar:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
 }
@@ -144,6 +188,7 @@ body {
     transform: translateY(-7px) rotate(-45deg);
 }
 
+/* Contenedor de la lista de navegación dentro del sidebar */
 .sidebar-nav {
     width: 100%;
     display: flex;
@@ -182,7 +227,10 @@ body {
     font-size: 14px;
 }
 
-/* 2. Contenido Principal y Secciones (Copiados de dashboard.css) */
+/* ----------------------
+   2) Contenido principal y secciones
+   - Header, greeting, tarjetas, tablas y utilidades
+   ---------------------- */
 /* 2.1. Encabezado Superior (Header) */
 .header {
     display: flex;
@@ -193,6 +241,7 @@ body {
     border-bottom: 1px solid var(--color-separator);
 }
 
+/* Área del logo y nombre de la sucursal/producto */
 .logo-area {
     display: flex;
     align-items: baseline;
@@ -211,6 +260,7 @@ body {
     color: var(--color-text-light);
 }
 
+/* Área del usuario: nombre, avatar y botón de logout */
 .user-area {
     display: flex;
     align-items: center;
@@ -245,7 +295,7 @@ body {
     opacity: 0.85;
 }
 
-/* 2.2. Área de Título y Mensaje (Adaptado de welcome-area y greeting-bar) */
+/* 2.2. Área de título y mensaje (greeting) */
 .greeting-bar {
     display: flex;
     justify-content: space-between;
@@ -264,7 +314,7 @@ body {
     color: var(--color-text-secondary);
 }
 
-/* 2.3. Contenedores generales tipo tarjeta (para Filters y Table) */
+/* 2.3. Contenedores tipo tarjeta (cards) usados para filtros, tablas y listados */
 .welcome-card, .product-list-container {
     background-color: var(--color-background-light);
     border-radius: 8px;
@@ -297,7 +347,7 @@ body {
     background-color: var(--color-placeholder);
 }
 
-/* 2.4. Stats Cards (Adaptados del Backoffice original y usando la clase 'card-custom' de dashboard.css) */
+/* 2.4. Estadísticas (stats cards) */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -341,7 +391,7 @@ body {
     color: var(--color-text-light);
 }
 
-/* 2.5. Estilos de Tabla (Adaptados del Backoffice original) */
+/* 2.5. Estilos de tablas y listados */
 .table-container {
     /* Usa product-list-container para el fondo/padding */
     overflow-x: auto;
@@ -376,7 +426,7 @@ tbody tr:hover {
     background: rgba(255, 255, 255, 0.03);
 }
 
-/* Estilos de Badges (Copian el esquema de color del backoffice original con las variables nuevas) */
+/* Badges de estado (pendiente, en revisión, aprobada, rechazada) */
 .badge {
     padding: 4px 10px;
     border-radius: 12px;
@@ -395,17 +445,22 @@ tbody tr:hover {
     color: var(--color-primary-cyan);
 }
 
+/* Badge: aprobada */
 .badge-aprobada {
     background: rgba(46, 204, 113, 0.2); /* Usando color-primary-green */
     color: var(--color-primary-green);
 }
 
+/* Badge: rechazada */
 .badge-rechazada {
     background: rgba(244, 67, 54, 0.2);
     color: var(--color-red-danger);
 }
 
-/* Botones de Acción de la Tabla */
+/* ----------------------
+   Botones de acción (acciones en tablas/filas)
+   - Estilo base para botones pequeños (aprobar, rechazar, revisar, etc.)
+   ---------------------- */
 .btn-action {
     padding: 8px 12px;
     border: 1px solid transparent;
@@ -418,7 +473,7 @@ tbody tr:hover {
     margin-right: 5px;
 }
 
-/* NUEVO: Estilo para el botón de toggle de detalles */
+/* Botón para mostrar/ocultar detalles de una fila */
 .btn-toggle-details {
     background: rgba(155, 89, 182, 0.1); /* Usando color-primary-purple */
     color: var(--color-primary-purple);
@@ -433,11 +488,12 @@ tbody tr:hover {
     color: var(--color-text-light);
 }
 
-/* NUEVO: Clase para ocultar elementos */
+/* Utilidad: ocultar elementos (display none important) */
 .hidden {
     display: none !important;
 }
 
+/* Botón: aprobar (estilo positivo) */
 .btn-aprobar {
     background: rgba(46, 204, 113, 0.1);
     color: var(--color-primary-green);
@@ -449,6 +505,7 @@ tbody tr:hover {
     color: var(--color-button-text-dark);
 }
 
+/* Botón: rechazar (estilo negativo) */
 .btn-rechazar {
     background: rgba(244, 67, 54, 0.1);
     color: var(--color-red-danger);
@@ -460,7 +517,7 @@ tbody tr:hover {
     color: var(--color-text-light);
 }
 
-/* Empty state / Loading state */
+/* Estado vacío / cargando: usado cuando no hay datos o mientras se cargan */
 .empty-state {
     text-align: center;
     padding: 30px;
@@ -473,7 +530,7 @@ tbody tr:hover {
     color: var(--color-placeholder);
 }
 
-/* Botón Revisar */
+/* Botón: revisar (estilo informativo) */
 .btn-revisar {
     background: rgba(52, 152, 219, 0.1);
     color: var(--color-primary-cyan);
@@ -485,12 +542,15 @@ tbody tr:hover {
     color: var(--color-button-text-dark);
 }
 
-/* Fila de detalles expandida */
+/* Fila de detalles expandida dentro de la tabla
+   - Se usa para mostrar información adicional por fila (sub-row) */
 .fila-detalles td {
     background: rgba(52, 152, 219, 0.05) !important;
     border-top: none !important;
 }
 
+/* Contenedor de la sección de detalles expandida
+   - Uso interno: grid con columnas para información y acciones */
 .detalles-container {
     display: grid;
     /* Cambio: Ahora incluye una tercera columna para las acciones */
@@ -501,6 +561,7 @@ tbody tr:hover {
 }
 
 /* NUEVO: Contenedor para los botones de Aprobar/Rechazar en la fila de detalles */
+/* Contenedor vertical para los botones de acción dentro de detalles */
 .detalles-actions {
     display: flex;
     flex-direction: column;
@@ -516,6 +577,7 @@ tbody tr:hover {
 }
 
 
+/* Estilos para los títulos dentro de la sección de detalles */
 .detalles-section h4 {
     color: var(--color-primary-cyan);
     margin-bottom: 10px;
@@ -531,7 +593,11 @@ tbody tr:hover {
     line-height: 1.6;
 }
 
-/* Documentos */
+/* ----------------------
+   Documentos y descargas
+   - Estilos para listar documentos asociados a una fila/registro
+   - Incluye iconos, nombre, tipo y botón de descarga
+   ---------------------- */
 .documentos-lista {
     display: flex;
     flex-direction: column;
@@ -548,11 +614,13 @@ tbody tr:hover {
     border: 1px solid var(--color-separator);
 }
 
+/* Icono PDF dentro de los items de documento */
 .documento-item i.fa-file-pdf {
     font-size: 1.5rem;
     color: var(--color-red-danger);
 }
 
+/* Nombre del documento (columna principal) */
 .doc-nombre {
     flex-grow: 1;
     color: var(--color-text-light);
@@ -568,6 +636,7 @@ tbody tr:hover {
     font-weight: 600;
 }
 
+/* Botón para descargar documentos */
 .btn-descargar {
     background: var(--color-primary-cyan);
     color: var(--color-text-light);
@@ -587,7 +656,12 @@ tbody tr:hover {
     font-style: italic;
 }
 
-/* Responsive Design (Copiados de dashboard.css) */
+/* ----------------------
+   Responsive: Ajustes para tablet y móvil
+   - Punto de quiebre 992px: reduce columnas en stats
+   - Punto de quiebre 768px: colapsa sidebar por defecto y reflujo del layout
+   - Ajustes específicos para detalles expandibles en móviles
+   ---------------------- */
 @media (max-width: 992px) { 
     .stats-grid {
         grid-template-columns: repeat(2, 1fr); 
@@ -595,15 +669,18 @@ tbody tr:hover {
 }
 
 @media (max-width: 768px) {
+    /* Sidebar fuera de pantalla por defecto en móviles */
     .sidebar {
         transform: translateX(-100%);
         transition: transform 0.3s;
     }
     
+    /* Cuando .sidebar-expanded se añade, el sidebar aparece (overlay/push) */
     .sidebar.sidebar-expanded {
         transform: translateX(0);
     }
     
+    /* Main content ocupa todo el ancho en móviles */
     .main-content {
         margin-left: 0;
         padding: 0 10px 10px 10px;
@@ -617,6 +694,7 @@ tbody tr:hover {
         grid-template-columns: 1fr; 
     }
     
+    /* Reorganiza greeting-bar y header para apilar en móviles */
     .greeting-bar {
         flex-direction: column;
         align-items: flex-start;
@@ -633,13 +711,8 @@ tbody tr:hover {
         width: 100%;
         justify-content: space-between;
     }
-}
 
-/* Responsive Design (Ajuste para móviles) */
-@media (max-width: 768px) {
-/* ... (código anterior) */
-    
-    /* MODIFICADO: Ajuste para la fila de detalles en móvil */
+    /* Ajuste para la fila de detalles en móvil: apilar contenido y mover acciones abajo */
     .detalles-container {
         grid-template-columns: 1fr;
     }
@@ -651,3 +724,9 @@ tbody tr:hover {
         border-top: 1px dashed var(--color-separator);
     }
 }
+
+/* Fin de archivo - notas:
+   - Mantén las variables en :root para facilitar cambios de tema.
+   - Prefiere añadir clases utilitarias pequeñas para nuevos comportamientos en lugar de
+     editar reglas globales para evitar efectos colaterales.
+*/

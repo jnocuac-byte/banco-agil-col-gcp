@@ -1,3 +1,12 @@
+/*
+    HomePage.css
+    ------------
+    Estilos para la página pública principal (Home/Landing).
+    Contiene: variables de color, layout de header/nav, carrusel/banner,
+    accesos rápidos, secciones de contenido y footer.
+    Nota: solo comentarios añadidos; no se modificaron reglas.
+*/
+
 /* Variables de Color */
 :root {
     --color-primary-yellow: #ffcc00;
@@ -13,7 +22,7 @@
     --color-green-ad: #00bf8a; /* Verde del anuncio de tarjeta débito */
 }
 
-/* Base y Reset */
+/* Reset base y tipografía */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -21,12 +30,14 @@
     font-family: 'Roboto', sans-serif;
 }
 
+/* Estilos generales del body */
 body {
     line-height: 1.6;
     color: var(--color-text-dark);
     background-color: var(--color-background-light);
 }
 
+/* Enlaces: estilos base y hover */
 a {
     text-decoration: none;
     color: var(--color-text-dark);
@@ -37,6 +48,7 @@ a:hover {
     color: var(--color-link-blue);
 }
 
+/* Botón amarillo reutilizable (call-to-action) */
 .btn-yellow {
     background-color: var(--color-primary-yellow);
     color: var(--color-text-dark);
@@ -53,7 +65,7 @@ a:hover {
     background-color: #e6b800;
 }
 
-/* Placeholders de Logo */
+/* Placeholders de logo (header y footer) */
 .logo-placeholder {
     font-size: 24px;
     font-weight: 700;
@@ -66,7 +78,7 @@ a:hover {
     color: var(--color-primary-yellow);
 }
 
-/* 1. HEADER (Top Nav) y 2. MAIN NAVIGATION (Se mantienen) */
+/* 1) Top nav bar (información pequeña) */
 .top-nav-bar {
     background-color: var(--color-text-dark);
     color: var(--color-footer-text);
@@ -85,6 +97,7 @@ a:hover {
     font-weight: 700;
 }
 
+/* 2) Main navigation (logo, links y acciones principales) */
 .main-nav {
     display: flex;
     justify-content: space-between;
@@ -94,6 +107,7 @@ a:hover {
     border-bottom: 1px solid var(--color-border-gray);
 }
 
+/* Grouping for navigation left/right */
 .nav-left, .nav-right {
     display: flex;
     align-items: center;
@@ -104,6 +118,7 @@ a:hover {
     font-size: 14px;
 }
 
+/* Botón para trámites digitales (estilo secundario) */
 .btn-digital-procedures {
     background-color: var(--color-background-light);
     padding: 8px 15px;
@@ -112,11 +127,13 @@ a:hover {
     font-size: 14px;
 }
 
+/* Dropdown de sucursal virtual (hover para mostrar contenido) */
 .virtual-branch-dropdown {
     position: relative;
     display: inline-block;
 }
 
+/* Botón que abre el dropdown */
 .dropdown-button {
     background: none;
     border: none;
@@ -126,6 +143,7 @@ a:hover {
     color: var(--color-text-dark);
 }
 
+/* Contenido del dropdown (oculto por defecto) */
 .dropdown-content {
     display: none;
     position: absolute;
@@ -147,11 +165,13 @@ a:hover {
     background-color: var(--color-background-light);
 }
 
+/* Mostrar dropdown al hacer hover (comportamiento simple) */
 .virtual-branch-dropdown:hover .dropdown-content {
     display: block;
 }
 
-/* 3.1. MAIN BANNER (Carrusel) */
+/* 3.1) Main banner / Carrusel
+   - Sección principal con slides; solo un slide visible a la vez (slide-item.active) */
 .main-banner-carousel {
     background-color: var(--color-background-light);
     padding: 40px 80px;
@@ -160,6 +180,7 @@ a:hover {
     min-height: 450px; /* Asegura que la sección tenga altura */
 }
 
+/* Wrapper interno del carrusel (tamaño y centrado de slides) */
 .banner-content-wrapper {
     position: relative;
     max-width: 1200px;
@@ -167,7 +188,8 @@ a:hover {
     height: 350px; /* Altura fija para los slides */
 }
 
-/* ESTO ES LO QUE HACE QUE SOLO SE VEA UNO A LA VEZ */
+/* Slide-item (cada slide del carrusel)
+   - Posicionado absolute; solo el que tiene .active es visible */
 .slide-item {
     position: absolute;
     top: 0;
@@ -182,16 +204,19 @@ a:hover {
     transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 
+/* Slide visible */
 .slide-item.active {
     opacity: 1;
     visibility: visible;
 }
 /* FIN DE LOS ESTILOS CLAVE DEL CARRUSEL */
 
+/* Texto dentro del slide (lado izquierdo) */
 .slide-text {
     max-width: 40%;
 }
 
+/* Subtítulo pequeño dentro del slide */
 .slide-text .subtitle {
     font-size: 14px;
     font-weight: 500;
@@ -199,24 +224,27 @@ a:hover {
     color: var(--color-text-secondary);
 }
 
+/* Título grande del slide */
 .slide-text h1 {
     font-size: 40px;
     font-weight: 700;
     margin-bottom: 15px;
 }
 
+/* Descripción o subtítulo extendido del slide */
 .slide-text .description {
     font-size: 18px;
     color: var(--color-text-secondary);
     margin-bottom: 25px;
 }
 
+/* Botón grande dentro del hero/carrusel */
 .large-btn {
     padding: 12px 25px;
     font-size: 16px;
 }
 
-/* Estilos de Placeholders de Imagen */
+/* Placeholder de imagen dentro del slide (lado derecho) */
 .slide-image-placeholder {
     width: 55%;
     height: 100%;
@@ -229,6 +257,7 @@ a:hover {
     font-size: 16px;
 }
 
+/* Variante visual para placeholder (llaves) */
 .img-llaves {
     background-color: #ffe8d6;
     background-image: linear-gradient(135deg, #f5f5f5 25%, #e0e0e0 25%, #e0e0e0 50%, #f5f5f5 50%, #f5f5f5 75%, #e0e0e0 75%, #e0e0e0 100%);
@@ -242,6 +271,7 @@ a:hover {
 }
 
 /* Grupo de Notificaciones Flotantes */
+/* Grupo de notificaciones flotantes (posición absoluta sobre el banner) */
 .floating-notification-group {
     position: absolute;
     top: -20px;
@@ -252,6 +282,7 @@ a:hover {
     z-index: 10;
 }
 
+/* Bloque individual de notificación flotante */
 .floating-notification-block {
     background-color: var(--color-text-light);
     border: 1px solid var(--color-border-gray);
@@ -270,6 +301,7 @@ a:hover {
     background-color: var(--color-background-light);
 }
 
+/* Estado activo de notificación (resaltada) */
 .floating-notification-block.active-notif {
     border-color: var(--color-primary-yellow);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1), 0 0 0 2px var(--color-primary-yellow);
@@ -280,6 +312,7 @@ a:hover {
 }
 
 /* Controles del Carrusel (Flechas Laterales) */
+/* Controles del carrusel (flechas laterales) */
 .carousel-control {
     position: absolute;
     top: 50%;
@@ -296,15 +329,17 @@ a:hover {
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
+/* Control: anterior */
 .carousel-control.prev {
     left: 20px;
 }
 
+/* Control: siguiente */
 .carousel-control.next {
     right: 20px;
 }
 
-/* 3.2. ACCESOS RÁPIDOS y 4. FOOTER (Se mantienen) */
+/* 3.2) Quick access bar (accesos rápidos bajo el banner) */
 .quick-access-bar {
     background-color: var(--color-text-light);
     padding: 20px 80px;
@@ -314,6 +349,7 @@ a:hover {
     border-bottom: 1px solid var(--color-border-gray);
 }
 
+/* Item individual de acceso rápido (icono + texto) */
 .quick-access-item {
     display: flex;
     flex-direction: column;
@@ -323,6 +359,7 @@ a:hover {
     cursor: pointer;
 }
 
+/* Fondo circular para iconos de accesos rápidos */
 .icon-bg {
     width: 60px;
     height: 60px;
@@ -346,12 +383,14 @@ a:hover {
     color: #c2185b;
 }
 
+/* Sección de contenido principal (placeholder) */
 .content-spacer {
     padding: 50px 80px;
     min-height: 500px;
     background-color: var(--color-background-light);
 }
 
+/* Caja de contenido placeholder (uso para secciones temporales) */
 .content-placeholder {
     background-color: var(--color-text-light);
     padding: 30px;
@@ -360,6 +399,7 @@ a:hover {
     margin-top: 20px;
 }
 
+/* Placeholder para anuncios de imagen */
 .image-ad-placeholder {
     width: 100%;
     height: 200px;
@@ -374,7 +414,7 @@ a:hover {
 }
 
 
-/* 4. FOOTER (Se mantiene) */
+/* 4) Footer principal */
 .main-footer {
     background-color: var(--color-footer-dark);
     color: var(--color-footer-text);
@@ -382,6 +422,7 @@ a:hover {
     position: relative;
 }
 
+/* Parte superior del footer (links y secciones) */
 .footer-top {
     display: flex;
     justify-content: space-between;
@@ -390,6 +431,7 @@ a:hover {
     border-bottom: 1px solid #444444;
 }
 
+/* Título de secciones del footer */
 .footer-section h3 {
     color: var(--color-text-light);
     font-size: 16px;
@@ -411,6 +453,7 @@ a:hover {
     margin-bottom: 5px;
 }
 
+/* Sección de vigilancia/alertas en footer */
 .vigilance-section {
     max-width: 250px;
 }
@@ -438,12 +481,14 @@ a:hover {
     font-size: 10px;
 }
 
+/* Iconos sociales del footer */
 .social-links-placeholder i {
     font-size: 18px;
     margin-right: 15px;
     color: var(--color-footer-text);
 }
 
+/* Parte inferior del footer (copyright/links secundarios) */
 .footer-bottom {
     display: flex;
     justify-content: space-between;
@@ -452,6 +497,7 @@ a:hover {
     font-size: 13px;
 }
 
+/* Botón de ayuda flotante (feedback/ayuda rápida) */
 .help-button-float {
     position: fixed;
     bottom: 20px;

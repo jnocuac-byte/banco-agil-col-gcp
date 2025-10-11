@@ -1,3 +1,21 @@
+/* --------------------------------------------------
+    solicitud-credito.css
+    Propósito: estilos para la pantalla de solicitud de crédito.
+    Componentes documentados aquí:
+    - Variables de color y paleta
+    - Estilos generales y reset
+    - Layout principal: sidebar, header y main-content
+    - Formulario de solicitud (grid, campos, validaciones)
+    - Cuota estimada (preview financiero)
+    - Documentos (subida y estados)
+    - Contenedores y botones de envío
+    - Alertas y estados (success/error/info/warning)
+    - Media queries responsive
+    Notas:
+    - Sólo se agregaron comentarios explicativas; ninguna regla CSS fue cambiada.
+    - Clases clave: .sidebar, .main-content, .form-card, .form-grid, .btn-submit
+-------------------------------------------------- */
+
 /* Variables de Color (Clonado de dashboard.css) */
 :root {
     --color-background-dark: #121212;
@@ -24,6 +42,9 @@
     --color-input-focus: #ffcc00;
 }
 
+/* Estilos generales y reset
+   - Box-sizing, márgenes por defecto y tipografía base
+*/
 /* Estilos Generales (Clonado de dashboard.css) */
 * {
     box-sizing: border-box;
@@ -32,6 +53,10 @@
     font-family: 'Roboto', sans-serif;
 }
 
+/* Página: fondo y configuración global
+   - Fondo oscuro y texto claro para la interfaz
+   - Layout principal en flex para permitir sidebar + main
+*/
 body {
     background-color: var(--color-background-dark);
     color: var(--color-text-light);
@@ -40,11 +65,16 @@ body {
     display: flex;
 }
 
+/* Contenedor de página: agrupa sidebar y contenido principal */
 .page-container {
     display: flex;
     width: 100%;
 }
 
+/* 1. Barra de Navegación Lateral (sidebar)
+   - Compacta por defecto (60px) y expandible (.sidebar-expanded)
+   - Contiene iconos, menú y control de navegación
+*/
 /* 1. Barra de Navegación Lateral (Sidebar) (de dashboard2.css) */
 .sidebar {
     width: 60px;
@@ -77,14 +107,16 @@ body {
 }
 
 
-/* MODIFICADO: Estilos para el texto de navegación cuando está colapsado */
+/* Texto de navegación cuando la sidebar está colapsada/expandida
+   - Por defecto está oculto y se muestra al expandir la sidebar
+*/
 .icon-text {
     display: none;
     white-space: nowrap; /* Evita que el texto se rompa */
     overflow: hidden;
 }
 
-/* Estilo del icono "hamburger" (3 rayas) */
+/* Icono "hamburger" - barras que animan al expandir la sidebar */
 .hamburger-bar {
     display: block;
     width: 22px;
@@ -95,12 +127,12 @@ body {
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-/* Estado expandido de la sidebar */
+/* Estado expandido de la sidebar (clase .sidebar-expanded) */
 .sidebar.sidebar-expanded {
     width: 220px;
 }
 
-/* MODIFICADO: Mostrar texto en elementos de navegación expandidos */
+/* Mostrar texto y ajustar layout cuando la sidebar está expandida */
 .sidebar.sidebar-expanded .icon-text {
     display: block;
     margin-left: 15px; /* Espacio entre ícono y texto */
@@ -108,17 +140,21 @@ body {
     text-align: left;
 }
 
-/* MODIFICADO: Ajustar contenido del nav-item al expandir */
+/* Ajustes de nav-item cuando la sidebar está expandida */
 .sidebar.sidebar-expanded .nav-item {
     justify-content: flex-start; /* Alinear el contenido a la izquierda */
     padding-left: 15px;
 }
 
-/* Cuando la sidebar está expandida, ajustar margen del main y agrandar títulos */
+/* Cuando la sidebar está expandida, desplazar el main-content */
 .sidebar.sidebar-expanded ~ .main-content {
     margin-left: 220px;
 }
 
+/* Contenido principal (main-content)
+   - Margen izquierdo igual al ancho de la sidebar compacta
+   - Overflow para permitir scroll interno cuando el contenido es largo
+*/
 .main-content {
     margin-left: 60px;
     flex-grow: 1;
@@ -137,7 +173,7 @@ body {
     font-size: 20px; /* Más grande cuando el menú está expandido */
 }
 
-/* Animación del hamburger al expandir */
+/* Animación del icono hamburger al expandir/cerrar la sidebar */
 .sidebar.sidebar-expanded .menu-icon .hamburger-bar:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
 }
@@ -186,7 +222,9 @@ body {
     font-size: 14px;
 }
 
-/* Main Content */
+/* Main content (segunda mención)
+   - Mantiene el mismo comportamiento que la definición anterior
+*/
 .main-content {
     margin-left: 60px;
     flex-grow: 1;
@@ -196,6 +234,9 @@ body {
     height: 100vh;
 }
 
+/* 2. Header: área superior con logo y usuario
+   - Contiene logo, nombre de sucursal y controles de usuario (logout)
+*/
 /* 2. Header (Clonado de dashboard.css) */
 .header {
     display: flex;
@@ -258,7 +299,6 @@ body {
     opacity: 0.85;
 }
 
-/* 3. Área de Bienvenida/Título (Adaptado de dashboard.css) */
 .form-section-main {
     padding-right: 20px; /* Asegura un margen derecho en el contenido */
 }
@@ -283,6 +323,7 @@ body {
 
 /* Contenedor principal del formulario (Adaptado de .product-list-container) */
 .form-card {
+    /* Contenedor de formulario: tarjeta principal donde están los campos */
     background-color: var(--color-background-light);
     border-radius: 8px;
     padding: 25px;
@@ -290,6 +331,7 @@ body {
 }
 
 .section-title {
+    /* Títulos de sección dentro de la tarjeta */
     font-size: 18px;
     font-weight: 500;
     color: var(--color-text-light);
@@ -298,6 +340,8 @@ body {
 
 /* Estilos de Formulario */
 .form-grid {
+    /* Grid responsivo para los campos del formulario
+       - auto-fit con minmax mantiene columnas flexibles */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
@@ -305,6 +349,7 @@ body {
 }
 
 .form-group {
+    /* Cada campo del formulario: label + input/textarea */
     display: flex;
     flex-direction: column;
 }
@@ -318,6 +363,7 @@ body {
 
 .form-group input,
 .form-group textarea {
+    /* Inputs y textarea: fondo oscuro, borde sutil y foco resaltado */
     background-color: var(--color-background-dark);
     border: 1px solid var(--color-input-border);
     color: var(--color-text-light);
@@ -334,17 +380,20 @@ body {
 }
 
 .text-gray {
+    /* Texto auxiliar/ayuda para campos */
     font-size: 11px;
     color: var(--color-text-secondary);
     margin-top: 5px;
 }
 
 .full-width {
+    /* Forzar campo a ocupar toda la fila en la grid */
     grid-column: 1 / -1;
 }
 
 /* 4. Estilos de Cuota Estimada */
 .cuota-estimada-container {
+    /* Contenedor de cuota estimada - preview de valores financieros */
     background-color: var(--color-active-item);
     padding: 15px;
     border-radius: 6px;
@@ -377,6 +426,7 @@ body {
 
 /* 5. Estilos de Documentos */
 .documentos-section {
+    /* Sección de documentos: lista de archivos a subir y estado */
     border-top: 1px solid var(--color-separator);
     padding-top: 20px;
     margin-top: 20px;
@@ -497,12 +547,14 @@ body {
     color: var(--color-text-secondary);
 }
 
-/* 7. Alertas (Feedback de la Lógica) */
 .alert-placeholder {
     height: 0; 
 }
 
 .alert {
+    /* Alertas: mensajes informativos que muestra JS
+       - Por defecto ocultas (display:none) y se muestran aplicando la clase correspondiente
+    */
     display: none; /* Controlado por JS */
     padding: 15px;
     border-radius: 6px;
@@ -535,7 +587,10 @@ body {
     border: 1px solid var(--color-alert-info);
 }
 
-/* Media Queries (Responsive Design) */
+/* Media Queries (Responsive Design)
+   - Ajustes para dispositivos móviles: eliminar margen del main (sidebar colapsada)
+   - Columnas en una sola columna y botón de envío a 100% para usabilidad táctil
+*/
 @media (max-width: 768px) {
     .main-content {
         margin-left: 0;

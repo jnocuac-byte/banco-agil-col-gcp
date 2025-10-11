@@ -1,3 +1,11 @@
+/*
+    index.css
+    ---------
+    Estilos para la página index/landing (tema oscuro con acentos dorados).
+    Contiene: variables de tema, layout de header, hero, secciones de features,
+    llamadas a la acción (CTA) y footer. Solo se añaden comentarios.
+*/
+
 :root {
     --primary-dark: #232323; 
     --secondary-dark: #333; 
@@ -11,12 +19,14 @@
     --header-height: 70px; 
 }
 
+/* Reset base y box-sizing */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Estilos globales del body */
 body {
     font-family: 'Poppins', sans-serif;
     color: var(--text-light);
@@ -24,6 +34,7 @@ body {
     min-height: 100vh;
 }
 
+/* Contenedor central (limita ancho de contenidos) */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -35,12 +46,14 @@ a {
     color: var(--text-gray); 
 }
 
+/* Clase utilitaria: efecto glass (fondo blur y card-bg) */
 .glass-effect {
     background: var(--card-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); 
 }
 
+/* Header fijo en la parte superior */
 .header {
     position: fixed;
     top: 0;
@@ -54,28 +67,33 @@ a {
     border-bottom: 1px solid var(--border-light);
 }
 
+/* Navbar dentro del header (logo + acciones) */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+/* Contenedor del logo */
 .logo {
     margin: 0;
 }
 
+/* Imagen del logo (tamaño y ajuste) */
 .logo-img {
     height: 50px; 
     width: auto;
     filter: brightness(1.2) contrast(1.1); 
 }
 
+/* Acciones de navegación (links y botones a la derecha) */
 .nav-actions {
     display: flex;
     align-items: center;
     gap: 30px; 
 }
 
+/* Lista de links en la parte derecha de la navbar */
 .nav-actions .nav-links-right {
     list-style: none;
     display: flex;
@@ -96,6 +114,7 @@ a {
     color: var(--accent-gold-light); 
 }
 
+/* Botón de contacto (estilo destacado) */
 .contact-btn {
     background-color: var(--text-light);
     color: var(--primary-dark);
@@ -112,21 +131,25 @@ a {
     color: var(--primary-dark);
 }
 
+/* Sección hero (encabezado grande) */
 .hero-section {
     margin-top: calc(var(--header-height) + 40px);
     padding-bottom: 50px;
 }
 
+/* Contenedor del contenido hero: texto a la izquierda, imagen a la derecha */
 .hero-content {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
 }
 
+/* Bloque de texto principal del hero */
 .hero-text-content {
     max-width: 55%;
 }
 
+/* Título principal del hero */
 .hero-text-content h1 {
     font-size: 3.5rem;
     font-weight: 700;
@@ -143,6 +166,7 @@ a {
     max-width: 95%;
 }
 
+/* Contenedor de botones CTA dentro del hero */
 .hero-buttons {
     display: flex;
     align-items: center;
@@ -150,6 +174,7 @@ a {
     margin-bottom: 60px;
 }
 
+/* Botón primario (CTA) */
 .btn-primary {
     background-color: var(--accent-gold);
     color: var(--primary-dark);
@@ -164,11 +189,13 @@ a {
     background-color: var(--accent-gold-light);
 }
 
+/* Contenedor horizontal de feature-cards */
 .feature-cards-container {
     display: flex;
     gap: 20px;
 }
 
+/* Tarjeta de característica (pequeña) */
 .feature-card {
     flex: 1;
     padding: 20px;
@@ -201,6 +228,7 @@ a {
     color: var(--text-light);
 }
 
+/* Contenedor de la imagen del hero (lado derecho) */
 .hero-image-content {
     position: relative;
     width: 40%;
@@ -221,6 +249,7 @@ a {
 }
 
 
+/* Sección de features (listado detallado) */
 .features-section {
     padding: 80px 0;
     background-color: var(--secondary-dark); 
@@ -235,12 +264,14 @@ a {
     color: var(--text-light);
 }
 
+/* Grid responsivo para feature-detail-card */
 .feature-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
 }
 
+/* Card detallada de feature (uso más informativo) */
 .feature-detail-card {
     padding: 30px;
     border-radius: 15px;
@@ -275,6 +306,7 @@ a {
     filter: drop-shadow(0 0 5px var(--accent-gold));
 }
 
+/* Sección CTA final antes del footer */
 .cta-section {
     padding: 80px 0;
     background-color: var(--primary-dark);
@@ -294,6 +326,7 @@ a {
     margin-bottom: 40px;
 }
 
+/* Footer simple centrado */
 footer {
     text-align: center;
     padding: 20px 0;
@@ -303,8 +336,8 @@ footer {
 }
 
 
+/* Responsive: ajustes para tablet/phone */
 @media (max-width: 992px) {
-    
     .hero-section {
         margin-top: 150px; 
         padding-top: 0;

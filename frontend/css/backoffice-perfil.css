@@ -1,4 +1,17 @@
-/* Variables heredadas del dashboard */
+/*
+    backoffice-perfil.css
+    ----------------------
+    Descripción: estilos para la página de perfil en el BackOffice.
+    Contiene: variables de tema, layout del perfil, tarjetas, formularios,
+    acciones (botones), mensajes de estado y ajustes responsive.
+
+    Nota para programadores:
+    - No cambiar variables globales aquí si existen en dashboard.css; preferir
+        mantenerlas en un único lugar (:root) para consistencia de tema.
+    - Las clases clave usadas por JS: .mensaje-estado.hidden, .btn-primary.enabled
+*/
+
+/* Variables de tema (heredadas del dashboard) */
 :root {
     --color-background-dark: #121212;
     --color-background-light: #1e1e1e;
@@ -15,7 +28,9 @@
     --color-red-danger: #f44336;
 }
 
-/* Contenedor principal del perfil */
+/* Contenedor principal del perfil
+    - Grid principal que divide la página en contenido (2fr) y barra lateral (1fr)
+    - Uso: envolver tarjetas de perfil y paneles secundarios */
 .perfil-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -23,7 +38,9 @@
     margin-top: 20px;
 }
 
-/* Tarjeta de perfil */
+/* Tarjeta de perfil
+    - Caja usada para agrupar información del usuario (nombre, datos, avatar)
+    - Estilo: fondo oscuro, bordes redondeados y padding */
 .perfil-card {
     background-color: var(--color-background-light);
     border-radius: 8px;
@@ -31,7 +48,9 @@
     border: 1px solid var(--color-separator);
 }
 
-/* Header del perfil */
+/* Header del perfil
+    - Área superior de la tarjeta con avatar y datos básicos (nombre, email)
+    - Layout: fila flexible con gap para separación */
 .perfil-header {
     display: flex;
     align-items: center;
@@ -41,12 +60,15 @@
     margin-bottom: 30px;
 }
 
+/* Avatar del usuario
+    - Representación visual (icono o iniciales) con tamaño grande y color de acento */
 .perfil-avatar {
     font-size: 80px;
     color: var(--color-primary-yellow);
     line-height: 1;
 }
 
+/* Título principal en header (nombre del usuario) */
 .perfil-header-info h2 {
     font-size: 24px;
     font-weight: 700;
@@ -54,12 +76,15 @@
     margin-bottom: 5px;
 }
 
+/* Subtítulo/descripcion en header (rol, correo, estado) */
 .perfil-header-info p {
     font-size: 14px;
     color: var(--color-text-secondary);
     margin-bottom: 10px;
 }
 
+/* Badge informativa del perfil
+    - Texto corto en mayúsculas (p.ej. ROL, STATUS) con fondo translúcido */
 .perfil-badge {
     display: inline-block;
     background: rgba(52, 152, 219, 0.2);
@@ -71,11 +96,14 @@
     text-transform: uppercase;
 }
 
-/* Secciones del formulario */
+/* Secciones del formulario
+    - Contenedor lógico para agrupar campos relacionados (datos personales, contacto) */
 .form-section {
     margin-bottom: 30px;
 }
 
+/* Título de sección dentro del formulario
+    - Visible antes de cada grupo de campos; suele incluir un icono */
 .section-title {
     font-size: 16px;
     font-weight: 600;
@@ -86,22 +114,27 @@
     gap: 10px;
 }
 
+/* Icono junto al título de sección */
 .section-title i {
     font-size: 18px;
 }
 
-/* Fila de formulario */
+/* Fila de formulario
+    - Grid para disponer campos en 2 columnas en pantallas grandes */
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
-/* Grupo de formulario */
+/* Grupo de formulario
+    - Wrapper por cada label + input + ayuda */
 .form-group {
     margin-bottom: 20px;
 }
 
+/* Label del campo
+    - Contiene texto y opcional icono indicativo */
 .form-group label {
     display: flex;
     align-items: center;
@@ -112,12 +145,15 @@
     margin-bottom: 8px;
 }
 
+/* Icono dentro del label (color de acento) */
 .form-group label i {
     color: var(--color-primary-cyan);
     font-size: 14px;
 }
 
-/* Inputs del formulario */
+/* Input base
+    - Estilo común para inputs de texto, select y textarea
+    - Incluye focus state y variantes readonly/disabled */
 .form-input {
     width: 100%;
     padding: 12px 15px;
@@ -130,22 +166,28 @@
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
+/* Input - estado focus
+    - Resalta el input y añade sombra suave para accesibilidad */
 .form-input:focus {
     outline: none;
     border-color: var(--color-primary-cyan);
     box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 
+/* Input - estado disabled */
 .form-input:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
+/* Input - estado readonly (visual distinto, no editable) */
 .form-input[readonly] {
     background-color: rgba(51, 51, 51, 0.5);
     cursor: not-allowed;
 }
 
+/* Texto de ayuda del input
+    - Mensaje corto que acompaña al campo (formatos, ejemplos) */
 .input-help {
     display: block;
     font-size: 12px;
@@ -153,7 +195,8 @@
     margin-top: 5px;
 }
 
-/* Acciones del formulario */
+/* Contenedor de acciones del formulario
+    - Botones de guardar/cancelar alineados a la derecha por defecto */
 .form-actions {
     display: flex;
     gap: 15px;
@@ -163,7 +206,8 @@
     border-top: 1px solid var(--color-separator);
 }
 
-/* Botones */
+/* Botones base
+    - Estilos compartidos para botones primario y secundario */
 .btn-primary,
 .btn-secondary {
     padding: 12px 24px;
@@ -179,46 +223,58 @@
     font-family: 'Roboto', sans-serif;
 }
 
+/* Botón primario
+    - Estado por defecto: marcado con color de acento (amarillo)
+    - Clase extra: .enabled para estado activo clicable */
 .btn-primary {
     background-color: rgba(255, 204, 0, 0.3);
     color: var(--color-primary-yellow);
     border: 1px solid var(--color-primary-yellow);
 }
 
+/* Botón primario - estado disabled */
 .btn-primary:disabled {
     opacity: 0.4;
     cursor: not-allowed;
 }
 
+/* Botón primario - estado enabled (activo) */
 .btn-primary.enabled {
     background-color: var(--color-primary-yellow);
     color: var(--color-button-text-dark);
     opacity: 1;
 }
 
+/* Botón primario - hover (micro-interacción) */
 .btn-primary.enabled:hover {
     background-color: #ffdb4d;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(255, 204, 0, 0.3);
 }
 
+/* Botón secundario
+    - Transparente por defecto, usado para acciones menos relevantes */
 .btn-secondary {
     background-color: transparent;
     color: var(--color-text-secondary);
     border: 1px solid var(--color-separator);
 }
 
+/* Botón secundario - hover */
 .btn-secondary:hover {
     background-color: var(--color-active-item);
     color: var(--color-text-light);
 }
 
+/* Clase utilitaria: botón full-width (ocupa 100% del contenedor) */
 .btn-full {
     width: 100%;
     justify-content: center;
 }
 
-/* Mensajes de estado */
+/* Mensajes de estado globales dentro del perfil
+    - Se utilizan para notificaciones inline (éxito, error, info)
+    - La clase .hidden los oculta cuando no son necesarios */
 .mensaje-estado {
     padding: 12px 16px;
     border-radius: 6px;
@@ -230,28 +286,34 @@
     animation: slideDown 0.3s ease;
 }
 
+/* Mensaje - oculto */
 .mensaje-estado.hidden {
     display: none;
 }
 
+/* Mensaje - éxito */
 .mensaje-estado.success {
     background: rgba(46, 204, 113, 0.15);
     color: var(--color-primary-green);
     border: 1px solid var(--color-primary-green);
 }
 
+/* Mensaje - error */
 .mensaje-estado.error {
     background: rgba(244, 67, 54, 0.15);
     color: var(--color-red-danger);
     border: 1px solid var(--color-red-danger);
 }
 
+/* Mensaje - información */
 .mensaje-estado.info {
     background: rgba(52, 152, 219, 0.15);
     color: var(--color-primary-cyan);
     border: 1px solid var(--color-primary-cyan);
 }
 
+/* Animación: slideDown
+    - Usada por .mensaje-estado para aparecer de forma suave */
 @keyframes slideDown {
     from {
         opacity: 0;
@@ -263,17 +325,21 @@
     }
 }
 
-/* Tarjeta de contraseña */
+/* Tarjeta de contraseña
+    - Sección independiente para cambiar contraseña, tamaño automático */
 .password-card {
     height: fit-content;
 }
 
+/* Encabezado de tarjeta genérico
+    - Usado tanto en tarjetas de perfil como en tarjetas internas */
 .card-header {
     padding-bottom: 20px;
     border-bottom: 1px solid var(--color-separator);
     margin-bottom: 25px;
 }
 
+/* Título dentro de una card */
 .card-header h3 {
     font-size: 18px;
     font-weight: 600;
@@ -283,43 +349,52 @@
     gap: 10px;
 }
 
+/* Icono junto al título de la card */
 .card-header h3 i {
     color: var(--color-primary-purple);
 }
 
+/* Estilos específicos para el formulario de cambio de contraseña */
 .password-form .form-group {
     margin-bottom: 20px;
 }
 
+/* Botón submit en formulario de contraseña */
 .password-form button[type="submit"] {
     margin-top: 10px;
     background-color: var(--color-primary-purple);
     color: var(--color-text-light);
 }
 
+/* Hover para el botón submit de contraseña */
 .password-form button[type="submit"]:hover {
     background-color: #8e44ad;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(155, 89, 182, 0.3);
 }
 
-/* Responsive Design */
+/* Responsive: Ajustes para tablet y móvil
+   - 1200px: apilar columnas (layout de una columna)
+   - 768px: adaptar header, filas y botones para pantallas pequeñas */
 @media (max-width: 1200px) {
     .perfil-container {
         grid-template-columns: 1fr;
     }
 }
-
+ 
 @media (max-width: 768px) {
+    /* Header apilado y centrado en móviles */
     .perfil-header {
         flex-direction: column;
         text-align: center;
     }
 
+    /* Campos apilados en una sola columna */
     .form-row {
         grid-template-columns: 1fr;
     }
 
+    /* Acciones verticales y botones full-width */
     .form-actions {
         flex-direction: column;
     }

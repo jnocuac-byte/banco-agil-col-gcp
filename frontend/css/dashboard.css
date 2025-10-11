@@ -1,3 +1,16 @@
+/*
+    dashboard.css
+    -------------
+    Estilos del dashboard/backoffice (modo oscuro).
+    Objetivo: layout principal, sidebar colapsable, header, tarjetas, tablas,
+    badges, modales y ajustes responsive.
+
+    Notas para programadores:
+    - Mantener variables en :root para facilitar cambios de tema.
+    - Las interacciones (abrir/cerrar sidebar, mostrar modales) se controlan por JS
+        mediante clases como `sidebar-expanded`, `modal.show` y `active`.
+*/
+
 /* Variables de Color para Modo Oscuro (de dashboard2.css) */
 :root {
     --color-background-dark: #121212; /* Fondo principal oscuro */
@@ -16,7 +29,8 @@
     --color-tag-text: #cccccc;
 }
 
-/* Estilos Generales y Reseteo (de dashboard2.css) */
+/* Estilos globales y reset
+    - Box-sizing, tipografía base y reset de márgenes/paddings */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -24,6 +38,8 @@
     font-family: 'Roboto', sans-serif;
 }
 
+/* Estilos del body
+    - Fondo oscuro global y tamaño base de fuente */
 body {
     background-color: var(--color-background-dark);
     color: var(--color-text-light);
@@ -32,13 +48,16 @@ body {
     display: flex;
 }
 
-/* Contenedor Principal de la Página */
+/* Contenedor principal de la página
+    - Estructura: sidebar fijo + main-content flexible */
 .page-container {
     display: flex;
     width: 100%;
 }
 
-/* 1. Barra de Navegación Lateral (Sidebar) (de dashboard2.css) */
+/* 1) Sidebar (barra lateral)
+    - Ancho reducido por defecto (icon-only) y expandible con .sidebar-expanded
+    - Contiene items de navegación que pueden mostrar texto cuando se expande */
 .sidebar {
     width: 60px;
     background-color: var(--color-background-light);
@@ -52,11 +71,13 @@ body {
     transition: width 0.25s ease;
 }
 
+/* Wrapper para el icono de menú (hamburger) */
 .menu-icon-wrapper {
     width: 100%;
     padding: 0 10px 20px 10px;
 }
 
+/* Icono que contiene las barras del 'hamburger' */
 .menu-icon {
     width: 40px;
     height: 40px;
@@ -68,16 +89,15 @@ body {
     cursor: pointer;
     padding: 6px;
 }
-
-
-/* MODIFICADO: Estilos para el texto de navegación cuando está colapsado */
+/* Texto de navegación (oculto en sidebar colapsada)
+   - Se muestra solo cuando .sidebar tiene la clase .sidebar-expanded */
 .icon-text {
     display: none;
     white-space: nowrap; /* Evita que el texto se rompa */
     overflow: hidden;
 }
 
-/* Estilo del icono "hamburger" (3 rayas) */
+/* Barra del hamburger (cada raya) */
 .hamburger-bar {
     display: block;
     width: 22px;
@@ -88,12 +108,13 @@ body {
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-/* Estado expandido de la sidebar */
+/* Estado: sidebar expandida
+   - Cambia ancho y muestra los textos de navegación */
 .sidebar.sidebar-expanded {
     width: 220px;
 }
 
-/* MODIFICADO: Mostrar texto en elementos de navegación expandidos */
+/* Mostrar texto dentro de nav items cuando sidebar está expandida */
 .sidebar.sidebar-expanded .icon-text {
     display: block;
     margin-left: 15px; /* Espacio entre ícono y texto */
@@ -101,17 +122,20 @@ body {
     text-align: left;
 }
 
-/* MODIFICADO: Ajustar contenido del nav-item al expandir */
+/* Ajustes de nav-item cuando sidebar está expandida */
 .sidebar.sidebar-expanded .nav-item {
     justify-content: flex-start; /* Alinear el contenido a la izquierda */
     padding-left: 15px;
 }
 
-/* Cuando la sidebar está expandida, ajustar margen del main y agrandar títulos */
+/* Cuando la sidebar está expandida
+   - Empuja el main-content y agranda ciertos textos para mejorar legibilidad */
 .sidebar.sidebar-expanded ~ .main-content {
     margin-left: 220px;
 }
 
+/* Contenido principal (main-content)
+   - Área desplazable que contiene todas las secciones del dashboard */
 .main-content {
     margin-left: 60px;
     flex-grow: 1;
@@ -122,6 +146,7 @@ body {
     height: 100vh;
 }
 
+/* Ajustes tipográficos cuando sidebar está expandida */
 .sidebar.sidebar-expanded ~ .main-content .greeting-text {
     font-size: 34px; /* Más grande cuando el menú está expandido */
 }
@@ -130,7 +155,7 @@ body {
     font-size: 20px; /* Más grande cuando el menú está expandido */
 }
 
-/* Animación del hamburger al expandir */
+/* Animación del hamburger (transformación al expandir) */
 .sidebar.sidebar-expanded .menu-icon .hamburger-bar:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
 }
@@ -141,6 +166,7 @@ body {
     transform: translateY(-7px) rotate(-45deg);
 }
 
+/* Contenedor de navegación dentro del sidebar */
 .sidebar-nav {
     width: 100%;
     display: flex;
@@ -148,6 +174,7 @@ body {
     gap: 5px;
 }
 
+/* Item de navegación (cada enlace) */
 .nav-item {
     display: flex;
     justify-content: center;
@@ -158,15 +185,18 @@ body {
     transition: background-color 0.2s;
 }
 
+/* Hover en nav-item */
 .nav-item:hover {
     background-color: var(--color-active-item);
 }
 
+/* Nav-item activo (indicador visual) */
 .nav-item.active {
     background-color: var(--color-active-item);
     border-left: 3px solid var(--color-primary-yellow);
 }
 
+/* Placeholder para iconos (círculo) */
 .icon-placeholder {
     width: 24px;
     height: 24px;
@@ -179,8 +209,9 @@ body {
     font-size: 14px;
 }
 
-/* 2. Contenido Principal y Secciones (de dashboard2.css) */
-/* 2.1. Encabezado Superior (Header) */
+/* 2) Contenido principal y secciones */
+/* 2.1) Header superior
+   - Contiene logo, nombre de sucursal y área de usuario/logout */
 .header {
     display: flex;
     justify-content: space-between;
@@ -190,35 +221,41 @@ body {
     border-bottom: 1px solid var(--color-separator);
 }
 
+/* Área del logo y nombre */
 .logo-area {
     display: flex;
     align-items: baseline;
     gap: 10px;
 }
 
+/* Placeholder del logo (texto) */
 .logo-placeholder {
     font-size: 18px;
     font-weight: 700;
     color: var(--color-primary-yellow);
 }
 
+/* Nombre de la sucursal o sección */
 .branch-name {
     font-size: 16px;
     font-weight: 500;
     color: var(--color-text-light);
 }
 
+/* Área de usuario (nombre, icono y logout) */
 .user-area {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
+/* Nombre de usuario en el header */
 .user-name-header {
     font-size: 13px;
     color: var(--color-text-secondary);
 }
 
+/* Placeholder para icono de usuario */
 .user-icon-placeholder {
     width: 30px;
     height: 30px;
@@ -226,6 +263,7 @@ body {
     border-radius: 50%;
 }
 
+/* Botón de logout */
 .logout-btn {
     background-color: var(--color-primary-yellow);
     color: var(--color-button-text-dark);
@@ -238,15 +276,18 @@ body {
     font-size: 12px;
 }
 
+/* Hover para logout */
 .logout-btn:hover {
     opacity: 0.85;
 }
 
-/* 2.2. Área de Bienvenida y Anuncio */
+/* 2.2) Área de bienvenida y anuncio */
 .welcome-area {
     padding-right: 20px;
 }
 
+/* Tarjeta de bienvenida
+   - Muestra mensaje, avatar pequeño y CTA (botón) */
 .welcome-card {
     background-color: var(--color-background-light);
     padding: 15px 20px;
@@ -257,6 +298,7 @@ body {
     margin-bottom: 25px;
 }
 
+/* Icono/placeholder del perfil del usuario */
 .user-profile-icon {
     width: 40px;
     height: 40px;
@@ -264,10 +306,12 @@ body {
     border-radius: 50%;
 }
 
+/* Contenedor del mensaje de bienvenida */
 .welcome-message-container {
     flex-grow: 1;
 }
 
+/* Título del anuncio dentro de la tarjeta de bienvenida */
 .announcement-title {
     font-size: 14px;
     font-weight: 500;
@@ -275,11 +319,13 @@ body {
     margin-bottom: 2px;
 }
 
+/* Subtítulo del anuncio */
 .announcement-subtitle {
     font-size: 13px;
     color: var(--color-text-secondary);
 }
 
+/* Botón primario (utilizado en varias secciones) */
 .btn-primary {
     background-color: var(--color-primary-yellow);
     color: var(--color-button-text-dark);
@@ -291,10 +337,12 @@ body {
     transition: opacity 0.2s;
 }
 
+/* Hover del botón primario */
 .btn-primary:hover {
     opacity: 0.85;
 }
 
+/* Barra de saludo y controles superiores */
 .greeting-bar {
     display: flex;
     justify-content: space-between;
@@ -302,18 +350,20 @@ body {
     margin-bottom: 25px;
 }
 
+/* Texto de bienvenida principal */
 .greeting-text {
     font-size: 28px;
     font-weight: 700;
     color: var(--color-text-light);
 }
 
+/* Fecha y hora pequeña en la cabecera */
 .date-time {
     font-size: 14px;
     color: var(--color-text-secondary);
 }
 
-/* 2.3. Transacciones Más Usadas */
+/* 2.3) Sección: Transacciones más usadas */
 .section-title {
     font-size: 16px;
     font-weight: 500;
@@ -321,6 +371,7 @@ body {
     margin-bottom: 15px;
 }
 
+/* Grid de cards para transacciones rápidas */
 .transactions-grid {
     display: flex;
     gap: 15px;
@@ -328,6 +379,8 @@ body {
     flex-wrap: wrap;
 }
 
+/* Card de transacción rápida
+   - Estilo reutilizable para accesos directos */
 .transaction-card {
     background-color: var(--color-background-light);
     padding: 15px;
@@ -343,11 +396,13 @@ body {
     color: inherit; /* Para que el texto de link se vea igual */
 }
 
+/* Hover en transaction-card */
 .transaction-card:hover {
     background-color: #262626;
     transform: translateY(-2px);
 }
 
+/* Placeholder para icono de transacción */
 .transaction-icon-placeholder {
     width: 40px;
     height: 40px;
@@ -359,13 +414,14 @@ body {
     color: var(--color-text-light);
 }
 
-/* Colores para iconos de Transacciones (manteniendo el color de fondo de dashboard2) */
+/* Colores para iconos de transacciones (fondo de iconos) */
 .icon-transfer { background-color: var(--color-primary-purple); }
 .icon-limit { background-color: #ff8c00; } /* Naranja */
 .icon-bills { background-color: var(--color-primary-green); }
 .icon-pockets { background-color: var(--color-primary-cyan); }
 .icon-statements { background-color: #f39c12; } /* Amarillo-naranja */
 
+/* Texto/descripción en transaction-card */
 .transaction-text {
     font-size: 13px;
     font-weight: 400;
@@ -373,7 +429,7 @@ body {
     text-align: left; /* Para las acciones rápidas */
 }
 
-/* 2.4. Productos */
+/* 2.4) Productos: barra de información y lista de productos */
 .product-info-bar {
     display: flex;
     align-items: center;
@@ -382,6 +438,7 @@ body {
     font-size: 13px;
 }
 
+/* Tag/pill (pequeña etiqueta) */
 .tag-pill {
     background-color: var(--color-tag-bg);
     color: var(--color-tag-text);
@@ -390,11 +447,13 @@ body {
     font-weight: 500;
 }
 
+/* Texto de ayuda o tip relacionado con productos */
 .product-tip-text {
     color: var(--color-text-secondary);
     flex-grow: 1;
 }
 
+/* Enlace para mostrar/ocultar balance */
 .show-balance-link {
     color: var(--color-primary-yellow);
     text-decoration: none;
@@ -402,16 +461,19 @@ body {
     cursor: pointer;
 }
 
+/* Hover para el enlace de mostrar balance */
 .show-balance-link:hover {
     text-decoration: underline;
 }
 
+/* Contenedor de la lista de productos */
 .product-list-container {
     background-color: var(--color-background-light);
     border-radius: 8px;
     padding: 15px;
 }
 
+/* Header de la sección de productos (título y contadores) */
 .product-header {
     display: flex;
     justify-content: space-between;
@@ -421,11 +483,13 @@ body {
     padding-bottom: 10px;
 }
 
+/* Contador del tipo de producto */
 .product-type-count {
     font-size: 14px;
     font-weight: 500;
 }
 
+/* Icono de toggle (marcador visual) */
 .toggle-icon-placeholder {
     width: 20px;
     height: 20px;
@@ -433,6 +497,7 @@ body {
     border-radius: 50%;
 }
 
+/* Tarjeta con detalle de producto y acciones (fila) */
 .product-detail-card {
     display: flex;
     justify-content: space-between;
@@ -440,6 +505,7 @@ body {
     padding: 10px 0;
 }
 
+/* Nombre de cuenta/producto */
 .account-name {
     display: block;
     font-size: 14px;
@@ -447,16 +513,19 @@ body {
     margin-bottom: 4px;
 }
 
+/* Máscara del número de cuenta (monoespacio) */
 .account-number-mask {
     font-family: monospace;
     font-size: 14px;
     color: var(--color-text-secondary);
 }
 
+/* Área donde se muestra el balance (alineación derecha) */
 .balance-area {
     text-align: right;
 }
 
+/* Label pequeño para balance (ej. 'Saldo disponible') */
 .balance-label {
     display: block;
     font-size: 12px;
@@ -464,6 +533,7 @@ body {
     margin-bottom: 2px;
 }
 
+/* Mask para el balance (texto grande) */
 .balance-mask {
     font-size: 18px;
     font-weight: 700;
@@ -471,11 +541,13 @@ body {
     transition: color 0.3s;
 }
 
+/* Clase que muestra el balance en color de acento */
 .balance-visible {
     color: var(--color-primary-yellow);
 }
 
-/* ESTILOS DE INTEGRACIÓN: Para las estadísticas */
+/* Estadísticas personalizadas (integración)
+   - Títulos y valores para cards estadísticas */
 .stat-title-custom {
     font-size: 14px;
     font-weight: 400;
@@ -483,12 +555,14 @@ body {
     margin-bottom: 5px;
 }
 
+/* Valor grande dentro de la card estadística */
 .stat-value-custom {
     font-size: 20px;
     font-weight: 700;
     color: var(--color-text-light);
 }
 
+/* Card estadística personalizada (ancho para 3 columnas) */
 .stat-card-custom {
     /* Ajuste de ancho para 3 columnas en la grilla */
     width: calc(33.33% - 10px);
@@ -498,7 +572,7 @@ body {
     padding: 20px;
 }
 
-/* ESTILOS DE INTEGRACIÓN: Para las acciones rápidas */
+/* Action cards personalizadas (accesos rápidos) */
 .action-card-custom {
     /* Mantenemos el estilo de transaction-card pero con un ancho más flexible */
     width: calc(25% - 15px);
@@ -507,20 +581,23 @@ body {
     align-items: center;
     justify-content: center;
 }
+/* Icono dentro de action-card-custom */
 .action-card-custom .transaction-icon-placeholder {
     margin-bottom: 10px;
 }
+/* Texto centrado dentro de action-card-custom */
 .action-card-custom .transaction-text {
     font-weight: 500;
     text-align: center;
 }
 
-/* --- SOLUCIÓN: Espaciado al final de la página --- */
+/* Solución: espaciado al final de la página para evitar cortar contenido */
 .main-content .last-section {
     padding-bottom: 2px; /* Añade espacio extra al final de la última sección */
 }
 
-/* Modal Styles (Mantenido) */
+/* Modal overlay y contenido
+   - Modal oculto por defecto; la clase .show lo muestra y centra */
 .modal {
     display: none;
     position: fixed;
@@ -533,12 +610,14 @@ body {
     backdrop-filter: blur(3px);
 }
 
+/* Modal visible (centrado) */
 .modal.show {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+/* Contenido del modal (caja blanca) */
 .modal-content {
     background-color: var(--color-background-light);
     padding: 0;
@@ -549,6 +628,7 @@ body {
     animation: modalSlideIn 0.3s ease;
 }
 
+/* Animación del modal (entrada) */
 @keyframes modalSlideIn {
     from {
         opacity: 0;
@@ -560,6 +640,7 @@ body {
     }
 }
 
+/* Encabezado del modal (título y botón de cerrar) */
 .modal-header {
     padding: 20px 25px 15px;
     border-bottom: 1px solid var(--color-separator);
@@ -568,12 +649,14 @@ body {
     align-items: center;
 }
 
+/* Título principal del modal */
 .modal-header h3 {
     margin: 0;
     color: var(--color-primary-yellow);
     font-size: 18px;
 }
 
+/* Botón/icono para cerrar el modal */
 .modal-close {
     color: var(--color-text-secondary);
     font-size: 24px;
@@ -582,26 +665,30 @@ body {
     transition: color 0.2s;
 }
 
+/* Hover del cierre de modal */
 .modal-close:hover {
     color: var(--color-text-light);
 }
 
+/* Cuerpo del modal (contenido principal) */
 .modal-body {
     padding: 20px 25px;
 }
 
+/* Párrafos dentro del modal */
 .modal-body p {
     color: var(--color-text-secondary);
     line-height: 1.5;
     margin: 0;
 }
 
+/* Pie del modal (acciones) */
 .modal-footer {
     padding: 15px 25px 20px;
     text-align: right;
 }
 
-/* Responsive Design (de dashboard2.css) */
+/* Responsive: puntos de quiebre y ajustes para tablet/móvil */
 @media (max-width: 992px) { /* Ajuste el punto de quiebre para las estadísticas */
     .stat-card-custom {
         width: calc(50% - 7.5px); /* Dos columnas en tablets */
@@ -613,11 +700,13 @@ body {
 
 
 @media (max-width: 768px) {
+    /* Sidebar fuera de pantalla por defecto en móviles */
     .sidebar {
         transform: translateX(-100%);
         transition: transform 0.3s;
     }
     
+    /* Main ocupa todo el ancho */
     .main-content {
         margin-left: 0;
     }
@@ -647,6 +736,7 @@ body {
 }
 
 @media (max-width: 480px) {
+    /* Ajustes para móviles muy pequeños */
     .transaction-card {
         width: 100%;
     }
@@ -662,7 +752,7 @@ body {
     }
 }
 
-/* Estilos de enmascaramiento para la cuenta (simulando censura) */
+/* Enmascaramiento para números y balances (visual) */
 .account-number-mask, .balance-mask {
     background-color: #333333;
     border-radius: 3px;

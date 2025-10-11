@@ -1,3 +1,12 @@
+/*
+    login.css
+    ---------
+    Estilos para la página de login (tema oscuro).
+    Incluye variables, layout centrado, logo, contenedor del formulario,
+    inputs, botones, mensajes de estado y enlaces auxiliares.
+    Solo se añaden comentarios; no se cambian reglas.
+*/
+
 /* Variables de color */
 :root {
     --primary-dark: #232323;
@@ -11,12 +20,14 @@
     --border-light: rgba(255, 255, 255, 0.1);
 }
 
+/* Reset base y box-sizing */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Estilos del body y layout centralizado para login */
 body {
     font-family: 'Poppins', sans-serif;
     background: radial-gradient(circle at 120% 0%, var(--secondary-dark) 0%, var(--primary-dark) 50%, #1a1a1a 80%);
@@ -30,7 +41,7 @@ body {
     color: var(--text-light);
 }
 
-/* Estilos ajustados para el logo que ahora está fuera del contenedor */
+/* Logo principal fuera del contenedor del formulario */
 .logo-img {
     height: 90px; /* Nuevo alto solicitado */
     width: auto;
@@ -38,6 +49,8 @@ body {
     margin-bottom: 2rem; /* Espacio entre el logo y el login-container */
 }
 
+/* Contenedor del formulario de login
+   - Caja centrada con efecto glass, padding y bordes redondeados */
 .login-container {
     max-width: 450px;
     width: 100%;
@@ -53,6 +66,7 @@ body {
 
 /* Eliminamos .logo-container porque ya no existe */
 
+/* Título principal dentro del formulario */
 h1 {
     color: var(--accent-gold-light);
     margin-bottom: 0.5rem;
@@ -68,10 +82,12 @@ h1 {
     font-size: 1rem;
 }
 
+/* Grupo de formulario (label + input) */
 .form-group {
     margin-bottom: 1.5rem;
 }
 
+/* Estilos para labels */
 label {
     display: block;
     margin-bottom: 0.5rem;
@@ -80,10 +96,12 @@ label {
     font-size: 0.95rem;
 }
 
+/* Wrapper para inputs con icono posicionado */
 .input-wrapper {
     position: relative;
 }
 
+/* Icono posicionado dentro del input (a la izquierda) */
 .input-icon {
     position: absolute;
     left: 1rem;
@@ -93,6 +111,7 @@ label {
     font-size: 1.1rem;
 }
 
+/* Estilo base de inputs (texto, password, email) */
 input {
     width: 100%;
     padding: 0.9rem 1rem 0.9rem 3rem;
@@ -115,6 +134,7 @@ input:focus {
     background: rgba(68, 68, 68, 0.8);
 }
 
+/* Botón principal de login */
 .btn-login {
     width: 100%;
     padding: 1rem;
@@ -134,6 +154,7 @@ input:focus {
     gap: 0.5rem;
 }
 
+/* Hover del botón login */
 .btn-login:hover {
     background: var(--accent-gold-light);
     transform: translateY(-2px);
@@ -149,6 +170,7 @@ input:focus {
     cursor: not-allowed;
 }
 
+/* Mensajes/alertas dentro del formulario (exito/error) */
 .alert {
     padding: 1rem;
     border-radius: 8px;
@@ -170,6 +192,7 @@ input:focus {
     border-color: #f44336;
 }
 
+/* Separador con líneas a los lados (ej. para registrar via social) */
 .divider {
     display: flex;
     align-items: center;
@@ -194,6 +217,7 @@ input:focus {
     margin-left: 1rem;
 }
 
+/* Enlace a registro (centrado) */
 .register-link {
     text-align: center;
     color: var(--text-gray);
@@ -211,6 +235,7 @@ input:focus {
     color: var(--accent-gold-light);
 }
 
+/* Enlace de regreso (volver atrás) */
 .back-link {
     text-align: center;
     margin-top: 1.5rem;
@@ -231,6 +256,7 @@ input:focus {
     color: var(--accent-gold-light);
 }
 
+/* Enlace de 'olvidé mi contraseña' (alineado a la derecha) */
 .forgot-password {
     text-align: right;
     margin-top: 0.5rem;
@@ -248,6 +274,7 @@ input:focus {
 }
 
 /* Responsive */
+/* Responsive: ajustes para pantallas pequeñas */
 @media (max-width: 768px) {
     .login-container {
         padding: 2rem 1.5rem;

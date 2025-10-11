@@ -1,20 +1,13 @@
-// =========================================
-// DASHBOARD.JS - ORIGINAL + EXTENSIONES
-// =========================================
-
 // Variables globales adicionales (de dashboard-app.js)
 let balanceVisible = false;
 let currentUser = null;
-
-// =========================================
-// FUNCIONES ORIGINALES DE DASHBOARD.JS
-// =========================================
 
 // Verificar autenticación
 function verificarAutenticacion() {
     // Obtener datos del usuario desde sessionStorage
     const usuario = sessionStorage.getItem('usuario');
     
+    // Si no hay usuario, redirigir al login
     if (!usuario) {
         // No hay sesión, redirigir al login
         window.location.href = 'login.html';
@@ -82,9 +75,9 @@ function logout() {
 // Lógica para mostrar el modal de "Próximamente"
 function showComingSoon(feature) {
     // Actualizar contenido del modal
-    document.getElementById('modalTitle').textContent = `Función: ${feature}`;
-    document.getElementById('modalMessage').innerHTML = `La funcionalidad de **${feature}** estará disponible próximamente.`;
-    document.getElementById('modal').classList.add('show');
+    document.getElementById('modalTitle').textContent = `Función: ${feature}`; // Título dinámico
+    document.getElementById('modalMessage').innerHTML = `La funcionalidad de **${feature}** estará disponible próximamente.`; // Mensaje dinámico
+    document.getElementById('modal').classList.add('show'); // Mostrar el modal
 }
 
 // Lógica para cerrar el modal
@@ -164,34 +157,37 @@ function formatCurrency(amount) {
     return new Intl.NumberFormat('es-CO', {
         style: 'currency', // Formato de moneda
         currency: 'COP' // Peso colombiano
-    }).format(amount);
+    }).format(amount); // Retornar cadena formateada
 }
-
-// =========================================
-// FUNCIONES ADICIONALES DE DASHBOARD-APP.JS
-// =========================================
 
 // Simular datos de la cuenta (NUEVA)
 function simulateAccountData() {
+    // Mostrar número de cuenta enmascarado
     const accountNumberMask = document.querySelector('.account-number-mask');
+    // Si el elemento existe y hay usuario
     if (accountNumberMask && currentUser) {
         // Generar número de cuenta basado en el documento del usuario
-        const lastDigits = currentUser.documentNumber?.slice(-4) || 
-                          currentUser.documento?.slice(-4) || '1234';
-        accountNumberMask.textContent = `*****-${lastDigits}`;
+        const lastDigits = currentUser.documentNumber?.slice(-4) ||  // Usar los últimos 4 dígitos del documento o '1234' como fallback
+                          currentUser.documento?.slice(-4) || '1234'; // Soporte para ambos campos
+        accountNumberMask.textContent = `*****-${lastDigits}`; // Ejemplo: *****-5678
     }
 }
 
-// Agregar efectos hover dinámicos (NUEVA)
+// Agregar efectos hover dinámicos
 function addHoverEffects() {
+    // Seleccionar todas las tarjetas relevantes
     const cards = document.querySelectorAll('.transaction-card, .welcome-card, .product-detail-card');
     
+    // Agregar listeners para hover
     cards.forEach(card => {
+        // Usar funciones normales para mantener el contexto 'this'
         card.addEventListener('mouseenter', function() {
+            // Aplicar transformaciones CSS para efecto hover
             this.style.transform = 'translateY(-2px)';
             this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.2)';
         });
         
+        // Revertir transformaciones al salir del hover
         card.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
             this.style.boxShadow = '';
@@ -199,20 +195,24 @@ function addHoverEffects() {
     });
 }
 
-// Mostrar mensaje de notificación (NUEVA)
+// Mostrar mensaje de notificación 
 function showMessage(message, type = 'info') {
+    // type: 'success', 'error', 'warning', 'info'
     const existingMessage = document.querySelector('.message-notification');
+    // Eliminar mensaje previo si existe
     if (existingMessage) {
-        existingMessage.remove();
+        existingMessage.remove(); 
     }
     
+    // Crear nuevo mensaje
     const messageDiv = document.createElement('div');
-    messageDiv.className = `message-notification message-${type}`;
+    messageDiv.className = `message-notification message-${type}`; // Añadir clase según tipo
     messageDiv.innerHTML = `
         <p>${message}</p>
         <button onclick="this.parentElement.remove()">×</button>
     `;
     
+    // Estilos básicos
     Object.assign(messageDiv.style, {
         position: 'fixed',
         top: '20px',
@@ -231,6 +231,7 @@ function showMessage(message, type = 'info') {
         transition: 'transform 0.3s ease'
     });
     
+    // Estilos del botón de cierre
     messageDiv.querySelector('button').style.cssText = `
         background: none;
         border: none;
@@ -242,26 +243,33 @@ function showMessage(message, type = 'info') {
         margin-left: 10px;
     `;
     
+    // Añadir al body y mostrar con animación
     document.body.appendChild(messageDiv);
     
+    // Animar entrada
     setTimeout(() => {
-        messageDiv.style.transform = 'translateX(0)';
+        messageDiv.style.transform = 'translateX(0)'; // Slide in
     }, 100);
     
+    // Ocultar después de 5 segundos con animación de salida
     setTimeout(() => {
+        // Animar salida
         if (messageDiv.parentNode) {
-            messageDiv.style.transform = 'translateX(100%)';
+            messageDiv.style.transform = 'translateX(100%)'; // Slide out
+            // Remover del DOM después de la animación
             setTimeout(() => {
+                // Verificar si el elemento aún existe antes de remover
                 if (messageDiv.parentNode) {
-                    messageDiv.remove();
+                    messageDiv.remove(); // Remover del DOM
                 }
-            }, 300);
+            }, 300); // Tiempo de la animación
         }
-    }, 5000);
+    }, 5000); // 5 segundos
 }
 
 // Función para transacciones recientes (NUEVA - para futuro uso)
 function getRecentTransactions() {
+    // Simulación de transacciones
     return [
         { date: '2025-10-08', description: 'Pago en línea', amount: -150000, type: 'debit' },
         { date: '2025-10-07', description: 'Depósito', amount: 500000, type: 'credit' },
@@ -269,20 +277,14 @@ function getRecentTransactions() {
     ];
 }
 
-// =========================================
-// EVENT LISTENERS ADICIONALES
-// =========================================
 
 // Cerrar modal con tecla Escape (NUEVO)
 document.addEventListener('keydown', function(e) {
+    // Cerrar modal si está abierto y se presiona Escape
     if (e.key === 'Escape') {
-        closeModal();
+        closeModal(); // Cerrar el modal
     }
 });
-
-// =========================================
-// INICIALIZACIÓN ORIGINAL
-// =========================================
 
 // Inicialización al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {

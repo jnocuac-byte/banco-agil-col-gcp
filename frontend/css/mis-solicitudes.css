@@ -1,5 +1,14 @@
+/*
+    mis-solicitudes.css
+    -------------------
+    Estilos para la página "Mis Solicitudes" del usuario/backoffice.
+    Contiene: cabecera de página, filtros, tarjetas de solicitud, badges de estado,
+    detalles de cada solicitud y un estado vacío. Solo se añaden comentarios.
+*/
+
+/* Cabecera de la página (título y subtítulo) */
 .page-header {
-    margin-bottom: 25px;
+        margin-bottom: 25px;
 }
 .page-header h1 {
     font-size: 28px;
@@ -15,6 +24,8 @@
     color: var(--color-text-secondary);
 }
 
+/* Filtros y acciones superiores
+   - Contiene selects/filtros y botón para nueva solicitud */
 .filters {
     display: flex;
     /* CAMBIO CLAVE: Alinea los elementos a los extremos */
@@ -27,6 +38,7 @@
     border-radius: 8px;
 }
 /* Se añade un estilo para el nuevo botón y asegurar que no haya 'gap' innecesario */
+/* Botón para crear una nueva solicitud (enlace con estilo de botón) */
 .new-request-btn {
     text-decoration: none; /* Asegura que se vea como un botón y no como un link */
     font-size: 14px;
@@ -34,6 +46,7 @@
     /* Los estilos de color vienen de .btn-primary en dashboard.css */
 }
 /* Aseguramos que los filtros sigan agrupados si el flexbox los separa por el space-between */
+/* Alinea grupos interiores dentro de los filtros */
 .filters > div {
     display: flex;
     align-items: center;
@@ -46,6 +59,7 @@
     color: var(--color-text-light);
 }
 
+/* Selects/inputs de filtro */
 .filter-select {
     padding: 8px 10px;
     border-radius: 5px;
@@ -56,13 +70,15 @@
     outline: none;
 }
 
+/* Contenedor que agrupa todas las tarjetas de solicitud */
 .solicitudes-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-/* Estilos de la Tarjeta de Solicitud */
+/* Tarjeta de solicitud
+   - Caja que muestra resumen de la solicitud con header, detalles y observaciones */
 .solicitud-card {
     background-color: var(--color-background-light);
     padding: 20px;
@@ -70,6 +86,8 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Encabezado dentro de cada tarjeta
+   - Muestra ID, fecha y acciones rápidas */
 .solicitud-header {
     display: flex;
     justify-content: space-between;
@@ -79,6 +97,7 @@
     border-bottom: 1px solid var(--color-separator);
 }
 
+/* Identificador de la solicitud (visualmente destacado) */
 .solicitud-id {
     font-size: 16px;
     font-weight: 600;
@@ -88,7 +107,7 @@
     gap: 8px;
 }
 
-/* Estilos de los Badges de Estado */
+/* Badges de estado (pendiente, en revisión, aprobada, rechazada) */
 .solicitud-badge {
     padding: 5px 10px;
     border-radius: 15px;
@@ -117,6 +136,7 @@
     color: #e74c3c;
 }
 
+/* Grid con detalles de cada solicitud (campos clave) */
 .solicitud-details {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -124,6 +144,7 @@
     margin-bottom: 15px;
 }
 
+/* Item individual de detalle (label + valor) */
 .detail-item {
     display: flex;
     flex-direction: column;
@@ -142,6 +163,7 @@
     color: var(--color-text-light);
 }
 
+/* Observaciones/nota de la solicitud (sección inferior) */
 .solicitud-observaciones {
     margin-top: 15px;
     padding-top: 10px;
@@ -158,7 +180,8 @@
     margin-top: 5px;
 }
 
-/* Estilos para Empty State (Estado Vacío) */
+/* Estado vacío (cuando no hay solicitudes)
+   - Caja centrada que muestra icono, título y texto */
 .empty-state {
     display: flex;
     flex-direction: column;
@@ -190,32 +213,33 @@
 }
 
 .empty-state .btn-primary {
-        /* Estilo heredado del dashboard.css */
-        text-decoration: none;
+    /* Estilo heredado del dashboard.css */
+    text-decoration: none;
 }
 
-/* Asegurar que el botón de logout del sidebar esté oculto o no exista para usar solo el del header */
+/* Forzar ocultado del botón logout dentro del sidebar (si existiera) */
 .sidebar > .logout-btn {
     display: none !important; /* Forzamos la eliminación del sidebar logout button */
 }
 
-/* Asegurar que el botón de logout del header se muestre y funcione (depende de dashboard.css para el estilo base) */
+/* Reforzar la visualización del botón logout en el header (si es necesario) */
 .header .logout-btn {
-        /* Reintroducimos el botón del header si dashboard.css lo oculta en algún punto */
-        display: inline-flex; 
-        margin-left: 15px;
-        /* Estilos base si no están en dashboard.css */
-        background-color: var(--color-primary-yellow);
-        color: var(--color-button-text-dark);
-        border: none;
-        padding: 8px 12px;
-        border-radius: 5px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.2s;
+    /* Reintroducimos el botón del header si dashboard.css lo oculta en algún punto */
+    display: inline-flex; 
+    margin-left: 15px;
+    /* Estilos base si no están en dashboard.css */
+    background-color: var(--color-primary-yellow);
+    color: var(--color-button-text-dark);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 /* Media query para responsive */
+/* Responsive: en móvil apilar los detalles */
 @media (max-width: 768px) {
     .solicitud-details {
         grid-template-columns: 1fr;

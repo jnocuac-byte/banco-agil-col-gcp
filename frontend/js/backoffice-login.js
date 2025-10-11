@@ -46,7 +46,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data) // Enviar datos como JSON
         });
         
         // Parsear respuesta JSON
@@ -79,9 +79,9 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
             btnLogin.innerHTML = originalText;
         }
     } catch (error) { // Error de conexión u otro
-        console.error('Error:', error);
-        mostrarAlerta('Error al conectar con el servidor', 'error');
-        btnLogin.disabled = false;
-        btnLogin.innerHTML = originalText;
+        console.error('Error:', error); // Log del error
+        mostrarAlerta('Error al conectar con el servidor', 'error'); // Mostrar mensaje de error
+        btnLogin.disabled = false; // Rehabilitar botón
+        btnLogin.innerHTML = originalText; // Restaurar texto original
     }
 });

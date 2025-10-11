@@ -77,7 +77,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     } catch (error) { // Error de red o servidor
         console.error('Error:', error);
         mostrarAlerta('Error al conectar con el servidor', 'error');
-        btnLogin.disabled = false;
-        btnLogin.innerHTML = originalText;
+        btnLogin.disabled = false; // Rehabilitar botón
+        btnLogin.innerHTML = originalText; // Restaurar texto original
     }
 });
