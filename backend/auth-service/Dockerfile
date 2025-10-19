@@ -1,24 +1,20 @@
-# Usa una imagen base de Java con el JDK, idealmente ligera
-FROM eclipse-temurin:21-jdk-jammy AS build
-
-# Copia el código fuente del proyecto
-COPY . /app
-
-# Establece el directorio de trabajo
+# 1. ETAPA DE CONSTRUCCIÓN (BUILD STAGE) - ¡ESTO YA FUNCIONÓ!
+FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline
+COPY src/ /app/src/
+RUN mvn clean package -DskipTests
 
-# Empaqueta la aplicación con Maven
-# La opción -DskipTests es opcional, pero acelera la compilación si ya los corriste
-RUN ./mvnw clean package -DskipTests
+# 2. ETAPA DE EJECUCIÓN (RUNTIME STAGE)
+# Usar la imagen correcta de JRE 21 para producción.
+FROM eclipse-temurin:21-jre-alpine 
 
-# SEGUNDA ETAPA: Imagen de ejecución (solo con JRE para menor tamaño)
-FROM eclipse-temurin:21-jre-jammy
+# Asegura que la aplicación se ejecute como un usuario no root
+USER 1000
 
-# Argumento para el nombre del archivo JAR generado
-ARG JAR_FILE=target/auth-service-*.jar # Asegúrate de que el patrón coincida con tu JAR
+# Copia el JAR compilado
+COPY --from=build /app/target/*.jar app.jar
 
-# Copia el JAR del paso de compilación
-COPY --from=build /app/${JAR_FILE} app.jar
-
-# Define el punto de entrada para ejecutar la aplicación
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]

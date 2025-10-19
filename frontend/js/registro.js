@@ -1,5 +1,5 @@
 // URL base de la API
-const API_URL = 'http://localhost:8081/api/auth';
+const API_URL = 'https://frontend-service-514751056677.us-central1.run.app/registro.html';
 
 // Cambiar tipo de cliente y mostrar campos correspondientes
 function cambiarTipo(tipo) {
