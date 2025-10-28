@@ -1,0 +1,14 @@
+# Variables de entorno sensibles
+env-vars.yaml
+
+# Archivos compilados de Maven
+**/target/
+**/target/**
+
+# Archivos de configuración local
+**/.vscode/
+**/.idea/
+
+# Archivos de sistema
+.DS_Store
+*.log
