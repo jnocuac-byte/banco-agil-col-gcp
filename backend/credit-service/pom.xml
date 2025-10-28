@@ -5,70 +5,22 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.4</version> <!-- Usando una versión estable de la rama 3.3.x -->
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>3.3.4</version>
+        <relativePath/>
     </parent>
     <groupId>com.bancoagil</groupId>
-    <artifactId>auth-service</artifactId>
+    <artifactId>credit-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>auth-service</name>
-    <description>Demo project for Spring Boot</description>
-    <url/>
-    <licenses>
-        <license/>
-    </licenses>
-    <developers>
-        <developer/>
-    </developers>
-    <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
-    </scm>
+    <name>credit-service</name>
+    <description>Credit Service for Banco Agil</description>
     <properties>
         <java.version>21</java.version>
-        <spring-cloud-gcp.version>5.2.0</spring-cloud-gcp.version> <!-- Compatible con Spring Boot 3.3.x -->
     </properties>
 
-    <!-- ********************************************** -->
-    <!-- 1. BLOQUE DE GESTIÓN DE DEPENDENCIAS (BOM) -->
-    <!-- CRÍTICO para Cloud SQL Connector -->
-    <!-- ********************************************** -->
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
-        <!-- JWT -->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>0.11.5</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <version>0.11.5</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <version>0.11.5</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!-- Spring Boot Starters -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -78,13 +30,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        
-        <!-- ********************************************** -->
-        <!-- 2. CLOUD SQL CONNECTOR (El FIX que faltaba) -->
-        <!-- Usa la SocketFactory para conectarse a Cloud SQL -->
-        <!-- ********************************************** -->
-        <dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -106,27 +51,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
