@@ -31,6 +31,12 @@ steps:
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
+      - '--set-env-vars'
+      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://10.97.128.3:5432/banco_agil_db,SPRING_DATASOURCE_USERNAME=postgres,SPRING_DATASOURCE_PASSWORD=BancoAgil2024!,SPRING_JPA_HIBERNATE_DDL_AUTO=update,SPRING_JPA_SHOW_SQL=true'
+      - '--vpc-connector'
+      - 'banco-agil-connector'
+      - '--vpc-egress'
+      - 'private-ranges-only'
 
 images:
   - 'us-central1-docker.pkg.dev/$PROJECT_ID/banco-agil-images/auth-service:$COMMIT_SHA'
