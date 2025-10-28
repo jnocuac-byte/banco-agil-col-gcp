@@ -31,8 +31,12 @@ steps:
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
+      - '--vpc-connector'
+      - 'banco-agil-connector'
+      - '--vpc-egress'
+      - 'private-ranges-only'
       - '--set-env-vars'
-      - 'SPRING_PROFILES_ACTIVE=gcp,DB_USER=postgres,DB_PASSWORD=BancoAgil2024!'
+      - 'SPRING_PROFILES_ACTIVE=gcp'
 
 images:
   - 'us-central1-docker.pkg.dev/$PROJECT_ID/banco-agil-images/credit-service:$COMMIT_SHA'
