@@ -31,10 +31,6 @@ steps:
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
-      - '--vpc-connector'
-      - 'banco-agil-connector'
-      - '--vpc-egress'
-      - 'private-ranges-only'
       - '--set-env-vars'
       - 'SPRING_PROFILES_ACTIVE=gcp'
 
