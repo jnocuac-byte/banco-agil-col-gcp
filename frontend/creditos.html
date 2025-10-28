@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Metadatos y recursos globales -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco Ágil - Créditos PYMES</title>
+        <!-- Favicons usados por navegadores y pestañas -->
+    <link rel="icon" type="image/x-icon" href="images/EmpresaBancoAgil/favicon_32x32.png">
+    <link rel="icon" type="image/png" href="images/EmpresaBancoAgil/favicon_32x32.png">
+    <!-- Tipografías e iconos desde CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Estilos locales para la página principal -->
+    <link rel="stylesheet" href="css/index.css">
+
+</head>
+<body>
+
+    <!-- Encabezado principal: logo y enlaces primarios -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <!-- Enlace/logo que retorna al inicio; usar alt descriptivo para accesibilidad -->
+                <a href="#" class="logo">
+                    <img src="images/EmpresaBancoAgil/logoNom.png" alt="Banco Ágil Col Logo" class="logo-img">
+                </a>
+                
+                <!-- Acciones de navegación a la derecha: enlaces informativos y acceso/login -->
+                <div class="nav-actions">
+                    <ul class="nav-links-right">
+                        <li><a href="index.html">Nosotros</a></li>
+                        <li><a href="#productos">Productos</a></li>
+                        <li><a href="registro.html">Registrarse</a></li>
+                    </ul>
+                    <!-- Botón visible para acceso de usuarios -->
+                    <a href="login.html" class="contact-btn">Iniciar Sesión</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sección hero: mensaje principal, CTA y tarjetas de características -->
+    <main class="hero-section">
+        <div class="container hero-content">
+            <!-- Columna de texto: título, descripción y CTA -->
+            <div class="hero-text-content">
+                <h1>Créditos para PYMES en 48 horas</h1>
+                <p>Digitaliza tu solicitud y obtén respuesta rápida. Sin trámites presenciales.</p>
+                <div class="hero-buttons">
+                    <!-- CTA para iniciar el proceso de registro/solicitud -->
+                    <a href="registro.html" class="btn btn-primary">Solicitar Crédito Ahora</a>
+                </div>
+
+                <!-- Tarjetas cortas de características/beneficios -->
+                <div class="feature-cards-container">
+                    <div class="feature-card glass-effect">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h4>100% Digital</h4>
+                    </div>
+                    <div class="feature-card glass-effect">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Seguro</h4>
+                    </div>
+                    <div class="feature-card glass-effect">
+                        <i class="fas fa-clock"></i>
+                        <h4>48 Horas</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna visual: ilustración hero; usar img optimizada en producción -->
+            <div class="hero-image-content">
+                <img src="images/LadingPage/credito.png" alt="Ilustración PYME" class="hero-illustration">
+            </div>
+        </div>
+    </main>
+    
+    <!-- Sección de características detalladas: explicación por tarjetas -->
+    <section id="productos" class="features-section">
+    <div class="container">
+        <h2>¿Por qué elegir Banco Ágil?</h2>
+        <div class="feature-grid">
+            <!-- Cada tarjeta describe un beneficio, con icono/imagen y texto explicativo -->
+            <div class="feature-detail-card glass-effect">
+                <img src="images/LadingPage/inteligente.png" alt="Icono Digital" class="feature-icon">
+                <h3>Proceso 100% Digital</h3>
+                <p>Solicita tu crédito desde cualquier lugar sin necesidad de ir a una sucursal. Todo el proceso en línea.</p>
+            </div>
+            <div class="feature-detail-card glass-effect">
+                <img src="images/LadingPage/seguimiento.png" alt="Icono 48 Horas" class="feature-icon">
+                <h3>Respuesta en 48 Horas</h3>
+                <p>Olvídate de esperar 15-20 días. Te respondemos en máximo 2 días hábiles con nuestra tecnología avanzada.</p>
+            </div>
+            <div class="feature-detail-card glass-effect">
+                <img src="images/LadingPage/documentos.png" alt="Icono Documentos" class="feature-icon">
+                <h3>Menos Documentos</h3>
+                <p>Carga tus documentos una sola vez y nosotros validamos automáticamente con inteligencia artificial.</p>
+            </div>
+            <div class="feature-detail-card glass-effect">
+                <img src="images/LadingPage/tasas.png" alt="Icono Tasas Competitivas" class="feature-icon">
+                <h3>Tasas Competitivas</h3>
+                <p>Las mejores tasas del mercado para pequeñas y medianas empresas. Desde 8.9% anual.</p>
+            </div>
+            <div class="feature-detail-card glass-effect">
+                <img src="images/LadingPage/seguro.png" alt="Icono Seguridad" class="feature-icon">
+                <h3>Seguridad Garantizada</h3>
+                <p>Tus datos protegidos con los más altos estándares de seguridad bancaria y encriptación de nivel militar.</p>
+            </div>
+            <div class="feature-detail-card glass-effect">
+                <img src="images/LadingPage/confiable.png" alt="Icono Seguimiento" class="feature-icon">
+                <h3>Seguimiento en Tiempo Real</h3>
+                <p>Consulta el estado de tu solicitud en cualquier momento desde tu panel personalizado 24/7.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Llamado a la acción final (CTA): repetir invitación al registro/solicitud -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>¿Listo para hacer crecer tu negocio?</h2>
+            <p>Regístrate en menos de 5 minutos y solicita tu crédito hoy mismo</p>
+            <a href="registro.html" class="btn btn-primary">Comenzar Ahora</a>
+        </div>
+    </section>
+
+    <!-- Footer simple con copyright y nota de protección -->
+    <footer>
+        © 2025 Banco Ágil | Todos los derechos reservados | Protegido con tecnología de punta
+    </footer>
+
+    <!-- Script inline: efectos visuales de las tarjetas (rotación 3D) y control responsive -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const featureCards = document.querySelectorAll('.feature-card');
+
+            featureCards.forEach(card => {
+                // Efecto de rotación con el ratón para dar profundidad (solo en escritorio)
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 25; 
+                    const rotateY = (centerX - x) / 25;
+
+                    // Aplicar transformación solo en pantallas anchas para evitar problemas en móviles
+                    if (window.innerWidth > 992) {
+                        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+                    }
+                });
+
+                // Resetear transformación al salir del card
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

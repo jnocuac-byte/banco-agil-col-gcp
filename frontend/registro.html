@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="css/registro.css">
 </head>
 <body>
+    <!-- Global alert modal (moved outside .container so position:fixed is relative to viewport) -->
+    <div id="alert" class="alert"></div>
     <!-- Logo institucional en la parte superior para reforzar la marca -->
     <div class="logo-container">
         <img src="images/EmpresaBancoAgil/logoNom.png" alt="Banco Ágil Logo" class="logo-img">
@@ -133,8 +135,8 @@
             </button>
         </form>
 
-        <!-- Área para mostrar mensajes dinámicos (error/éxito) controlada por JS -->
-        <div id="alert" class="alert"></div>
+    <!-- Área para mostrar mensajes dinámicos (error/éxito) controlada por JS -->
+    <!-- (moved to top of body to allow fixed positioning relative to viewport) -->
 
         <!-- Enlace para volver a la página principal -->
         <div class="back-link">

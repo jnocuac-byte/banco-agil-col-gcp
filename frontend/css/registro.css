@@ -297,4 +297,52 @@ select option {
         font-size: 0.9rem;
         padding: 0.8rem 0.5rem; /* Ajuste responsive también */
     }
+
+}
+
+/* Center the #alert element as a modal so messages appear in the middle of the screen
+   This overrides the inline flow display used by .alert when the page wants a centered modal */
+#alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    padding: 20px 30px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    max-width: 90%;
+    min-width: 300px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: none; /* hidden by default; JS will add classes to show */
+}
+
+/* When JS adds an error/success/info class, force it visible and styled */
+#alert.error {
+    display: block;
+    background: rgba(244, 67, 54, 1);
+    color: #ffffff;
+    border-color: rgba(244,67,54,1);
+}
+
+#alert.success {
+    display: block;
+    background: rgba(76,175,80,1);
+    color: #ffffff;
+    border-color: rgba(76,175,80,1);
+}
+
+#alert.info {
+    display: block;
+    background: rgba(25,118,210,1);
+    color: #ffffff;
+    border-color: rgba(25,118,210,1);
+}
+
+#alert.warning {
+    display: block;
+    background: rgba(255,152,0,1);
+    color: #ffffff;
+    border-color: rgba(255,152,0,1);
 }
