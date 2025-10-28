@@ -28,7 +28,7 @@ import jakarta.validation.Valid;
 // Controlador REST para autenticación y registro
 @RestController
 @RequestMapping("/api/auth") // Ruta base para el controlador
-@CrossOrigin(origins = {"http://localhost:5500", "https://127.0.0.1:5500", "http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:5500", "https://127.0.0.1:5500", "https://frontend-514751056677.us-central1.run.app"})
 public class AuthController {
     
     // Inyección del servicio de autenticación
