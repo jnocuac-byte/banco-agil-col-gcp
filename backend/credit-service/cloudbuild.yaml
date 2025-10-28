@@ -1,42 +1,13 @@
 steps:
-  # Build the container image
+  # Build con Docker
   - name: 'gcr.io/cloud-builders/docker'
-    args: 
-      - 'build'
-      - '-t'
-      - 'us-central1-docker.pkg.dev/$PROJECT_ID/banco-agil-images/credit-service:$COMMIT_SHA'
-      - '-t'
-      - 'us-central1-docker.pkg.dev/$PROJECT_ID/banco-agil-images/credit-service:latest'
-      - '.'
-    dir: 'backend/credit-service'
-
-  # Push the container image to Artifact Registry
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/banco-agil-col-475102/banco-agil-repo/credit-service:$BUILD_ID', '.']
+  
+  # Push de la imagen
   - name: 'gcr.io/cloud-builders/docker'
-    args:
-      - 'push'
-      - '--all-tags'
-      - 'us-central1-docker.pkg.dev/$PROJECT_ID/banco-agil-images/credit-service'
-
-  # Deploy container image to Cloud Run
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: gcloud
-    args:
-      - 'run'
-      - 'deploy'
-      - 'credit-service'
-      - '--image'
-      - 'us-central1-docker.pkg.dev/$PROJECT_ID/banco-agil-images/credit-service:$COMMIT_SHA'
-      - '--region'
-      - 'us-central1'
-      - '--platform'
-      - 'managed'
-      - '--allow-unauthenticated'
-      - '--set-env-vars'
-      - 'SPRING_PROFILES_ACTIVE=gcp'
+    args: ['push', 'us-central1-docker.pkg.dev/banco-agil-col-475102/banco-agil-repo/credit-service:$BUILD_ID']
 
 images:
-  - 'us-central1-docker.pkg.dev/$PROJECT_ID/banco-agil-images/credit-service:$COMMIT_SHA'
-  - 'us-central1-docker.pkg.dev/$PROJECT_ID/banco-agil-images/credit-service:latest'
+  - 'us-central1-docker.pkg.dev/banco-agil-col-475102/banco-agil-repo/credit-service:$BUILD_ID'
 
-options:
-  logging: CLOUD_LOGGING_ONLY
+timeout: 1200s

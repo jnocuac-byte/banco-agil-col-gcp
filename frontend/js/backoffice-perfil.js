@@ -1,5 +1,5 @@
 // Configuración de la API
-const API_AUTH_URL = 'http://localhost:8081/api';
+const API_AUTH_URL = 'https://auth-service-514751056677.us-central1.run.app/api';
 
 // Variables globales
 let datosOriginales = {};

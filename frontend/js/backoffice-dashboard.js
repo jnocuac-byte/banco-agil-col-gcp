@@ -1,6 +1,6 @@
 // backend-dashboard.js
-const API_CREDIT_URL = 'http://localhost:8083/api/solicitudes';
-const API_DOCUMENTOS_URL = 'http://localhost:8083/api/documentos';
+// TEMPORAL: // TEMPORAL: const API_CREDIT_URL = 'http://localhost:8083/api/solicitudes';
+// TEMPORAL: // TEMPORAL: const API_DOCUMENTOS_URL = 'http://localhost:8083/api/documentos';
 
 // Estado global de solicitudes
 let solicitudesData = [];

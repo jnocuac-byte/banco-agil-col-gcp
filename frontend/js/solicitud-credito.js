@@ -1,6 +1,6 @@
 // URL base de la API solicitudes y documentos
-const API_CREDIT_URL = 'http://localhost:8083/api/solicitudes';
-const API_DOCUMENTOS_URL = 'http://localhost:8083/api/documentos';
+// TEMPORAL: // TEMPORAL: const API_CREDIT_URL = 'http://localhost:8083/api/solicitudes';
+// TEMPORAL: // TEMPORAL: const API_DOCUMENTOS_URL = 'http://localhost:8083/api/documentos';
 
 // Inicializar menú lateral
 function initializeMenuToggle() {

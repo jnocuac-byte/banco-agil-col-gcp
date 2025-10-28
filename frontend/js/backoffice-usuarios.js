@@ -1,5 +1,5 @@
 // Variables globales
-const API_BASE_URL = 'http://localhost:8081/api';
+const API_BASE_URL = 'https://auth-service-514751056677.us-central1.run.app/api';
 
 let clientesData = []; // Almacenar datos completos de clientes
 let asesoresData = []; // Almacenar datos completos de asesores

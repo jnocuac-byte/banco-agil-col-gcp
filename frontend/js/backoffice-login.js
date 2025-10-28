@@ -1,5 +1,5 @@
 // URL base de la API de autenticación
-const API_URL = 'http://localhost:8081/api/auth';
+const API_URL = 'https://auth-service-514751056677.us-central1.run.app/api/auth';
 
 // Mostrar alertas
 function mostrarAlerta(mensaje, tipo) {
