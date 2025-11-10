@@ -1,12 +1,8 @@
 /*
     login.css
     ---------
-    Estilos para la página de login (tema oscuro).
-    Incluye variables, layout centrado, logo, contenedor del formulario,
-    inputs, botones, mensajes de estado y enlaces auxiliares.
-    Solo se añaden comentarios; no se cambian reglas.
+    Estilos específicos para la página de "Login" de cliente.
 */
-
 /* Variables de color */
 :root {
     --primary-dark: #232323;

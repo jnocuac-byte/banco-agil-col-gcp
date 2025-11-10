@@ -7,8 +7,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,36 +25,27 @@ public class Cliente {
     @GeneratedValue(strategy=GenerationType.IDENTITY) // Generación automática del ID
     private long id;
 
-    // Nombres del cliente
     @Column(name="id_usuario", unique=true, nullable=false) // ID del usuario asociado al cliente
     private long idUsuario;
 
-    // Relación uno a uno con la entidad Usuario
-    @OneToOne
-    @JoinColumn(name="id_usuario", insertable=false, updatable=false) // Mapea la columna id_usuario
-    private Usuario usuario;
-
-    // Nombres del cliente
-    @Column(name="tipo_cliente")
-    @Enumerated(EnumType.STRING) // Almacena el enum como cadena en la base de datos
+    @Column(name="tipo_cliente", length = 20)
+    @Enumerated(EnumType.STRING)
     private TipoCliente tipoCliente;
 
-    // Nombres del cliente
     @Column(name="telefono", length=20)
     private String telefono;
 
-    // Documento de identidad del cliente
     @Column(name="direccion", length=200)
     private String direccion;
 
-    // Documento de identidad del cliente
     @Column(name="ciudad", length=100)
     private String ciudad;
 
-    // Estado del cliente (activo/inactivo)
+    @Column(name = "documento_identidad_estado", length = 20)
+    private String documentoIdentidadEstado;
+
     public enum TipoCliente{
         PERSONA_NATURAL,
         EMPRESA
     }
-
 }

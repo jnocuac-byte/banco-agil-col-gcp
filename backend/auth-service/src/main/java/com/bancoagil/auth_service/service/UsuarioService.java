@@ -83,6 +83,7 @@ public class UsuarioService {
             dto.setTipoCliente(cliente.getTipoCliente().name());
             dto.setTelefono(cliente.getTelefono());
             dto.setCiudad(cliente.getCiudad());
+            dto.setDocumentoIdentidadEstado(cliente.getDocumentoIdentidadEstado());
             
             // Obtener nombre completo y documento según el tipo de cliente
             if (cliente.getTipoCliente() == Cliente.TipoCliente.PERSONA_NATURAL) {
@@ -215,6 +216,17 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
     }
     
+    // Método para cambiar el estado del documento de un cliente
+    @Transactional
+    public void cambiarEstadoDocumentoCliente(Long clienteId, String nuevoEstadoDocumento) {
+        // Buscar cliente por ID
+        Cliente cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado con id: " + clienteId));
+
+        cliente.setDocumentoIdentidadEstado(nuevoEstadoDocumento);
+        clienteRepository.save(cliente);
+    }
+
     // Método para listar asesores
     @Transactional(readOnly = true)
     // Listar todos los asesores

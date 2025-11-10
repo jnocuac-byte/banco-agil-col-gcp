@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Solicitudes - Banco Agil Col</title>
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="images/EmpresaBancoAgil/favicon_32x32.png">
+    <link rel="icon" type="image/png" href="images/EmpresaBancoAgil/favicon_32x32.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Estilos compartidos del dashboard y estilos específicos de esta página -->
@@ -27,20 +30,25 @@
             <nav class="sidebar-nav">
                 <!-- Elementos de navegación con icono y texto; el item activo indica la página actual -->
                 <a href="dashboard.html" class="nav-item" title="Inicio">
-                    <div class="icon-placeholder">🏠</div>
+                    <i class="fas fa-home icon-placeholder"></i>
                     <span class="icon-text">Inicio</span>
                 </a>
                 <a href="mis-solicitudes.html" class="nav-item active" title="Mis Solicitudes">
-                    <div class="icon-placeholder">📄</div>
+                    <i class="fas fa-file-invoice-dollar icon-placeholder"></i>
                     <span class="icon-text">Mis Solicitudes</span>
                 </a>
                 <a href="#mis-cuentas" class="nav-item" title="Mis Cuentas">
-                    <div class="icon-placeholder">💳</div>
+                    <i class="fas fa-credit-card icon-placeholder"></i>
                     <span class="icon-text">Mis Cuentas</span>
                 </a>
                  <a href="#mi-perfil" class="nav-item" title="Mi Perfil">
-                    <div class="icon-placeholder">👤</div>
+                    <i class="fas fa-user-circle icon-placeholder"></i>
                     <span class="icon-text">Mi Perfil</span>
+                </a>
+                <!-- Enlace a Soporte -->
+                <a href="#" class="nav-item" title="Soporte" onclick="showComingSoon('Soporte')">
+                    <i class="fas fa-headset icon-placeholder"></i>
+                    <span class="icon-text">Soporte</span>
                 </a>
             </nav>
             </aside>

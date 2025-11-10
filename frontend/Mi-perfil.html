@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Metadatos básicos -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - Banco Agil Col</title>
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="images/EmpresaBancoAgil/favicon_32x32.png">
+    <link rel="icon" type="image/png" href="images/EmpresaBancoAgil/favicon_32x32.png">
+    <!-- Tipografía y librería de iconos -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Hojas de estilo -->
+    <link rel="stylesheet" href="css/dashboard.css"> <!-- Estilos base del dashboard -->
+    <link rel="stylesheet" href="css/Mi-perfil.css"> <!-- Estilos específicos para esta página -->
+</head>
+<body>
+    <div class="page-container">
+        <!-- Barra lateral (sidebar) con navegación principal -->
+        <aside class="sidebar">
+            <div class="menu-icon-wrapper">
+                <button id="menuToggle" class="menu-icon" aria-label="Alternar menú">
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item" title="Inicio">
+                    <i class="fas fa-home icon-placeholder"></i>
+                    <span class="icon-text">Inicio</span>
+                </a>
+                <a href="mis-solicitudes.html" class="nav-item" title="Mis Solicitudes">
+                    <i class="fas fa-file-invoice-dollar icon-placeholder"></i>
+                    <span class="icon-text">Mis Solicitudes</span>
+                </a>
+                <a href="dashboard.html#mis-cuentas" class="nav-item" title="Mis Cuentas">
+                    <i class="fas fa-credit-card icon-placeholder"></i>
+                    <span class="icon-text">Mis Cuentas</span>
+                </a>
+                <a href="Mi-perfil.html" class="nav-item active" title="Mi Perfil">
+                    <i class="fas fa-user-circle icon-placeholder"></i>
+                    <span class="icon-text">Mi Perfil</span>
+                </a>
+                <!-- Enlace a Soporte -->
+                <a href="#" class="nav-item" title="Soporte" onclick="showComingSoon('Soporte')">
+                    <i class="fas fa-headset icon-placeholder"></i>
+                    <span class="icon-text">Soporte</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <!-- Encabezado principal -->
+            <header class="header">
+                <div class="logo-area">
+                    <div class="logo-placeholder">Banco Agil Col</div>
+                    <span class="branch-name">Sucursal Virtual Personas</span>
+                </div>
+                <div class="user-area">
+                    <span class="user-name-header" id="userName">Cargando...</span>
+                    <div class="user-icon-placeholder"></div>
+                    <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
+                </div>
+            </header>
+            
+            <!-- Contenido principal de la página de perfil -->
+            <section class="profile-section">
+                <div class="greeting-bar">
+                    <h1 class="greeting-text"><i class="fas fa-user-cog"></i> Mi Perfil</h1>
+                    <p class="date-time">Gestiona tu información personal y de seguridad.</p>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-card-header">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="profile-info">
+                            <h2 id="profileName">Cargando...</h2>
+                            <p id="profileEmail">cargando@email.com</p>
+                        </div>
+                    </div>
+
+                    <form id="profileForm" class="profile-form">
+                        <h3 class="form-section-title">Datos Personales</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="documento"><i class="fas fa-id-card"></i> Documento</label>
+                                <input type="text" id="documento" name="documento" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="nombres"><i class="fas fa-user"></i> Nombres</label>
+                                <input type="text" id="nombres" name="nombres" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidos"><i class="fas fa-user"></i> Apellidos</label>
+                                <input type="text" id="apellidos" name="apellidos" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="fas fa-envelope"></i> Correo Electrónico</label>
+                                <input type="email" id="email" name="email" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="fechaNacimiento"><i class="fas fa-calendar-alt"></i> Fecha de nacimiento</label>
+                                <input type="date" id="fechaNacimiento" name="fechaNacimiento" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="ciudadNacimiento"><i class="fas fa-city"></i> Ciudad de nacimiento</label>
+                                <input type="text" id="ciudadNacimiento" name="ciudadNacimiento" readonly>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="direccion"><i class="fas fa-map-marker-alt"></i> Dirección de residencia</label>
+                                <input type="text" id="direccion" name="direccion" readonly>
+                            </div>
+                        </div>
+                        
+                        <!-- Sección para subir documentos (oculta por defecto) -->
+                        <div id="documentUploadSection" class="document-upload-section hidden">
+                            <h3 class="form-section-title">Actualizar Documento de Identidad</h3>
+                            <div class="form-group">
+                                <label for="fileUpload"><i class="fas fa-cloud-upload-alt"></i> Seleccionar Documento</label>
+                                <p class="input-help">Sube una imagen clara de tu documento (Cédula, NIT, Pasaporte). Formatos permitidos: JPG, PNG. Tamaño máximo: 5MB.</p>
+                                <input type="file" id="fileUpload" name="fileUpload" accept="image/png, image/jpeg" class="file-input">
+                                <label for="fileUpload" class="file-upload-label">
+                                    <i class="fas fa-paperclip"></i>
+                                    <span>Elegir archivo...</span>
+                                </label>
+                                <span id="fileName" class="file-name">Ningún archivo seleccionado.</span>
+                            </div>
+                        </div>
+                        
+                        <h3 class="form-section-title">Acciones de la Cuenta</h3>
+                        <div class="form-actions">
+                            <button type="button" id="btnEditar" class="btn-action">
+                                <i class="fas fa-edit"></i> Editar Perfil
+                            </button>
+                            <button type="button" id="btnGuardar" class="btn-action btn-save hidden"><i class="fas fa-save"></i> Guardar Cambios</button>
+                            <button type="button" id="btnCancelar" class="btn-action btn-cancel hidden"><i class="fas fa-times"></i> Cancelar</button>
+                            <button type="button" id="btnCambiarPass" class="btn-action" onclick="alert('Función de cambio de contraseña próximamente disponible.')">
+                                <i class="fas fa-key"></i> Cambiar Contraseña 
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Script principal de la página de perfil -->
+    <script src="js/mi-perfil.js"></script>
+
+</body>
+</html>

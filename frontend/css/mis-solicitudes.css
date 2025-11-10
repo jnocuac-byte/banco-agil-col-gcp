@@ -1,11 +1,8 @@
 /*
     mis-solicitudes.css
     -------------------
-    Estilos para la página "Mis Solicitudes" del usuario/backoffice.
-    Contiene: cabecera de página, filtros, tarjetas de solicitud, badges de estado,
-    detalles de cada solicitud y un estado vacío. Solo se añaden comentarios.
+    Estilos específicos para la página "Mis Solicitudes" del cliente.
 */
-
 /* Cabecera de la página (título y subtítulo) */
 .page-header {
         margin-bottom: 25px;

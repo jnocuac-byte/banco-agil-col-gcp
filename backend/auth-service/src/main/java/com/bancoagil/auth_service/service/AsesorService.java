@@ -37,11 +37,11 @@ public class AsesorService {
     public AsesorPerfilDTO obtenerPerfilAsesor(Long id) {
         // Buscar asesor por ID
         Asesor asesor = asesorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Asesor no encontrado")); // Lanzar excepción si no se encuentra
+                .orElseThrow(() -> new ResourceNotFoundException("Asesor no encontrado con id: " + id)); // Usar excepción personalizada
 
         // Buscar usuario asociado al asesor
         Usuario usuario = usuarioRepository.findById(asesor.getIdUsuario())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado")); // Lanzar excepción si no se encuentra
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado para el asesor con id: " + id)); // Usar excepción personalizada
 
         // Mapear datos a DTO de perfil
         AsesorPerfilDTO dto = new AsesorPerfilDTO();
@@ -64,7 +64,7 @@ public class AsesorService {
     // Actualizar datos del asesor
     public void actualizarAsesor(Long id, ActualizarAsesorDTO dto) {
         Asesor asesor = asesorRepository.findById(id) // Buscar asesor por ID
-                .orElseThrow(() -> new RuntimeException("Asesor no encontrado")); // Lanzar excepción si no se encuentra
+                .orElseThrow(() -> new ResourceNotFoundException("Asesor no encontrado con id: " + id)); // Usar excepción personalizada
 
         // Obtener área actual y nueva
         Asesor.Area areaActual = asesor.getArea();
@@ -74,19 +74,19 @@ public class AsesorService {
         try {
             areaNueva = Asesor.Area.valueOf(dto.getArea()); // Convertir cadena a enum
         } catch (IllegalArgumentException e) {
-            throw new RuntimeException("Área inválida. Valores permitidos: CREDITO, RIESGO, ADMINISTRACION, ADMIN_TOTAL"); // Lanzar excepción si el área no es válida
+            throw new IllegalArgumentException("Área inválida. Valores permitidos: CREDITO, RIESGO, ADMINISTRACION, ADMIN_TOTAL"); // Usar excepción más específica
         }
 
         // Validar restricciones de cambio de área
         if (areaActual != null && !areaActual.equals(areaNueva)) {
             // Si el asesor tiene ADMIN_TOTAL, NO puede cambiar a otra área
             if (areaActual == Asesor.Area.ADMIN_TOTAL) {
-                throw new RuntimeException("Un asesor con área ADMIN_TOTAL no puede cambiar a otra área"); // Lanzar excepción
+                throw new IllegalArgumentException("Un asesor con área ADMIN_TOTAL no puede cambiar a otra área");
             }
 
             // Si el asesor tiene otra área, NO puede cambiar a ADMIN_TOTAL
             if (areaNueva == Asesor.Area.ADMIN_TOTAL) {
-                throw new RuntimeException("No se puede cambiar el área a ADMIN_TOTAL desde otra área"); // Lanzar excepción
+                throw new IllegalArgumentException("No se puede cambiar el área a ADMIN_TOTAL desde otra área");
             }
         }
 
@@ -106,15 +106,20 @@ public class AsesorService {
     // Cambiar la contraseña del asesor
     public void cambiarPassword(Long id, CambiarPasswordDTO dto) {
         Asesor asesor = asesorRepository.findById(id) // Buscar asesor por ID
-                .orElseThrow(() -> new RuntimeException("Asesor no encontrado")); // Lanzar excepción si no se encuentra
+                .orElseThrow(() -> new ResourceNotFoundException("Asesor no encontrado con id: " + id));
 
         // Buscar usuario asociado al asesor
         Usuario usuario = usuarioRepository.findById(asesor.getIdUsuario())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado")); // Lanzar excepción si no se encuentra
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado para el asesor con id: " + id));
 
         // Verificar que la contraseña actual sea correcta
         if (!passwordEncoder.matches(dto.getPasswordActual(), usuario.getPassword())) {
-            throw new RuntimeException("La contraseña actual es incorrecta"); // Lanzar excepción si la contraseña no coincide
+            throw new IllegalArgumentException("La contraseña actual es incorrecta");
+        }
+
+        // Validar la nueva contraseña (ej. longitud mínima)
+        if (dto.getPasswordNueva() == null || dto.getPasswordNueva().length() < 8) {
+            throw new IllegalArgumentException("La nueva contraseña debe tener al menos 8 caracteres.");
         }
 
         // Encriptar y guardar la nueva contraseña

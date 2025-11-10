@@ -1,15 +1,11 @@
-// Variables globales adicionales (de dashboard-app.js)
+// Variables globales
 let balanceVisible = false;
 let currentUser = null;
 
 // Verificar autenticación
 function verificarAutenticacion() {
-    // Obtener datos del usuario desde sessionStorage
     const usuario = sessionStorage.getItem('usuario');
-    
-    // Si no hay usuario, redirigir al login
     if (!usuario) {
-        // No hay sesión, redirigir al login
         window.location.href = 'login.html';
         return null;
     }
@@ -20,10 +16,8 @@ function verificarAutenticacion() {
 
 // Cargar datos del usuario
 function cargarDatosUsuario() {
-    // Para este mockup, solo verificamos si hay usuario
     const usuario = verificarAutenticacion();
     
-    // Si hay usuario, mostrar su nombre y cargar estadísticas
     if (usuario) {
         // Guardar en variable global para funciones adicionales
         currentUser = usuario;
@@ -33,14 +27,12 @@ function cargarDatosUsuario() {
         
         // Mostrar nombre en el header
         const userNameHeader = document.getElementById('userName');
-        // Si el elemento existe, actualizar su contenido
         if (userNameHeader) {
             userNameHeader.textContent = nombre;
         }
 
         // Mostrar nombre en el saludo principal ("Hola, [Usuario]")
         const greetingElement = document.getElementById('greeting');
-        // Si el elemento existe, actualizar su contenido
         if (greetingElement) {
             greetingElement.textContent = `Hola, ${nombre}`; 
         }
@@ -48,8 +40,11 @@ function cargarDatosUsuario() {
         // Cargar estadísticas
         cargarEstadisticas(usuario);
         
-        // NUEVA: Simular datos de cuenta adicionales
+        // Simular datos de cuenta adicionales
         simulateAccountData();
+
+        // Verificar estado de documentos y mostrar alerta si es necesario
+        verificarEstadoDocumentos(usuario);
     }
 }
 
@@ -64,29 +59,74 @@ async function cargarEstadisticas(usuario) {
 
 // Cerrar sesión
 function logout() {
-    // Confirmar acción
-    if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
-        // Eliminar datos de sessionStorage y redirigir al login
-        sessionStorage.removeItem('usuario');
-        window.location.href = 'login.html';
-    }
+    // Usar el nuevo modal de confirmación en lugar del confirm() del navegador
+    showConfirmationModal(
+        'Cerrar Sesión',
+        '¿Estás seguro de que deseas cerrar tu sesión?',
+        () => {
+
+            sessionStorage.removeItem('usuario');
+            sessionStorage.removeItem('authToken'); 
+            window.location.href = 'login.html';
+        }
+    );
 }
 
-// Lógica para mostrar el modal de "Próximamente"
+// Muestra el modal "Próximamente"
 function showComingSoon(feature) {
-    // Actualizar contenido del modal
-    document.getElementById('modalTitle').textContent = `Función: ${feature}`; // Título dinámico
-    document.getElementById('modalMessage').innerHTML = `La funcionalidad de **${feature}** estará disponible próximamente.`; // Mensaje dinámico
-    document.getElementById('modal').classList.add('show'); // Mostrar el modal
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
+    const btnConfirm = document.getElementById('modalBtnConfirm');
+    const btnCancel = document.getElementById('modalBtnCancel');
+
+    modalTitle.textContent = `Función: ${feature}`;
+    modalMessage.innerHTML = `La funcionalidad de <strong>${feature}</strong> estará disponible próximamente.`;
+    
+    // Para "Próximamente", solo mostramos un botón de confirmación que actúa como "Entendido"
+    btnConfirm.textContent = 'Entendido';
+    btnConfirm.onclick = closeModal; // El botón de confirmar solo cierra el modal
+    btnCancel.style.display = 'none'; // Ocultamos el botón de cancelar
+    btnConfirm.style.display = 'inline-block';
+
+    modal.classList.add('show');
 }
 
-// Lógica para cerrar el modal
+// Cierra el modal
 function closeModal() {
-    // Ocultar el modal
     document.getElementById('modal').classList.remove('show');
 }
 
-// Lógica para alternar la visibilidad del saldo
+/**
+ * Muestra un modal de confirmación genérico.
+ * @param {string} title - El título del modal.
+ * @param {string} message - El mensaje a mostrar en el cuerpo del modal.
+ * @param {function} onConfirm - La función a ejecutar si el usuario confirma.
+ */
+function showConfirmationModal(title, message, onConfirm) {
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
+    const btnConfirm = document.getElementById('modalBtnConfirm');
+    const btnCancel = document.getElementById('modalBtnCancel');
+
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+
+    btnConfirm.textContent = 'Confirmar';
+    btnConfirm.style.display = 'inline-block';
+    btnCancel.style.display = 'inline-block';
+
+    // Asignar la acción de confirmación. Se usa .onclick para simplicidad.
+    btnConfirm.onclick = () => {
+        onConfirm();
+        closeModal();
+    };
+
+    modal.classList.add('show');
+}
+
+// Alterna la visibilidad del saldo
 function toggleBalance() {
     // Simulación de mostrar/ocultar saldo
     const balanceElement = document.getElementById('balance');
@@ -95,7 +135,6 @@ function toggleBalance() {
 
     // Alternar entre mostrar y ocultar
     if (balanceElement.textContent.includes('***')) {
-        // Simular saldo visible y cambiar texto del enlace
         balanceElement.textContent = balanceMockValue;
         balanceElement.classList.add('balance-visible');
         linkElement.textContent = 'Ocultar saldos';
@@ -107,69 +146,55 @@ function toggleBalance() {
     }
 }
 
-// Lógica de navegación del menú lateral
+// Inicializa el menú lateral
 function initializeMenuToggle() {
-    // Alternar clase para expandir/colapsar sidebar
     const menuToggle = document.getElementById('menuToggle');
-    // Asegurarse que el elemento existe
     if (menuToggle) {
-        menuToggle.addEventListener('click', function() { // Alternar clase
-            document.querySelector('.sidebar').classList.toggle('sidebar-expanded'); // Alternar clase
+        menuToggle.addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('sidebar-expanded');
         });
     }
 }
 
-// Simulación de fecha y hora actual
+// Actualiza la fecha y hora
 function updateDateTime() {
-    // Formatear fecha y hora en español
     const now = new Date();
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true };
     const formattedDate = now.toLocaleDateString('es-ES', options).replace(',', '').replace('p. m.', 'p.m.').replace('a. m.', 'a.m.');
     
-    // Actualizar en el DOM si el elemento existe
     const dateTimeElement = document.getElementById('currentDateTime');
     if (dateTimeElement) {
-        dateTimeElement.textContent = formattedDate; // Ejemplo: "lunes, 1 de enero de 2024 10:30 a.m."
+        dateTimeElement.textContent = formattedDate;
     }
 }
 
-// Función para limitar la frecuencia de ejecución de una función (útil para eventos de resize/scroll)
+// Limita la frecuencia de ejecución de una función (debounce)
 function debounce(func, wait) {
-    // Varianle para almacenar el timeout
     let timeout;
-    // Para evitar problemas con el contexto 'this', usamos una función flecha
     return function executedFunction(...args) {
-        // Función que se ejecuta después del tiempo de espera
         const later = () => {
             clearTimeout(timeout);
             func(...args);
         };
-        // Limpiar el timeout previo y reiniciar el conteo
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
     };
 }
 
-// Función para formatear números (útil para mostrar datos financieros)
-// Aunque no se usa en el mockup de saldo, es buena práctica tenerla.
+// Formatea números como moneda
 function formatCurrency(amount) {
-    // Para COP
     return new Intl.NumberFormat('es-CO', {
-        style: 'currency', // Formato de moneda
-        currency: 'COP' // Peso colombiano
-    }).format(amount); // Retornar cadena formateada
+        style: 'currency',
+        currency: 'COP'
+    }).format(amount);
 }
 
-// Simular datos de la cuenta (NUEVA)
+// Simula y muestra datos de la cuenta
 function simulateAccountData() {
-    // Mostrar número de cuenta enmascarado
     const accountNumberMask = document.querySelector('.account-number-mask');
-    // Si el elemento existe y hay usuario
     if (accountNumberMask && currentUser) {
-        // Generar número de cuenta basado en el documento del usuario
-        const lastDigits = currentUser.documentNumber?.slice(-4) ||  // Usar los últimos 4 dígitos del documento o '1234' como fallback
-                          currentUser.documento?.slice(-4) || '1234'; // Soporte para ambos campos
-        accountNumberMask.textContent = `*****-${lastDigits}`; // Ejemplo: *****-5678
+        const lastDigits = currentUser.documentNumber?.slice(-4) || currentUser.documento?.slice(-4) || '1234';
+        accountNumberMask.textContent = `*****-${lastDigits}`;
     }
 }
 
@@ -177,17 +202,12 @@ function simulateAccountData() {
 function addHoverEffects() {
     // Seleccionar todas las tarjetas relevantes
     const cards = document.querySelectorAll('.transaction-card, .welcome-card, .product-detail-card');
-    
-    // Agregar listeners para hover
     cards.forEach(card => {
-        // Usar funciones normales para mantener el contexto 'this'
         card.addEventListener('mouseenter', function() {
-            // Aplicar transformaciones CSS para efecto hover
             this.style.transform = 'translateY(-2px)';
             this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.2)';
         });
         
-        // Revertir transformaciones al salir del hover
         card.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
             this.style.boxShadow = '';
@@ -195,18 +215,15 @@ function addHoverEffects() {
     });
 }
 
-// Mostrar mensaje de notificación 
+// Muestra un mensaje de notificación flotante
 function showMessage(message, type = 'info') {
-    // type: 'success', 'error', 'warning', 'info'
     const existingMessage = document.querySelector('.message-notification');
-    // Eliminar mensaje previo si existe
     if (existingMessage) {
         existingMessage.remove(); 
     }
     
-    // Crear nuevo mensaje
     const messageDiv = document.createElement('div');
-    messageDiv.className = `message-notification message-${type}`; // Añadir clase según tipo
+    messageDiv.className = `message-notification message-${type}`;
     messageDiv.innerHTML = `
         <p>${message}</p>
         <button onclick="this.parentElement.remove()">×</button>
@@ -231,7 +248,6 @@ function showMessage(message, type = 'info') {
         transition: 'transform 0.3s ease'
     });
     
-    // Estilos del botón de cierre
     messageDiv.querySelector('button').style.cssText = `
         background: none;
         border: none;
@@ -243,31 +259,25 @@ function showMessage(message, type = 'info') {
         margin-left: 10px;
     `;
     
-    // Añadir al body y mostrar con animación
     document.body.appendChild(messageDiv);
     
-    // Animar entrada
     setTimeout(() => {
-        messageDiv.style.transform = 'translateX(0)'; // Slide in
+        messageDiv.style.transform = 'translateX(0)';
     }, 100);
     
-    // Ocultar después de 5 segundos con animación de salida
     setTimeout(() => {
-        // Animar salida
         if (messageDiv.parentNode) {
-            messageDiv.style.transform = 'translateX(100%)'; // Slide out
-            // Remover del DOM después de la animación
+            messageDiv.style.transform = 'translateX(100%)';
             setTimeout(() => {
-                // Verificar si el elemento aún existe antes de remover
                 if (messageDiv.parentNode) {
-                    messageDiv.remove(); // Remover del DOM
+                    messageDiv.remove();
                 }
-            }, 300); // Tiempo de la animación
+            }, 300);
         }
-    }, 5000); // 5 segundos
+    }, 5000);
 }
 
-// Función para transacciones recientes (NUEVA - para futuro uso)
+// Obtiene transacciones recientes (simulación)
 function getRecentTransactions() {
     // Simulación de transacciones
     return [
@@ -277,44 +287,83 @@ function getRecentTransactions() {
     ];
 }
 
+// Verifica y muestra alerta de estado de documentos
+function verificarEstadoDocumentos(usuario) {
+    const alertContainer = document.getElementById('documentStatusAlert');
+    const alertMessage = document.getElementById('documentStatusMessage');
+    const alertAction = alertContainer.querySelector('.alert-action');
 
-// Cerrar modal con tecla Escape (NUEVO)
+    if (!usuario.estadoDocumento) {
+        return;
+    }
+
+    const estado = usuario.estadoDocumento.toUpperCase();
+
+    if (estado === 'PENDIENTE') {
+        alertMessage.textContent = 'Tu cuenta está casi lista. Por favor, sube tu documento de identidad para activar todas las funciones.';
+        alertContainer.className = 'document-status-alert alert-warning';
+        alertAction.textContent = 'Subir documento';
+        alertContainer.classList.remove('hidden');
+    } else if (estado === 'NEGADO') {
+        alertMessage.textContent = 'Hubo un problema con tu documento. Por favor, súbelo de nuevo para poder continuar.';
+        alertContainer.className = 'document-status-alert alert-danger';
+        alertAction.textContent = 'Subir de nuevo';
+        alertContainer.classList.remove('hidden');
+    }
+}
+
+// Restringe la navegación si los documentos no están aprobados
+function interceptarNavegacionRestringida(usuario) {
+    const enlacesRestringidos = document.querySelectorAll('a[href="solicitud-credito.html"], a[href="mis-solicitudes.html"]');
+    const estado = usuario.estadoDocumento?.toUpperCase();
+
+    // Si el estado es pendiente o negado, bloqueamos la navegación
+    if (estado === 'PENDIENTE' || estado === 'NEGADO') {
+        enlacesRestringidos.forEach(enlace => {
+            enlace.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevenir la navegación
+                
+                const mensaje = estado === 'PENDIENTE' 
+                    ? 'Debes subir tu documento de identidad antes de poder solicitar un crédito.'
+                    : 'Tu documento fue negado. Por favor, súbelo de nuevo para poder solicitar un crédito.';
+                
+                showMessage(mensaje, 'warning');
+            });
+        });
+    }
+}
+
+// Cierra el modal con la tecla Escape
 document.addEventListener('keydown', function(e) {
-    // Cerrar modal si está abierto y se presiona Escape
     if (e.key === 'Escape') {
-        closeModal(); // Cerrar el modal
+        closeModal();
     }
 });
 
 // Inicialización al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
-    // Cargar datos del usuario y estadísticas
     cargarDatosUsuario(); 
     
-    // Inicializar listeners UI
     initializeMenuToggle();
     updateDateTime();
     
-    // NUEVO: Agregar efectos hover
     addHoverEffects();
     
-    // NUEVO: Actualizar fecha cada minuto
     setInterval(updateDateTime, 60000);
+
+    if (currentUser) {
+        interceptarNavegacionRestringida(currentUser);
+    }
     
-    // Asignar listeners a los botones de transacciones (que llaman a showComingSoon)
-    const transactionCards = document.querySelectorAll('.transactions-grid .transaction-card');
+    // Selector más específico para evitar incluir las tarjetas de estadísticas
+    const transactionCards = document.querySelectorAll('.transactions-area .transaction-card');
     transactionCards.forEach(card => {
-        // Aseguramos que solo las transacciones del inicio abran el modal (si no tienen un 'href')
         if (!card.matches('a[href]')) { 
-            // Obtener el nombre de la función desde el texto del card
             const featureName = card.querySelector('.transaction-text').textContent;
             card.setAttribute('onclick', `showComingSoon('${featureName}')`);
         }
     });
-
-    // Asignar el listener de logout al botón
     const logoutBtn = document.querySelector('.logout-btn');
-    // Si el botón existe, asignar el evento
     if (logoutBtn) {
         logoutBtn.addEventListener('click', logout);
     }

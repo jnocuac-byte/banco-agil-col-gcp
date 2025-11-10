@@ -1,6 +1,6 @@
 // backend-dashboard.js
-// TEMPORAL: // TEMPORAL: // TEMPORAL: const API_CREDIT_URL = 'http://localhost:8083/api/solicitudes';
-// TEMPORAL: // TEMPORAL: // TEMPORAL: const API_DOCUMENTOS_URL = 'http://localhost:8083/api/documentos';
+const API_CREDIT_URL = 'https://credit-service-514751056677.us-central1.run.app/api/solicitudes';
+const API_DOCUMENTOS_URL = 'https://credit-service-514751056677.us-central1.run.app/api/documentos';
 
 // Estado global de solicitudes
 let solicitudesData = [];

@@ -104,10 +104,21 @@ public class AuthController {
             return ResponseEntity.ok(response);
         } catch (Exception e) { // Manejar errores
             // Preparar respuesta de error
-            LoginResponseDTO errorResponse = new LoginResponseDTO( //<- Nuevo objeto de respuesta
-                false, // Indicador de éxito
-                e.getMessage(), // Mensaje de error
-                null, null, null, null, null, null, null // Todos los demás campos como null
+            LoginResponseDTO errorResponse = new LoginResponseDTO(
+                false, 
+                e.getMessage(), 
+                null, 
+                null, 
+                null, 
+                null,
+                null, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null,
+                null   
             );
 
             // Devolver respuesta con estado 401 Unauthorized
@@ -128,9 +139,20 @@ public class AuthController {
         } catch (RuntimeException e) { // Manejar errores
             // Preparar respuesta de error
             LoginResponseDTO errorResponse = new LoginResponseDTO(
-                false, // Indicador de éxito
-                e.getMessage(), // Mensaje de error
-                null, null, null, null, null, null, null // Todos los demás campos como null
+                false, 
+                e.getMessage(), 
+                null, 
+                null, 
+                null, 
+                null,
+                null, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null,
+                null   
             );
 
             // Devolver respuesta con estado 401 Unauthorized

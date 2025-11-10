@@ -19,6 +19,7 @@ import com.bancoagil.auth_service.dto.AsesorDTO;
 import com.bancoagil.auth_service.dto.ClienteDTO;
 import com.bancoagil.auth_service.dto.ClienteDetalleDTO;
 import com.bancoagil.auth_service.dto.EstadoDTO;
+import com.bancoagil.auth_service.dto.EstadoDocumentoDTO;
 import com.bancoagil.auth_service.dto.EstadisticasAsesorDTO;
 import com.bancoagil.auth_service.dto.SolicitudDTO;
 import com.bancoagil.auth_service.service.UsuarioService;
@@ -98,6 +99,29 @@ public class UsuarioController {
             response.put("message", e.getMessage());
             // Devolver respuesta con estado 400 Bad Request
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
+
+    // Endpoint para actualizar el estado del documento de un cliente
+    @PutMapping("/clientes/{id}/estado-documento")
+    public ResponseEntity<Map<String, Object>> cambiarEstadoDocumentoCliente(
+            @PathVariable Long id,
+            @RequestBody EstadoDocumentoDTO dto) {
+
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            usuarioService.cambiarEstadoDocumentoCliente(id, dto.getEstado());
+            response.put("success", true);
+            response.put("message", "Estado del documento actualizado correctamente");
+            return ResponseEntity.ok(response);
+
+        } catch (RuntimeException e) {
+            response.put("success", false);
+            response.put("message", e.getMessage());
+            // Usamos NOT_FOUND si el cliente no existe, de lo contrario BAD_REQUEST
+            HttpStatus status = e.getMessage().toLowerCase().contains("no encontrado") ? HttpStatus.NOT_FOUND : HttpStatus.BAD_REQUEST;
+            return ResponseEntity.status(status).body(response);
         }
     }
 

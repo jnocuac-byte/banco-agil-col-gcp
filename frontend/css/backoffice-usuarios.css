@@ -1,14 +1,8 @@
 /*
     backoffice-usuarios.css
-    ------------------------
-    Descripción: estilos para la sección de gestión de usuarios del BackOffice.
-    Contiene: pestañas (tabs), secciones colapsables, tarjetas de estadísticas,
-    barra de búsqueda, acciones sobre usuarios, badges de estado, modales y
-    componentes de historial/estado vacío.
-
-    Nota: solo comentarios añadidos. No modificar variables globales aquí.
+    -----------------------
+    Estilos específicos para la página "Gestión de Usuarios" del backoffice.
 */
-
 /* Contenedor de pestañas (tabs)
      - Agrupa botones que cambian el contenido mostrado (.tab-button)
      - Barra inferior para indicar la separación */

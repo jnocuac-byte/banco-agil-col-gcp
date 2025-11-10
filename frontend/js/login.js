@@ -57,7 +57,12 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
                 tipoUsuario: result.tipoUsuario,
                 clienteId: result.clienteId,
                 tipoCliente: result.tipoCliente,
-                nombreCompleto: result.nombreCompleto,
+                nombres: result.nombres,
+                apellidos: result.apellidos,
+                fechaNacimiento: result.fechaNacimiento,
+                ciudad: result.ciudad,
+                direccion: result.direccion,
+                documentoIdentidadEstado: result.documentoIdentidadEstado,
                 token: result.token
             }));
             

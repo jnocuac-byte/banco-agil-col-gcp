@@ -1,23 +1,7 @@
 /*
     backoffice-dashboard.css
-    -------------------------
-    Hoja de estilos para el layout del BackOffice (tema oscuro).
-    Propósito: definir variables de color, estilos del sidebar, header,
-    tarjetas, tablas, badges, botones y adaptaciones responsive.
-
-    Estructura del archivo (secciones):
-        - Variables de color (:root)
-        - Estilos globales y reset
-        - Sidebar (colapsable / expandible)
-        - Main content / Header / Greeting
-        - Cards, Stats y Tabla
-        - Badges y Botones de acción
-        - Detalles expandibles y documentos
-        - Responsive (breakpoints y ajustes móviles)
-
-    Nota: Este archivo sólo contiene reglas visuales. La interacción (abrir/cerrar
-    sidebar, cálculos dinámicos) se maneja por JavaScript; las clases como
-    `sidebar-expanded`, `hidden`, `active` son modificadas por el código.
+    ------------------------
+    Estilos específicos para la página "Dashboard" del backoffice.
 */
 /* Variables de Color (Copiadas de dashboard.css) */
 :root {

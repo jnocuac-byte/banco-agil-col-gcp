@@ -1,6 +1,7 @@
 package com.bancoagil.auth_service.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -154,22 +155,28 @@ public class AuthService {
                 .orElseThrow(() -> new RuntimeException("Información de cliente no encontrada")); // Lanzar excepción si no se encuentra
         
         // Obtener nombre completo según tipo de cliente
-        String nombreCompleto = "";
+        String nombres = "";
+        String apellidos = "";
+        LocalDate fechaNacimiento = null;
         
         // Si es persona natural, combinar nombres y apellidos
         if (cliente.getTipoCliente() == Cliente.TipoCliente.PERSONA_NATURAL) {
             // Buscar persona natural asociada al cliente
-            PersonaNatural persona = personaNaturalRepository.findById(cliente.getId()).orElse(null);
+            PersonaNatural persona = personaNaturalRepository.findByIdCliente(cliente.getId()).orElse(null);
             // Si se encontró, combinar nombres y apellidos
             if (persona != null) {
-                nombreCompleto = persona.getNombres() + " " + persona.getApellidos(); // Combinar nombres y apellidos
+                nombres = persona.getNombres();
+                apellidos = persona.getApellidos();
+                fechaNacimiento = persona.getFechaNacimiento();
             }
         } else { // Si es empresa, usar razón social
             // Buscar empresa asociada al cliente
             Empresa empresa = empresaRepository.findById(cliente.getId()).orElse(null);
             // Si se encontró, usar razón social
             if (empresa != null) {
-                nombreCompleto = empresa.getRazonSocial(); // Usar razón social
+                nombres = empresa.getNombreComercial();
+                apellidos = empresa.getRazonSocial();
+                fechaNacimiento = empresa.getFechaConstitucion();
             }
         }
         
@@ -186,7 +193,12 @@ public class AuthService {
             token,
             cliente.getId(),
             cliente.getTipoCliente().name(),
-            nombreCompleto
+            nombres,
+            apellidos,
+            fechaNacimiento,
+            cliente.getCiudad(),
+            cliente.getDireccion(),
+            cliente.getDocumentoIdentidadEstado()
         );
     }
     
@@ -216,7 +228,8 @@ public class AuthService {
                 .orElseThrow(() -> new RuntimeException("Información de asesor no encontrada")); // Lanzar excepción si no se encuentra
         
         // Combinar nombres y apellidos
-        String nombreCompleto = asesor.getNombres() + " " + asesor.getApellidos();
+        String nombres = asesor.getNombres();
+        String apellidos = asesor.getApellidos();
         
         // Generar JWT token
         String token = jwtUtil.generateToken(usuario.getId(), usuario.getEmail(), usuario.getTipoUsuario().name());
@@ -231,7 +244,12 @@ public class AuthService {
             token,
             asesor.getId(),
             "ASESOR",
-            nombreCompleto
+            nombres,
+            apellidos,
+            null,
+            null,
+            null,
+            null
         );
     }
 
@@ -314,6 +332,10 @@ public class AuthService {
         // Validar razón social
         if (dto.getRazonSocial() == null || dto.getRazonSocial().isBlank()) {
             throw new RuntimeException("La razón social es obligatoria"); // Lanzar excepción si la razón social es nula o vacía
+        }
+        // Validar nombre comercial
+        if (dto.getNombreComercial() == null || dto.getNombreComercial().isBlank()) {
+            throw new RuntimeException("El nombre comercial es obligatorio para empresas");
         }
         // Validar número de empleados
         if (dto.getNumEmpleados() == null) { 

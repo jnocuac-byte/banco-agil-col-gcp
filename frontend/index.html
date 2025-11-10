@@ -210,11 +210,30 @@
             <div class="logo-placeholder-footer">Banco Ágil Col</div>
             <p>Copyright © 2025 Banco Ágil Col</p>
         </div>
-        <!-- Botón flotante de ayuda/soporte (puede abrir chat o enlace de contacto) -->
-        <div class="help-button-float">
+        <div class="help-button-float" id="helpButton">
             <i class="fas fa-headset"></i>
         </div>
     </footer>
+
+    <div id="chatPanel" class="chat-panel">
+        <div class="chat-header">
+            <h3>Asistente Virtual</h3>
+            <div>
+                <button id="minimizeChat" class="minimize-chat-btn">&minus;</button>
+                <button id="closeChat" class="close-chat-btn">&times;</button>
+            </div>
+        </div>
+        <div class="chat-body" id="chatMessages">
+            <div class="message bot-message">
+                <p>¡Hola! Soy tu asistente virtual. ¿En qué puedo ayudarte hoy?</p>
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Escribe un mensaje...">
+            <button id="sendChat" class="send-chat-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+        <!-- bot aqui -->
+    </div>
 
     <!-- Script que controla comportamiento del carrusel, dropdown y otras interacciones en HomePage -->
     <script src="js/HomePage.js"></script> 

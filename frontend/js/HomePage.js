@@ -1,195 +1,146 @@
-// Funciones de navegación globales
 function redirectToCredits() {
-    window.location.href = 'creditos.html'; // Redirigir a la página de créditos
+    window.location.href = 'creditos.html';
 }
 
-// Función para redirigir a la página de login
 function redirectToLogin() {
-    window.location.href = 'login.html'; // Redirigir a la página de login
+    window.location.href = 'login.html';
 }
 
-// Función para mostrar alerta de "Próximamente" y redirigir a registro si el usuario acepta
 function showComingSoon(feature) {
-    // Mensaje de confirmación
     const message = `La funcionalidad "${feature}" estará disponible próximamente.\n\n¿Te interesa? Regístrate ahora para ser el primero en conocer cuando esté lista.`;
 
-    // Mostrar confirmación
     if (confirm(message)) {
-        window.location.href = 'registro.html'; // Redirigir a la página de registro
+        window.location.href = 'registro.html';
     }
 }
 
-// Hacer las funciones globales
 window.redirectToCredits = redirectToCredits;
 window.redirectToLogin = redirectToLogin;
 window.showComingSoon = showComingSoon;
 
-// Funcionalidad del carrusel y notificaciones flotantes
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Homepage script iniciado'); // Log para verificar que el script se carga
-    
-    // Elementos del carrusel y notificaciones
     const prevButton = document.querySelector('.carousel-control.prev');
     const nextButton = document.querySelector('.carousel-control.next');
     const slides = document.querySelectorAll('.slide-item');
     const notifs = document.querySelectorAll('.floating-notification-block');
-    
-    // Estado inicial
     let currentSlideIndex = 1;
 
-    // Función para actualizar el carrusel y las notificaciones
     function updateCarousel(newIndex) {
-        currentSlideIndex = newIndex; // Actualizar índice actual
-
-        // Actualizar clases activas
+        currentSlideIndex = newIndex;
         slides.forEach(slide => {
-            // Quitar clase active de todos los slides
             slide.classList.remove('active');
-            // Añadir clase active al slide actual
             if (parseInt(slide.getAttribute('data-slide')) === currentSlideIndex) {
-                slide.classList.add('active'); // Activar slide actual
+                slide.classList.add('active');
             }
         });
-
-        // Actualizar notificaciones
         notifs.forEach(notif => {
-            // Quitar clase active-notif de todas las notificaciones
             notif.classList.remove('active-notif');
-
-            // Añadir clase active-notif a la notificación correspondiente al slide actual
             if (parseInt(notif.getAttribute('data-slide-target')) === currentSlideIndex) {
-                notif.classList.add('active-notif'); // Activar notificación actual
+                notif.classList.add('active-notif');
             }
         });
     }
 
-    // Eventos de los botones y notificaciones
     prevButton.addEventListener('click', () => {
-        // Navegar al slide anterior, con wrap-around
         let newIndex = currentSlideIndex - 1;
-        // Si es menor que 1, ir al último slide
         if (newIndex < 1) {
-            newIndex = slides.length; // Wrap-around al último slide
+            newIndex = slides.length;
         }
-        updateCarousel(newIndex); // Actualizar carrusel
+        updateCarousel(newIndex);
     });
 
-    // Evento del botón siguiente
     nextButton.addEventListener('click', () => {
-        let newIndex = currentSlideIndex + 1; // Incrementar índice
-
-        // Si es mayor que el número de slides, volver al primero
+        let newIndex = currentSlideIndex + 1;
         if (newIndex > slides.length) {
-            newIndex = 1; // Wrap-around al primer slide
+            newIndex = 1;
         }
-        updateCarousel(newIndex); // Actualizar carrusel
+        updateCarousel(newIndex);
     });
 
-    // Evento de las notificaciones
     notifs.forEach(notif => {
-        // Al hacer clic en una notificación, ir al slide correspondiente
         notif.addEventListener('click', (e) => {
-            e.preventDefault();  // Prevenir comportamiento por defecto
-            const targetIndex = parseInt(notif.getAttribute('data-slide-target')); // Obtener índice objetivo
-            updateCarousel(targetIndex); // Actualizar carrusel
+            e.preventDefault();
+            const targetIndex = parseInt(notif.getAttribute('data-slide-target'));
+            updateCarousel(targetIndex);
         });
     });
 
-    // Inicializar carrusel en el slide 1
     updateCarousel(currentSlideIndex);
-    
-    // Inicializar otros elementos interactivos
     initializeQuickAccess();
     initializeDropdowns();
+
+    const helpButton = document.getElementById('helpButton');
+    const chatPanel = document.getElementById('chatPanel');
+    const closeChat = document.getElementById('closeChat');
+    const minimizeChat = document.getElementById('minimizeChat');
+
+    if (helpButton && chatPanel) {
+        helpButton.addEventListener('click', () => {
+            chatPanel.classList.toggle('show');
+            chatPanel.classList.remove('minimized');
+        });
+    }
+    if (closeChat && chatPanel) {
+        closeChat.addEventListener('click', () => chatPanel.classList.remove('show'));
+    }
+    if (minimizeChat && chatPanel) {
+        minimizeChat.addEventListener('click', () => {
+            chatPanel.classList.toggle('minimized');
+        });
+    }
 });
 
-// Inicializar accesos rápidos
 function initializeQuickAccess() {
-    // Seleccionar todos los elementos de acceso rápido
     const quickAccessItems = document.querySelectorAll('.quick-access-item');
-    
-    // Añadir efectos hover y eventos click
     quickAccessItems.forEach(item => {
-        // Efecto hover
         item.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-3px)'; 
+            this.style.transform = 'translateY(-3px)';
             this.style.transition = 'transform 0.3s ease';
         });
-        
-        // Quitar efecto hover
         item.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
         });
-        
-        // Agregar eventos de click para funcionalidades específicas
         const text = item.querySelector('span').textContent;
-        
-        // Dependiendo del texto, asignar diferentes acciones
-        if (text.includes('Trámites digitales')) {
-            // Ya configurado con onclick en HTML
-        } else if (text.includes('Pagos')) { // Ejemplo de funcionalidad futura
-            // Mostrar alerta de próximamente
+        if (text.includes('Pagos')) {
             item.addEventListener('click', function() {
-                alert('Funcionalidad de pagos próximamente. Por favor, accede a tu cuenta para pagar facturas.'); // Mensaje informativo
+                alert('Funcionalidad de pagos próximamente. Por favor, accede a tu cuenta para pagar facturas.');
             });
-        } else if (text.includes('Centro de Ayuda')) { // Ejemplo de funcionalidad de ayuda
-            // Mostrar información de contacto
+        } else if (text.includes('Centro de Ayuda')) {
             item.addEventListener('click', function() {
-                alert('¿Necesitas ayuda? Contáctanos:\n📞 01 8000 123 456\n📧 ayuda@bancoagilcol.com'); // Mensaje informativo
+                alert('¿Necesitas ayuda? Contáctanos:\n📞 01 8000 123 456\n📧 ayuda@bancoagilcol.com');
             });
-        } else { // Otras funcionalidades próximamente
-            // Mostrar alerta de próximamente
+        } else if (!text.includes('Trámites digitales')) {
             item.addEventListener('click', function() {
-                showComingSoon(text); // Usar función global para mostrar mensaje
+                showComingSoon(text);
             });
         }
     });
 }
 
-// Inicializar dropdowns
 function initializeDropdowns() {
-    // Seleccionar todos los dropdowns
     const dropdowns = document.querySelectorAll('.virtual-branch-dropdown');
-    
-    // Añadir eventos a cada dropdown
     dropdowns.forEach(dropdown => {
-        const button = dropdown.querySelector('.dropdown-button'); // Botón del dropdown
-        const content = dropdown.querySelector('.dropdown-content'); // Contenido del dropdown
-        
-        // Evento click en el botón
+        const button = dropdown.querySelector('.dropdown-button');
+        const content = dropdown.querySelector('.dropdown-content');
         if (button && content) {
-            // Prevenir propagación para evitar cierre inmediato
             button.addEventListener('click', function(e) {
-                e.stopPropagation(); // Prevenir cierre inmediato
-                
-                // Cerrar otros dropdowns
+                e.stopPropagation();
                 dropdowns.forEach(otherDropdown => {
-                    // Cerrar si no es el actual
                     if (otherDropdown !== dropdown) {
-                        const otherContent = otherDropdown.querySelector('.dropdown-content'); // Contenido del otro dropdown
-
-                        // Cerrar si no es el actual
+                        const otherContent = otherDropdown.querySelector('.dropdown-content');
                         if (otherContent) {
-                            otherContent.style.display = 'none'; // Ocultar contenido
+                            otherContent.style.display = 'none';
                         }
                     }
                 });
-                
-                // Toggle este dropdown
                 const isVisible = content.style.display === 'block';
                 content.style.display = isVisible ? 'none' : 'block';
             });
         }
     });
-    
-    // Cerrar dropdowns al hacer click fuera
     document.addEventListener('click', function() {
-        // Cerrar todos los dropdowns
         dropdowns.forEach(dropdown => {
-            // Cerrar cada dropdown
             const content = dropdown.querySelector('.dropdown-content');
-
-            // Cerrar si existe
             if (content) {
                 content.style.display = 'none';
             }

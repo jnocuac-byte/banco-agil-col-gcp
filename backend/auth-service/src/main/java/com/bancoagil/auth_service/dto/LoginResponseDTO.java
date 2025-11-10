@@ -1,5 +1,7 @@
 package com.bancoagil.auth_service.dto;
 
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +21,10 @@ public class LoginResponseDTO {
     //Datos del cliente adicionales
     private Long clienteId;
     private String tipoCliente;
-    private String nombreCompleto;
+    private String nombres;
+    private String apellidos;
+    private LocalDate fechaNacimiento;
+    private String ciudad;
+    private String direccion;
+    private String documentoIdentidadEstado;
 }

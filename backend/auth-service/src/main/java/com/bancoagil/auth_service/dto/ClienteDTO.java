@@ -13,4 +13,5 @@ public class ClienteDTO {
     private String ciudad;
     private String tipoCliente;
     private Boolean activo;
+    private String documentoIdentidadEstado;
 }

@@ -1,11 +1,8 @@
 /*
     backoffice.css
-    ----------------
-    Descripción: estilos para páginas de BackOffice (login y componentes comunes).
-    Contiene: variables de tema, layout del login, inputs, alertas, botones y
-    componentes de información (info-box, back-link). Solo comentarios añadidos.
+    --------------
+    Estilos específicos para la página de "Login" del backoffice.
 */
-
 /* Variables de tema globales
      - Colores y tokens reutilizables para el backoffice */
 :root {

@@ -34,8 +34,7 @@ import jakarta.validation.Valid;
 // Controlador para gestionar solicitudes de crédito
 @RestController
 @RequestMapping("/api/solicitudes")
-// @CrossOrigin(origins = "http://localhost:5500") // Permitir solicitudes desde el frontend
-@CrossOrigin(origins = {"http://localhost:5500", "http://127.0.0.1:5500", "http://localhost:3000"})
+@CrossOrigin(origins = {"https://frontend-514751056677.us-central1.run.app", "http://localhost:5500", "http://127.0.0.1:5500", "http://localhost:3000"})
 public class SolicitudController {
     
     // Inyección del servicio de solicitudes
@@ -159,10 +158,11 @@ public class SolicitudController {
             SolicitudCredito solicitud = solicitudService.obtenerSolicitudPorId(id);
             
             // 2. Obtener cuenta de ahorros del cliente desde account-service
-            String accountServiceUrl = "http://localhost:8082/api/cuentas/cliente/" + solicitud.getIdCliente() + "/ahorros";
+            String accountServiceUrl = "https://account-service-514751056677.us-central1.run.app/api/cuentas/cliente/" + solicitud.getIdCliente() + "/ahorros";
             
             // Llamada REST a account-service
             RestTemplate restTemplate = new RestTemplate();
+            @SuppressWarnings("rawtypes")
             ResponseEntity<Map> cuentaResponse; // Respuesta de account-service
             
             // Manejar posibles errores en la llamada REST
@@ -192,7 +192,7 @@ public class SolicitudController {
             solicitudRepository.save(solicitud);
             
             // Llamar a account-service para registrar desembolso
-            String desembolsoUrl = "http://localhost:8082/api/cuentas/" + cuentaId + "/desembolso";
+            String desembolsoUrl = "https://account-service-514751056677.us-central1.run.app/api/cuentas/" + cuentaId + "/desembolso";
             
             // Preparar datos para el desembolso
             Map<String, Object> desembolsoRequest = new HashMap<>();
@@ -202,6 +202,7 @@ public class SolicitudController {
             desembolsoRequest.put("idSolicitud", id);
             
             // Hacer la llamada POST para registrar el desembolso
+            @SuppressWarnings("rawtypes")
             ResponseEntity<Map> desembolsoResponse = restTemplate.postForEntity(
                 desembolsoUrl, 
                 desembolsoRequest, 

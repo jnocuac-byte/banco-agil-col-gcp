@@ -1,12 +1,8 @@
 /*
     HomePage.css
     ------------
-    Estilos para la página pública principal (Home/Landing).
-    Contiene: variables de color, layout de header/nav, carrusel/banner,
-    accesos rápidos, secciones de contenido y footer.
-    Nota: solo comentarios añadidos; no se modificaron reglas.
+    Estilos específicos para la página "Home" o página de inicio pública.
 */
-
 /* Variables de Color */
 :root {
     --color-primary-yellow: #ffcc00;
@@ -513,4 +509,116 @@ a:hover {
     color: var(--color-text-dark);
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+.chat-panel {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    max-width: 90%;
+    height: 500px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    transform: scale(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1001;
+}
+
+.chat-panel.show {
+    transform: scale(1);
+}
+
+.chat-header {
+    background-color: var(--color-primary-dark);
+    color: white;
+    padding: 15px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.close-chat-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.minimize-chat-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.chat-body {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: #f4f7f9;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message {
+    padding: 10px 15px;
+    border-radius: 20px;
+    max-width: 80%;
+}
+
+.bot-message {
+    background-color: #e9eaf2;
+    color: #333;
+    align-self: flex-start;
+}
+
+.chat-footer {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.chat-footer input {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px 15px;
+    outline: none;
+}
+
+.send-chat-btn {
+    background-color: var(--color-primary-yellow);
+    color: var(--color-primary-dark);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-panel.minimized {
+    height: auto;
+}
+
+.chat-panel.minimized .chat-body,
+.chat-panel.minimized .chat-footer {
+    display: none;
 }

@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Banco Agil Col</title>
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="images/EmpresaBancoAgil/favicon_32x32.png">
+    <link rel="icon" type="image/png" href="images/EmpresaBancoAgil/favicon_32x32.png">
     <!-- Tipografía y librería de iconos -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -27,23 +30,28 @@
             <nav class="sidebar-nav">
                 <!-- Item activo: inicio -->
                 <a href="dashboard.html" class="nav-item active" title="Inicio">
-                    <div class="icon-placeholder">🏠</div>
+                    <i class="fas fa-home icon-placeholder"></i>
                     <span class="icon-text">Inicio</span>
                 </a>
                 <!-- Enlace a la lista de solicitudes del usuario -->
                 <a href="mis-solicitudes.html" class="nav-item" title="Mis Solicitudes">
-                    <div class="icon-placeholder">📄</div>
+                    <i class="fas fa-file-invoice-dollar icon-placeholder"></i>
                     <span class="icon-text">Mis Solicitudes</span>
                 </a>
                 <!-- Acceso rápido a cuentas -->
                 <a href="#mis-cuentas" class="nav-item" title="Mis Cuentas">
-                    <div class="icon-placeholder">💳</div>
+                    <i class="fas fa-credit-card icon-placeholder"></i>
                     <span class="icon-text">Mis Cuentas</span>
                 </a>
                 <!-- Enlace al perfil del usuario -->
-                 <a href="#mi-perfil" class="nav-item" title="Mi Perfil">
-                    <div class="icon-placeholder">👤</div>
+                 <a href="Mi-perfil.html" class="nav-item" title="Mi Perfil">
+                    <i class="fas fa-user-circle icon-placeholder"></i>
                     <span class="icon-text">Mi Perfil</span>
+                </a>
+                <!-- Enlace a Soporte -->
+                <a href="#" class="nav-item" title="Soporte" onclick="showComingSoon('Soporte')">
+                    <i class="fas fa-headset icon-placeholder"></i>
+                    <span class="icon-text">Soporte</span>
                 </a>
             </nav>
         </aside>
@@ -65,6 +73,16 @@
                 </div>
             </header>
             
+            <!-- Contenedor para la alerta de estado de documentos -->
+            <div id="documentStatusAlert" class="document-status-alert hidden">
+                <div class="alert-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <p id="documentStatusMessage" class="alert-message">Mensaje de estado.</p>
+                <!-- Este botón podría redirigir a la página de perfil para subir documentos -->
+                <a href="Mi-perfil.html" class="alert-action">Subir documento</a>
+            </div>
+
             <!-- Sección de bienvenida: mensajes y CTA inicial -->
             <section class="welcome-area">
                 <div class="welcome-card">
@@ -72,7 +90,7 @@
                     <div class="user-profile-icon"></div>
                     <div class="welcome-message-container">
                         <!-- Mensaje principal promocional o informativo -->
-                        <p class="announcement-title">Descubre lo nuevo de la Sucursal Virtual Personas</p>
+                        <p class="announcement-title">Descubre la mejor manera de sacar credito dando unos pocos clicks</p>
                         <p class="announcement-subtitle">Una experiencia más rápida y fácil desde tu celular, computador o tableta.</p>
                     </div>
                     <!-- Llamado a la acción principal de la tarjeta -->
@@ -90,24 +108,24 @@
             <section class="transactions-area">
                 <h2 class="section-title">Transacciones más usadas</h2>
                 <div class="transactions-grid">
-                    <div class="transaction-card" onclick="showComingSoon('Transferir')">
-                        <div class="transaction-icon-placeholder icon-transfer">💸</div>
+                    <div class="transaction-card" onclick="showComingSoon('Transferir Dinero')">
+                        <div class="transaction-icon-placeholder icon-transfer"><i class="fas fa-exchange-alt"></i></div>
                         <span class="transaction-text">Transferir</span>
                     </div>
-                    <div class="transaction-card" onclick="showComingSoon('Editar topes')">
-                        <div class="transaction-icon-placeholder icon-limit">📈</div>
+                    <div class="transaction-card" onclick="showComingSoon('Editar Topes')">
+                        <div class="transaction-icon-placeholder icon-limit"><i class="fas fa-sliders-h"></i></div>
                         <span class="transaction-text">Editar topes</span>
                     </div>
-                    <div class="transaction-card" onclick="showComingSoon('Pagar facturas')">
-                        <div class="transaction-icon-placeholder icon-bills">🧾</div>
+                    <div class="transaction-card" onclick="showComingSoon('Pagar Facturas')">
+                        <div class="transaction-icon-placeholder icon-bills"><i class="fas fa-file-invoice"></i></div>
                         <span class="transaction-text">Pagar facturas</span>
                     </div>
                     <div class="transaction-card" onclick="showComingSoon('Bolsillos')">
-                        <div class="transaction-icon-placeholder icon-pockets">💰</div>
+                        <div class="transaction-icon-placeholder icon-pockets"><i class="fas fa-wallet"></i></div>
                         <span class="transaction-text">Ir a Bolsillos</span>
                     </div>
-                    <div class="transaction-card" onclick="showComingSoon('Extractos')">
-                        <div class="transaction-icon-placeholder icon-statements">📁</div>
+                    <div class="transaction-card" onclick="showComingSoon('Consultar Extractos')">
+                        <div class="transaction-icon-placeholder icon-statements"><i class="fas fa-folder-open"></i></div>
                         <span class="transaction-text">Consultar extractos</span>
                     </div>
                 </div>
@@ -148,20 +166,20 @@
                 <h2 class="section-title">Resumen de Solicitudes y Cuentas</h2>
                  <div class="transactions-grid">
                     <div class="transaction-card stat-card-custom">
-                        <div class="transaction-icon-placeholder icon-limit">📑</div>
+                        <div class="transaction-icon-placeholder icon-limit"><i class="fas fa-file-signature"></i></div>
                         <span class="stat-title-custom">Solicitudes Activas</span>
                         <!-- Valor dinámico que se actualizará por JS -->
                         <div class="stat-value-custom" id="statSolicitudes">0</div>
                     </div>
 
                     <div class="transaction-card stat-card-custom">
-                        <div class="transaction-icon-placeholder icon-bills">✅</div>
+                        <div class="transaction-icon-placeholder icon-bills"><i class="fas fa-check-circle"></i></div>
                         <span class="stat-title-custom">Créditos Aprobados</span>
                         <div class="stat-value-custom" id="statAprobados">0</div>
                     </div>
 
                     <div class="transaction-card stat-card-custom">
-                        <div class="transaction-icon-placeholder icon-pockets">🏦</div>
+                        <div class="transaction-icon-placeholder icon-pockets"><i class="fas fa-university"></i></div>
                         <span class="stat-title-custom">Total Cuentas</span>
                         <div class="stat-value-custom" id="statCuentas">0</div>
                     </div>
@@ -174,22 +192,22 @@
                 <div class="transactions-grid">
                     <!-- Cada tarjeta es un enlace; estilos inline controlan color de icono -->
                     <a href="solicitud-credito.html" class="transaction-card action-card-custom">
-                        <div class="transaction-icon-placeholder" style="background-color: #9b59b6;">➕</div>
+                        <div class="transaction-icon-placeholder" style="background-color: #9b59b6;"><i class="fas fa-plus"></i></div>
                         <span class="transaction-text">Nueva Solicitud</span>
                     </a>
 
                     <a href="mis-solicitudes.html" class="transaction-card action-card-custom">
-                        <div class="transaction-icon-placeholder" style="background-color: #ff8c00;">📋</div>
+                        <div class="transaction-icon-placeholder" style="background-color: #ff8c00;"><i class="fas fa-list-alt"></i></div>
                         <span class="transaction-text">Ver Solicitudes</span>
                     </a>
 
-                    <a href="#" class="transaction-card action-card-custom">
-                        <div class="transaction-icon-placeholder" style="background-color: #2ecc71;">💳</div>
+                    <a href="#" class="transaction-card action-card-custom" onclick="showComingSoon('Mis Cuentas')">
+                        <div class="transaction-icon-placeholder" style="background-color: #2ecc71;"><i class="fas fa-credit-card"></i></div>
                         <span class="transaction-text">Mis Cuentas</span>
                     </a>
 
-                    <a href="#" class="transaction-card action-card-custom">
-                        <div class="transaction-icon-placeholder" style="background-color: #3498db;">🎧</div>
+                    <a href="#" class="transaction-card action-card-custom" onclick="showComingSoon('Soporte')">
+                        <div class="transaction-icon-placeholder" style="background-color: #3498db;"><i class="fas fa-headset"></i></div>
                         <span class="transaction-text">Soporte</span>
                     </a>
                 </div>
@@ -210,8 +228,9 @@
                 <p id="modalMessage">Esta funcionalidad estará disponible próximamente.</p>
             </div>
             <div class="modal-footer">
-                <!-- Botón que cierra el modal -->
-                <button class="btn-primary" onclick="closeModal()">Entendido</button>
+                <!-- Botones del modal (se gestionan con JS) -->
+                <button id="modalBtnCancel" class="btn-secondary" onclick="closeModal()">Cancelar</button>
+                <button id="modalBtnConfirm" class="btn-primary">Confirmar</button>
             </div>
         </div>
     </div>

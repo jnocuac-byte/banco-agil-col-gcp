@@ -1,0 +1,195 @@
+/*
+    mi-perfil.css
+    -------------
+    Estilos específicos para la página "Mi Perfil" del cliente, con un diseño oscuro y moderno.
+*/
+
+/* Estilo de la sección principal del perfil */
+.profile-section {
+    padding: 0;
+}
+
+/* Estilo de la tarjeta de perfil */
+.profile-card {
+    background-color: var(--color-background-light);
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid var(--color-separator);
+}
+
+.profile-card-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid var(--color-separator);
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.profile-avatar {
+    font-size: 60px;
+    color: var(--color-primary-yellow);
+}
+
+.profile-info h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--color-text-light);
+}
+
+.profile-info p {
+    font-size: 15px;
+    color: var(--color-text-secondary);
+}
+
+.form-section-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--color-primary-yellow);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-separator);
+}
+
+.profile-card-header h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Grid para el formulario */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+.form-group.full-width {
+    grid-column: span 2;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-group label i {
+    color: var(--color-primary-cyan);
+}
+
+.form-group input {
+    background-color: var(--color-background-dark);
+    border: 1px solid var(--color-separator);
+    color: var(--color-text-light);
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+.form-group input:read-only {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Estilo para inputs cuando son editables */
+.form-group input:not(:read-only) {
+    background-color: var(--color-background-light);
+    cursor: text;
+}
+
+/* Acciones del formulario */
+.form-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-top: 30px;
+}
+
+/* Ocultar elementos con la clase .hidden */
+.hidden {
+    display: none !important;
+}
+
+/* Colores específicos para botones de guardar y cancelar */
+.btn-save { background-color: var(--color-primary-green); color: var(--color-button-text-dark); }
+.btn-cancel { background-color: var(--color-red-danger); color: var(--color-text-light); }
+
+.btn-action {
+    background-color: var(--color-placeholder);
+    color: var(--color-text-light);
+    border: 1px solid var(--color-separator);
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.btn-action:hover {
+    background-color: #444;
+    transform: translateY(-2px);
+}
+
+.btn-action i {
+    color: var(--color-primary-yellow);
+}
+
+/* --- Sección de Carga de Documentos --- */
+.document-upload-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: var(--color-background-dark);
+    border: 1px dashed var(--color-separator);
+    border-radius: 8px;
+}
+
+.input-help {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin-top: -5px;
+    margin-bottom: 15px;
+}
+
+/* Ocultamos el input de archivo real */
+.file-input {
+    display: none;
+}
+
+/* Botón personalizado para el input de archivo */
+.file-upload-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--color-primary-cyan);
+    color: var(--color-text-light);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.file-upload-label:hover {
+    background-color: #2980b9;
+}
+
+.file-name {
+    margin-left: 15px;
+    font-style: italic;
+    color: var(--color-text-secondary);
+}

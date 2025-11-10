@@ -1,6 +1,6 @@
 // URL base de la API
-// TEMPORAL: // TEMPORAL: // TEMPORAL: const API_CREDIT_URL = 'http://localhost:8083/api/solicitudes';
 
+const API_CREDIT_URL = 'https://credit-service-514751056677.us-central1.run.app/api/solicitudes';
 // Datos de solicitudes en memoria
 let solicitudesData = [];
 

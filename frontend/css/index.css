@@ -1,11 +1,8 @@
 /*
     index.css
     ---------
-    Estilos para la página index/landing (tema oscuro con acentos dorados).
-    Contiene: variables de tema, layout de header, hero, secciones de features,
-    llamadas a la acción (CTA) y footer. Solo se añaden comentarios.
+    Estilos específicos para la página "Landing Page" o de bienvenida.
 */
-
 :root {
     --primary-dark: #232323; 
     --secondary-dark: #333; 

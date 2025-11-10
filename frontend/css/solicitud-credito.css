@@ -1,21 +1,8 @@
 /* --------------------------------------------------
     solicitud-credito.css
-    Propósito: estilos para la pantalla de solicitud de crédito.
-    Componentes documentados aquí:
-    - Variables de color y paleta
-    - Estilos generales y reset
-    - Layout principal: sidebar, header y main-content
-    - Formulario de solicitud (grid, campos, validaciones)
-    - Cuota estimada (preview financiero)
-    - Documentos (subida y estados)
-    - Contenedores y botones de envío
-    - Alertas y estados (success/error/info/warning)
-    - Media queries responsive
-    Notas:
-    - Sólo se agregaron comentarios explicativas; ninguna regla CSS fue cambiada.
-    - Clases clave: .sidebar, .main-content, .form-card, .form-grid, .btn-submit
+    -----------------------
+    Estilos específicos para la página "Solicitud de Crédito" del cliente.
 -------------------------------------------------- */
-
 /* Variables de Color (Clonado de dashboard.css) */
 :root {
     --color-background-dark: #121212;

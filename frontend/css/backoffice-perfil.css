@@ -1,16 +1,8 @@
 /*
     backoffice-perfil.css
-    ----------------------
-    Descripción: estilos para la página de perfil en el BackOffice.
-    Contiene: variables de tema, layout del perfil, tarjetas, formularios,
-    acciones (botones), mensajes de estado y ajustes responsive.
-
-    Nota para programadores:
-    - No cambiar variables globales aquí si existen en dashboard.css; preferir
-        mantenerlas en un único lugar (:root) para consistencia de tema.
-    - Las clases clave usadas por JS: .mensaje-estado.hidden, .btn-primary.enabled
+    ---------------------
+    Estilos específicos para la página "Perfil de Usuario" del backoffice.
 */
-
 /* Variables de tema (heredadas del dashboard) */
 :root {
     --color-background-dark: #121212;

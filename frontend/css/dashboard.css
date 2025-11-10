@@ -1,16 +1,8 @@
 /*
     dashboard.css
     -------------
-    Estilos del dashboard/backoffice (modo oscuro).
-    Objetivo: layout principal, sidebar colapsable, header, tarjetas, tablas,
-    badges, modales y ajustes responsive.
-
-    Notas para programadores:
-    - Mantener variables en :root para facilitar cambios de tema.
-    - Las interacciones (abrir/cerrar sidebar, mostrar modales) se controlan por JS
-        mediante clases como `sidebar-expanded`, `modal.show` y `active`.
+    Estilos específicos para la página "Dashboard" del cliente.
 */
-
 /* Variables de Color para Modo Oscuro (de dashboard2.css) */
 :root {
     --color-background-dark: #121212; /* Fondo principal oscuro */
@@ -340,6 +332,21 @@ body {
 /* Hover del botón primario */
 .btn-primary:hover {
     opacity: 0.85;
+}
+/* Estilos para el botón secundario (ej. Cancelar en un modal) */
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-separator);
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+.btn-secondary:hover {
+    background-color: var(--color-separator);
+    color: var(--color-text-light);
 }
 
 /* Barra de saludo y controles superiores */
@@ -757,4 +764,100 @@ body {
     background-color: #333333;
     border-radius: 3px;
     padding: 0 3px;
+}
+
+/* --- Alerta de Estado de Documentos --- */
+.document-status-alert {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+}
+
+.document-status-alert.hidden {
+    display: none;
+}
+
+/* Variante Amarilla (Pendiente) */
+.document-status-alert.alert-warning {
+    background-color: rgba(255, 204, 0, 0.15); /* Amarillo transparente */
+    border-color: var(--color-primary-yellow);
+    color: #f1c40f;
+}
+
+/* Variante Roja (Negado) */
+.document-status-alert.alert-danger {
+    background-color: rgba(231, 76, 60, 0.15); /* Rojo transparente */
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+
+.alert-icon i {
+    font-size: 20px;
+}
+
+.alert-message {
+    flex-grow: 1;
+    font-weight: 500;
+    color: var(--color-text-light);
+}
+
+.alert-action {
+    color: var(--color-primary-yellow);
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.alert-action:hover {
+    opacity: 0.8;
+}
+
+/* --- Alerta de Estado de Documentos --- */
+.document-status-alert {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+}
+
+.document-status-alert.hidden {
+    display: none;
+}
+
+/* Variante Amarilla (Pendiente) */
+.document-status-alert.alert-warning {
+    background-color: rgba(255, 204, 0, 0.15); /* Amarillo transparente */
+    border-color: var(--color-primary-yellow);
+    color: #f1c40f;
+}
+
+/* Variante Roja (Negado) */
+.document-status-alert.alert-danger {
+    background-color: rgba(231, 76, 60, 0.15); /* Rojo transparente */
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+
+.alert-icon i {
+    font-size: 20px;
+}
+
+.alert-message {
+    flex-grow: 1;
+    font-weight: 500;
+    color: var(--color-text-light);
+}
+
+.alert-action {
+    color: var(--color-primary-yellow);
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
 }
