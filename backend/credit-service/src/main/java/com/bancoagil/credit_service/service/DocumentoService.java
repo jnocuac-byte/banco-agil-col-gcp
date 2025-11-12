@@ -1,12 +1,7 @@
 package com.bancoagil.credit_service.service;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,13 +26,15 @@ public class DocumentoService {
     @Autowired
     private SolicitudCreditoRepository solicitudRepository;
 
+    @Autowired
+    private CloudStorageService cloudStorageService;
+
     // Directorio base para almacenar los documentos (configurable en application.properties)
     @Value("${app.upload.dir:uploads/documentos}") // Valor por defecto si no está configurado
     private String uploadDir;
 
     // Método para subir un documento asociado a una solicitud de crédito
     @Transactional
-    // Subir documento para una solicitud de crédito
     public Documento subirDocumento(Long idSolicitud, String tipoDocumento, MultipartFile file) throws IOException {
 
         // Validar que la solicitud existe
@@ -47,55 +44,35 @@ public class DocumentoService {
 
         // Validar el archivo
         if (file.isEmpty()) {
-            throw new RuntimeException("El archivo está vacío"); // Validar que el archivo no esté vacío
+            throw new RuntimeException("El archivo está vacío");
         }
 
         // Validar tamaño máximo (10MB)
         if (file.getSize() > 10 * 1024 * 1024) {
-            throw new RuntimeException("El archivo excede el tamaño máximo de 10MB"); // Validar tamaño máximo (10MB)
+            throw new RuntimeException("El archivo excede el tamaño máximo de 10MB");
         }
 
         // Validar formato (PDF, imágenes, Excel)
         String contentType = file.getContentType();
-        // Validar formatos permitidos
         if (!esFormatoPermitido(contentType)) {
-            throw new RuntimeException("Formato de archivo no permitido. Use PDF, imágenes o Excel"); // Validar formatos permitidos
+            throw new RuntimeException("Formato de archivo no permitido. Use PDF, imágenes o Excel");
         }
 
-        // Guardar el archivo en el sistema de archivos
-        Path uploadPath = Paths.get(uploadDir);
-        // Crear directorio si no existe
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath); // Crear directorio si no existe
-        }
-
-        // Generar nombre único para evitar colisiones
+        // ===== USAR GCS EN LUGAR DEL SISTEMA DE ARCHIVOS =====
+        String rutaArchivo = cloudStorageService.subirArchivo(file, idSolicitud, tipoDocumento);
         String nombreOriginal = file.getOriginalFilename();
-        // Validar que el nombre original no sea nulo y tenga una extensión
-        if (nombreOriginal == null || !nombreOriginal.contains(".")) {
-            throw new RuntimeException("El archivo no tiene un nombre válido o extensión");// Validar que el nombre original no sea nulo y tenga una extensión
-        }
-        // Extraer la extensión del archivo
-        String extension = nombreOriginal.substring(nombreOriginal.lastIndexOf("."));
-        // Generar un nombre único usando UUID
-        String nombreUnico = UUID.randomUUID().toString() + extension;
-
-        // Ruta completa donde se guardará el archivo
-        Path rutaArchivo = uploadPath.resolve(nombreUnico);
-        Files.copy(file.getInputStream(), rutaArchivo, StandardCopyOption.REPLACE_EXISTING);
+        // ===== FIN DEL CAMBIO =====
 
         // Crear y guardar el registro del documento en la base de datos
         Documento documento = new Documento();
         documento.setIdSolicitud(idSolicitud);
         documento.setTipoDocumento(tipoDocumento);
         documento.setNombreArchivo(nombreOriginal);
-        documento.setRutaArchivo(rutaArchivo.toString());
+        documento.setRutaArchivo(rutaArchivo); // Ahora guarda "gs://bucket/path"
         documento.setTamanoBytes(file.getSize());
 
-        // Guardar el documento en la base de datos y retornarlo
         return documentoRepository.save(documento);
     }
-
     // Listar documentos asociados a una solicitud de crédito
     @Transactional(readOnly = true)
     // Listar documentos por ID de solicitud
@@ -114,12 +91,11 @@ public class DocumentoService {
     // Eliminar un documento por su ID
     @Transactional
     public void eliminarDocumento(Long id) throws IOException {
-        // Obtener el documento para conocer la ruta del archivo
         Documento documento = obtenerDocumento(id);
         
-        // Eliminar archivo físico
-        Path rutaArchivo = Paths.get(documento.getRutaArchivo());
-        Files.deleteIfExists(rutaArchivo);
+        // ===== CAMBIO: ELIMINAR DESDE GCS =====
+        cloudStorageService.eliminarArchivo(documento.getRutaArchivo());
+        // ===== FIN DEL CAMBIO =====
         
         // Eliminar registro de BD
         documentoRepository.delete(documento);
@@ -127,17 +103,11 @@ public class DocumentoService {
 
     // Descargar el contenido de un documento por su ID
     public byte[] descargarDocumento(Long id) throws IOException {
-        // Obtener el documento para conocer la ruta del archivo
         Documento documento = obtenerDocumento(id);
-        Path rutaArchivo = Paths.get(documento.getRutaArchivo()); // Ruta del archivo
         
-        // Validar que el archivo exista
-        if (!Files.exists(rutaArchivo)) {
-            throw new RuntimeException("Archivo físico no encontrado"); // Validar que el archivo exista
-        }
-        
-        // Leer y retornar el contenido del archivo
-        return Files.readAllBytes(rutaArchivo);
+        // ===== CAMBIO: DESCARGAR DESDE GCS =====
+        return cloudStorageService.descargarArchivo(documento.getRutaArchivo());
+        // ===== FIN DEL CAMBIO =====
     }
 
     // Método auxiliar para validar formatos permitidos
