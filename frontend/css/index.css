@@ -1,459 +1,626 @@
-/*
-    index.css
-    ---------
-    Estilos específicos para la página "Landing Page" o de bienvenida.
-*/
 :root {
-    --primary-dark: #232323; 
-    --secondary-dark: #333; 
-    --accent-gold: #ffb300; 
-    --accent-gold-light: #ffc233; 
-    --text-light: #ffffff;
-    --text-gray: #dddddd;
-    --input-bg: #444;
-    --card-bg: rgba(51, 51, 51, 0.9); 
-    --border-light: rgba(255, 255, 255, 0.1); /* Borde de las tarjetas */
-    --header-height: 70px; 
+  --primary-dark: #232323;
+  --secondary-dark: #333;
+  --accent-gold: #ffb300;
+  --accent-gold-light: #ffc233;
+  --text-light: #ffffff;
+  --text-gray: #dddddd;
+  --input-bg: #444;
+  --card-bg: rgba(51, 51, 51, 0.9);
+  --border-light: rgba(255, 255, 255, 0.1);
 }
 
-/* Reset base y box-sizing */
+/* RESET */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Estilos globales del body */
 body {
-    font-family: 'Poppins', sans-serif;
-    color: var(--text-light);
-    background: radial-gradient(circle at 120% 0%, var(--secondary-dark) 0%, var(--primary-dark) 50%, #1a1a1a 80%);
-    min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+  color: var(--text-light);
+  background-color: var(--primary-dark);
+  overflow-x: visible;
+}
+h2, p {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-/* Contenedor central (limita ancho de contenidos) */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+/* Clase que activará la animación */
+h2.visible, p.visible{
+  animation: slideUp 0.8s ease forwards;
+}
+/* ================= HEADER ================= */
+header {
+  background-color: var(--primary-dark);
+  padding: 1rem 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
 }
 
-a {
-    text-decoration: none;
-    color: var(--text-gray); 
+header .container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-light);
 }
 
-/* Clase utilitaria: efecto glass (fondo blur y card-bg) */
-.glass-effect {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px); 
+header a {
+  font-size: 1rem;
+  color: var(--text-light);
+  text-decoration: none;
+  margin-left: 20px;
+  transition: color 0.3s;
 }
 
-/* Header fijo en la parte superior */
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000; 
-    padding: 5px 0; 
-    background-color: var(--primary-dark); 
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    border-bottom: 1px solid var(--border-light);
+header a:hover {
+  color: var(--accent-gold);
 }
 
-/* Navbar dentro del header (logo + acciones) */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Contenedor del logo */
 .logo {
-    margin: 0;
+  height: 50px;
+  object-fit: contain;
 }
 
-/* Imagen del logo (tamaño y ajuste) */
-.logo-img {
-    height: 50px; 
-    width: auto;
-    filter: brightness(1.2) contrast(1.1); 
+/* Navegación */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 }
 
-/* Acciones de navegación (links y botones a la derecha) */
-.nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 30px; 
+.nav-links a {
+  color: var(--text-light);
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 
-/* Lista de links en la parte derecha de la navbar */
-.nav-actions .nav-links-right {
-    list-style: none;
-    display: flex;
-    gap: 30px; 
-    margin: 0;
-    padding: 0;
+.nav-links a:hover {
+  color: var(--accent-gold);
 }
 
-.nav-actions .nav-links-right a {
-    font-weight: 400;
-    padding: 5px 0;
-    transition: color 0.3s;
-    opacity: 0.9;
-    color: var(--text-gray); 
+.btn-ingresa {
+  background-color: var(--accent-gold);
+  color: var(--primary-dark);
+  padding: 0.6rem 1.2rem;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.nav-actions .nav-links-right a:hover {
-    color: var(--accent-gold-light); 
+.btn-ingresa:hover {
+  background-color: var(--accent-gold-light);
+  transform: scale(1.05);
 }
 
-
-.contact-btn {
-    background-color: var(--text-light);
-    color: var(--primary-dark);
-    border: 1px solid var(--text-light);
-    padding: 10px 20px; 
-    border-radius: 30px; 
-    font-weight: 600;
-    transition: background-color 0.3s, color 0.3s;
-    font-size: 0.95rem;
+/* ================= HERO ================= */
+.hero {
+  background-color: var(--accent-gold);
+  padding: 4rem 2rem;
+  text-align: center;
+  color: var(--primary-dark);
 }
 
-.contact-btn:hover {
-    background-color: var(--accent-gold);
-    color: var(--primary-dark);
+.hero-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
 
-.hero-section {
-    margin-top: calc(var(--header-height) + 40px);
-    padding: 60px 0 50px;
-    background-color: #ffffff;
-    color: #222222;
+.hero-container p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
 }
 
-
-.hero-section .hero-text-content h1 {
-
-    color: var(--accent-gold);
+.hero-container button {
+  background-color: var(--primary-dark);
+  color: var(--text-light);
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s;
+  animation: color-change 6s infinite, idle-move 4s infinite;
 }
 
-.hero-section .hero-text-content p {
-    color: #333333;
+.hero-container button:hover {
+  background-color: var(--secondary-dark);
+  transform: scale(1.05);
 }
 
-.hero-section .glass-effect {
-
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border: 1px solid rgba(0,0,0,0.06);
+/* ================= SECCIÓN 1 ================= */
+.parte-1 {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  border-bottom: 1px solid var(--border-light);
 }
 
-.hero-section .feature-card {
-    border: 1px solid rgba(0,0,0,0.06);
-    color: #222222;
-    background: rgba(255,255,255,0.95);
+.info-item {
+  flex: 1;
+  padding: 0 6vw;
+  max-width: 1000px;
 }
 
-.hero-section .feature-card i {
-    color: var(--accent-gold);
+.info-item h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--accent-gold);
 }
 
-.hero-section .feature-card h4 {
-    color: #222222;
+.info-item p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-gray);
 }
 
-/* --- cajitas --- */
-.hero-section .feature-cards-container .feature-card {
-    background: #333;
-    color: #ffffff;
-    border: 1px solid rgba(255,255,255,0.06);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+/* Animación PC */
+.pc-container {
+  position: relative;
+  width: 55vw;
+  aspect-ratio: 16 / 9;
+  opacity: 0;
+  transform: translateX(-150px);
+  transition: all 1s ease-out;
 }
 
-.hero-section .feature-cards-container .feature-card h4 {
-    color: #ffffff;
+.pc-container.visible {
+  opacity: 1;
+  transform: translateX(0);
 }
 
-.hero-section .feature-cards-container .feature-card i {
-    color: var(--accent-gold);
+.pc-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-/* Contenedor del contenido hero: texto a la izquierda, imagen a la derecha */
-.hero-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+.pc-video {
+  position: absolute;
+  top: 2%;
+  left: 18.4%;
+  height: 67%;
+  width: 63%;
+  object-fit: fill;
+  border-radius: 4px;
+  z-index: 2;
+  transform: rotateY(-8deg);
+  transition: transform 0.6s ease-out;
 }
 
-/* Bloque de texto principal del hero */
-.hero-text-content {
-    max-width: 55%;
+.pc-container.visible .pc-video {
+  transform: rotateY(0);
 }
 
-/* Título principal del hero */
-.hero-text-content h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 20px;
-    color: var(--accent-gold-light);
+/* ================= SECCIÓN 2 ================= */
+.parte-2 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  background: var(--accent-gold);
+  color: var(--primary-dark);
+  padding: 0 6vw;
 }
 
-.hero-text-content p {
-    font-size: 1.3rem; 
-    color: var(--text-gray);
-    margin-bottom: 40px;
-    line-height: 1.5;
-    max-width: 95%;
+.cta-container {
+  flex: 1;
+  max-width: 45%;
 }
 
-/* Contenedor de botones CTA dentro del hero */
-.hero-buttons {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    margin-bottom: 60px;
+.cta-container h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: var(--primary-dark);
 }
 
-/* Botón primario (CTA) */
-.btn-primary {
-    background-color: var(--accent-gold);
-    color: var(--primary-dark);
-    padding: 15px 40px; 
-    border-radius: 30px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    transition: background-color 0.3s;
+.cta-container p {
+  font-size: 1.1rem;
+  color: var(--secondary-dark);
+  margin-bottom: 2rem;
 }
 
-.btn-primary:hover {
-    background-color: var(--accent-gold-light);
+.cta-container button {
+  background: var(--primary-dark);
+  color: var(--text-light);
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  animation: color-change 6s infinite, idle-move 4s infinite;
 }
 
-/* Contenedor horizontal de feature-cards */
-.feature-cards-container {
-    display: flex;
-    gap: 20px;
+.cta-container button:hover {
+  background: var(--secondary-dark);
+  transform: scale(1.05);
 }
 
-/* Tarjeta de característica (pequeña) */
-.feature-card {
-    flex: 1;
-    padding: 20px;
-    border-radius: 15px;
-    border: 1px solid var(--border-light);
-    transition: transform 0.3s;
-    text-align: center; 
-    min-height: 140px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+/* Animación Celular */
+.espacio-animacion2 {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+.cel-container {
+  position: relative;
+  width: 40vw;
+  aspect-ratio: 9 / 19.5;
+  opacity: 0;
+  transform: translateX(150px);
+  transition: all 1s ease-out;
 }
 
-.feature-card i {
-    font-size: 2rem;
-    margin-bottom: 8px;
-    color: var(--accent-gold); 
+.cel-container.visible {
+  opacity: 1;
+  transform: translateX(0);
 }
 
-.feature-card h4 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0;
-    color: var(--text-light);
+.cel-video {
+  position: absolute;
+  top: 27.1%;
+  left: 27%;
+  height: 45.9%;
+  width: 45.6%;
+  object-fit: cover;
+  border-radius: 11.7%;
+  z-index: 1;
 }
 
-/* Contenedor de la imagen del hero (lado derecho) */
-.hero-image-content {
-    position: relative;
-    width: 40%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 500px;
+.cel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 2;
 }
 
-.hero-image-content img {
+/* ================= SECCIÓN 3 ================= */
+.parte-3 {
+  color: white; 
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  background: var(--primary-dark);
+  padding: 0;
+}
+
+.parte-3 h2, 
+.parte-3 p {
+  color: white; 
+}
+.parte-3 .cta-container {
+  max-width: 30%;
+  z-index: 1;
+}
+
+.espacio-animacion3 {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* ================= SECCIÓN 4 ================= */
+.parte-4 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
+  background: var(--accent-gold);
+  padding: 0 6vw;
+  overflow: hidden;
+  position: relative;
+  perspective: 1000px; /* habilita efecto 3D */
+}
+
+/* Contenedores de texto */
+.parte-4 .cta-container {
+  max-width: 400px;
+  z-index: 2;
+  color: #1a1a1a;
+}
+
+.parte-4 .left-text {
+  text-align: left;
+}
+
+.parte-4 .right-text {
+  text-align: right;
+}
+
+/* Contenedor central de animación */
+.espacio-animacion4 {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 450px;
+}
+.espacio-animacion4 .tarjeta {
+    position: absolute;
+    max-width: 50%; 
     width: 100%;
-    height: 100%;
-    object-fit: contain; 
-    border-radius: 15px;
-    transform: rotate(3deg) translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.5));
 }
 
 
-/* Sección de features (listado detallado) */
-.features-section {
-    padding: 80px 0;
-    background-color: var(--secondary-dark); 
-    border-top: 1px solid var(--border-light);
+/* ================= FOOTER ================= */
+.main-footer {
+  background-color: var(--secondary-dark);
+  color: var(--text-gray);
+  padding: 3rem 6vw 2rem;
+  font-size: 0.95rem;
 }
 
-.features-section h2 {
+.footer-top {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.footer-section h3 {
+  color: var(--text-light);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.footer-section ul {
+  list-style: none;
+}
+
+.footer-section ul li a {
+  color: var(--text-gray);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: var(--accent-gold);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border-light);
+  padding-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.logo-placeholder-footer {
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+
+/* ================= BOTÓN AYUDA ================= */
+.help-button-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: var(--accent-gold);
+  color: var(--primary-dark);
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+  z-index: 10;
+}
+
+.help-button-float:hover {
+  transform: scale(1.1);
+  background-color: var(--accent-gold-light);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  header .container {
+    flex-direction: column;
     text-align: center;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 50px;
-    color: var(--text-light);
-}
+  }
 
-/* Grid responsivo para feature-detail-card */
-.feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
+  .nav-links a {
+    display: none;
+  }
 
-/* Card detallada de feature (uso más informativo) */
-.feature-detail-card {
-    padding: 30px;
-    border-radius: 15px;
-    border: 1px solid var(--border-light);
-    transition: transform 0.3s;
-    background: var(--card-bg);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
+  .nav-links .btn-ingresa {
+    display: inline-block;
+  }
 
-.feature-detail-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.feature-detail-card h3 {
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: var(--accent-gold); 
-}
-
-.feature-detail-card p {
-    color: var(--text-gray);
-}
-
-.feature-detail-card .feature-icon {
-    width: 50px; 
-    height: 50px;
-    object-fit: contain; 
-    margin-bottom: 15px; 
-    filter: drop-shadow(0 0 5px var(--accent-gold));
-}
-
-/* Sección CTA final antes del footer */
-.cta-section {
-    padding: 80px 0;
-    /* Fondo claro para la CTA, consistente con el hero */
-    background-color: #ffffff;
-    border-top: 1px solid rgba(0,0,0,0.06);
-    color: #222222;
-}
-
-.cta-section h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 15px;
-    /* Mantener acento dorado para el título */
-    color: var(--accent-gold);
-}
-
-.cta-section p {
-    font-size: 1.2rem;
-    color: #333333;
-    margin-bottom: 40px;
-}
-
-/* Ajustes de botón en CTA clara */
-.cta-section .btn-primary {
-    background-color: var(--accent-gold);
-    color: var(--primary-dark);
-    border: 1px solid var(--accent-gold);
-}
-
-.cta-section .btn-primary:hover {
-    background-color: var(--accent-gold-light);
-}
-
-/* Footer simple centrado */
-footer {
+  .parte-1 {
+    flex-direction: column;
+    padding: 4rem 1rem;
     text-align: center;
-    padding: 20px 0;
-    background-color: var(--secondary-dark);
-    font-size: 0.9rem;
-    color: var(--text-gray);
-}
+    height: auto;
+  }
 
-
-/* Responsive: ajustes para tablet/phone */
-@media (max-width: 992px) {
-    .hero-section {
-        margin-top: 150px; 
-        padding-top: 0;
-    }
-
-    .hero-content {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    
-    .nav-actions {
-        margin-left: auto;
-    }
-    
-    .nav-actions .nav-links-right {
-        display: none; 
-    }
-}
-#alert {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10000;
-    padding: 20px 30px;
-    border-radius: 8px;
-    font-weight: bold;
+  .parte-2 {
+    flex-direction: column;
     text-align: center;
+    padding: 4rem 1.5rem;
+  }
+
+  .espacio-animacion2 {
+    order: 2;
+    width: 80%;
+  }
+
+  .cta-container {
+    order: 1;
     max-width: 90%;
-    min-width: 300px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    display: none; /* oculto por defecto; los scripts lo muestran */
+  }
+
+  
+
+  /* --- SECCIONES 3 y 4: texto → animación → texto --- */
+  .parte-3,
+  .parte-4 {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 1.5rem;
+    gap: 2rem;
+  }
+
+  .parte-3 .cta-container,
+  .parte-4 .cta-container {
+    order: 1;
+    z-index: auto;
+  }
+
+  .espacio-animacion3,
+  .espacio-animacion4 {
+    order: 2;
+    z-index: 0;
+    width: 80vw;
+  }
+
+  .cta-container:last-of-type {
+    order: 3;
+  }
+
+  .cta-container h2 {
+    font-size: 1.8rem;
+  }
+
+  .cta-container p {
+    font-size: 1rem;
+  }
+
+  .cta-container button {
+    font-size: 0.95rem;
+    padding: 0.8rem 1.8rem;
+  }
+
+  .footer-top,
+  .footer-bottom {
+    text-align: center;
+    flex-direction: column;
+  }
+  .espacio-animacion4 .tarjeta {
+    position: absolute;
+    max-width: 100%; 
+    width: 100%;
 }
 
-/* Estilos por tipo usando las mismas clases usadas en JS */
-.alert.error, #alert.error {
-    background-color: #f44336;
-    color: #ffffff;
-    display: block;
 }
 
-.alert.success, #alert.success {
-    background-color: #2e7d32; /* verde */
-    color: #ffffff;
-    display: block;
+
+
+/* ======== SECCIÓN 2 ======== */
+.parte-2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 40px;
+  padding: 60px 10%;
 }
 
-.alert.info, #alert.info {
-    background-color: #1976d2; /* azul */
-    color: #ffffff;
-    display: block;
+/* Contenedor del texto */
+.parte-2 .cta-container {
+  flex: 1;
+  text-align: left;
 }
 
-.alert.warning, #alert.warning {
-    background-color: #ff9800; /* naranja */
-    color: #ffffff;
-    display: block;
+/* Contenedor de la animación/celular */
+.parte-2 .espacio-animacion2 {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.parte-2 .cel-container {
+  position: relative;
+  width: 350px;        
+  aspect-ratio: 9 / 19.5; 
+}
+
+.parte-2 .cel-image
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+.parte-2 .cel-video {
+  position: absolute;
+  top: 1%;
+  left: 0;
+  width: 100%;
+  height: 98%;
+  object-fit: cover; 
+}
+
+
+
+/* ======== RESPONSIVE (Celular arriba del texto) ======== */
+@media (max-width: 768px) {
+  .parte-2 {
+    flex-direction: column-reverse; /* ahora el celular irá arriba del texto */
+    text-align: center;
+    gap: 20px;
+  }
+
+  .parte-2 .cel-container {
+    width: 81%; /* más grande en móvil */
+    max-width: 400px;
+  }
+
+
+  .parte-2 .cta-container {
+    width: 90%;
+  }
+}
+
+
+
+
+/* ================= ANIMACIONES ================= */
+@keyframes idle-move {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+@keyframes color-change {
+  0%, 100% { background-color: var(--primary-dark); }
+  25% { color: var(--primary-dark); }
+  50% { background-color: var(--text-light); }
+  75% { color: var(--text-light); }
+}
+
+/* Animación de aparición hacia arriba */
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); 
+  }
 }
